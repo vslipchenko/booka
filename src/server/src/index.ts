@@ -18,7 +18,7 @@ function fastifyAppClosePlugin(app: FastifyInstance): ApolloServerPlugin {
 }
 
 const startApolloServer = async () => {
-  // const config = await envConfigImport;
+  // const envVariables = await envConfigImport;
   const app = fastify();
   const server = new ApolloServer({
     schema,
