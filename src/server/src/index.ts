@@ -1,9 +1,9 @@
 // import {envConfigImport} from "./environments";
-import { ApolloServer } from 'apollo-server-fastify';
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
-import { ApolloServerPlugin } from 'apollo-server-plugin-base';
-import fastify, { FastifyInstance } from 'fastify';
-import {schema} from "./graphql/schema";
+import {ApolloServer} from 'apollo-server-fastify';
+import {ApolloServerPluginDrainHttpServer} from 'apollo-server-core';
+import {ApolloServerPlugin} from 'apollo-server-plugin-base';
+import fastify, {FastifyInstance} from 'fastify';
+import {schema} from './graphql/schema';
 
 function fastifyAppClosePlugin(app: FastifyInstance): ApolloServerPlugin {
   return {
@@ -24,7 +24,7 @@ const startApolloServer = async () => {
     schema,
     plugins: [
       fastifyAppClosePlugin(app),
-      ApolloServerPluginDrainHttpServer({ httpServer: app.server }),
+      ApolloServerPluginDrainHttpServer({httpServer: app.server}),
     ],
   });
 
@@ -35,6 +35,3 @@ const startApolloServer = async () => {
 };
 
 void startApolloServer();
-
-
-
