@@ -3,6 +3,6 @@
     "strict": true,
     "outDir": "dist",
     "module": "commonjs",
-    "target": "es2017",
+    "target": "es2021",
   }
 }
