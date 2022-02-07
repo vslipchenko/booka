@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "format": "npx prettier-eslint --write 'src/**/*.ts' & npx stylelint 'src/**/*.scss' --fix"
+    "fix-code": "npx prettier-eslint --write 'src/**/*.ts'",
+    "fix-styles": "npx stylelint \"src/**/*.scss\" --fix",
+    "format": "npm run fix-code & npm run fix-styles"
   },
   "private": true,
   "dependencies": {
