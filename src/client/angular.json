@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "client": {
+    "booka-client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -103,9 +103,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "client"
+  "defaultProject": "booka-client",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
