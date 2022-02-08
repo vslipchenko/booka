@@ -4,9 +4,8 @@ import {ApolloServerPluginDrainHttpServer} from 'apollo-server-core';
 import {ApolloServerPlugin} from 'apollo-server-plugin-base';
 import {GraphQLServerListener} from 'apollo-server-plugin-base/src';
 import fastify, {FastifyInstance} from 'fastify';
-import {schema} from './graphql/schema';
-import {db} from './sequelize';
-// import {User} from './sequelize/models/user';
+import {schema} from './graphql';
+import {db} from './data';
 
 function fastifyAppClosePlugin(app: FastifyInstance): ApolloServerPlugin {
   return {
@@ -16,7 +15,7 @@ function fastifyAppClosePlugin(app: FastifyInstance): ApolloServerPlugin {
           // Close server connection
           await app.close();
           // Close db connection
-          await db.sequelize.close();
+          await db.close();
         },
       };
     },
@@ -25,12 +24,8 @@ function fastifyAppClosePlugin(app: FastifyInstance): ApolloServerPlugin {
 
 const bootstrapApplication = async (): Promise<void> => {
   console.log(environment);
-
-  // Check db connection
-  await db.sequelize.authenticate();
-  console.log('Connection has been established successfully');
-  // Synchronize all defined models to the db
-  await db.sequelize.sync();
+  // Synchronize all defined data to the db
+  await db.sync();
 
   // Bootstrap apollo & app server only if db connection was successfully established
   const app = fastify();
