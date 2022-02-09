@@ -1,6 +1,6 @@
 import {Pool, QueryConfig, QueryResult} from 'pg';
 import {environment} from '../environments';
-import {UsersTable} from './models/user';
+import {UsersTable} from './tables/users';
 
 const {DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_PORT} = environment.variables;
 

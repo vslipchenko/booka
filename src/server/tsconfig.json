@@ -3,6 +3,7 @@
     "strict": true,
     "outDir": "dist",
     "module": "commonjs",
-    "target": "es2021"
+    "target": "es2021",
+    "esModuleInterop": true
   }
 }
