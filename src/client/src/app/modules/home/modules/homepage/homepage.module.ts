@@ -15,5 +15,4 @@ import {RouterModule} from '@angular/router';
     ]),
   ],
 })
-export class HomepageModule {
-}
+export class HomepageModule {}
