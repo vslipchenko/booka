@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "booka-client": {
+    "client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -116,7 +116,7 @@
       }
     }
   },
-  "defaultProject": "booka-client",
+  "defaultProject": "client",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
