@@ -1,0 +1,19 @@
+@use '@angular/material/theming' as mat;
+@use 'sass:map';
+
+/* font */
+$font-size-regular: 16px;
+$font-size-small: 1.25rem;
+$font-size-medium: 1.5rem;
+$font-size-large: 1.75rem;
+
+/* color */
+$color-primary: map.get(mat.$mat-blue, 500); // #2196f3
+$color-accent: map.get(mat.$mat-pink, 500); // #e91e63
+$color-warn: map.get(mat.$mat-red, 500); // #f44336
+
+/* base measure unit */
+$unit: 8px;
+$unit-half: $unit * 0.5;
+$unit-2: $unit * 2;
+$unit-3: $unit * 3;
