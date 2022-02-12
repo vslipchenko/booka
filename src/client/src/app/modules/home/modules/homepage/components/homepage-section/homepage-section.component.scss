@@ -1,0 +1,13 @@
+@use 'variables' as var;
+
+.title-right {
+  flex-direction: row-reverse;
+}
+
+.title-left .title-label {
+  border-right: 4px solid var.$color-primary;
+}
+
+.title-right .title-label {
+  border-left: 4px solid var.$color-primary;
+}

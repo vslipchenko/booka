@@ -4,7 +4,6 @@
     "stylelint-prettier/recommended"
   ],
   "plugins": [
-    "stylelint-prettier",
     "stylelint-order"
   ],
   "rules": {

@@ -1,12 +1,19 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomepageModule} from '~app/modules/home/modules/homepage/homepage.module';
+import {HomeComponent} from '~app/modules/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: (): Promise<string | typeof HomepageModule> =>
-      import('~app/modules/home/modules/homepage/homepage.module').then((m) => m.HomepageModule),
+    component: HomeComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: (): Promise<HomepageModule> =>
+          import('~app/modules/home/modules/homepage/homepage.module').then((m) => m.HomepageModule),
+      },
+    ],
   },
 ];
 
@@ -14,5 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomeRoutingModule {
-}
+export class HomeRoutingModule {}

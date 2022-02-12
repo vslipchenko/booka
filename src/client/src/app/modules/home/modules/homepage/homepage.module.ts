@@ -3,9 +3,11 @@ import {CommonModule} from '@angular/common';
 import {HomepageComponent} from './homepage.component';
 import {RouterModule} from '@angular/router';
 import {TRANSLOCO_SCOPE, TranslocoModule} from '@ngneat/transloco';
+import {HomepageSectionComponent} from './components/homepage-section/homepage-section.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-  declarations: [HomepageComponent],
+  declarations: [HomepageComponent, HomepageSectionComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -15,6 +17,7 @@ import {TRANSLOCO_SCOPE, TranslocoModule} from '@ngneat/transloco';
       },
     ]),
     TranslocoModule,
+    MatIconModule,
   ],
   providers: [{provide: TRANSLOCO_SCOPE, useValue: 'homepage'}],
 })

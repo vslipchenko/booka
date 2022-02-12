@@ -1,0 +1,140 @@
+@use 'variables' as var;
+@use 'media';
+
+.h-100 {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+/* Flex layout */
+.d-flex {
+  display: flex;
+}
+
+.ai-center {
+  align-items: center;
+}
+
+.jc-between {
+  justify-content: space-between;
+}
+
+/* Margin */
+.mt-1 {
+  margin-top: var.$unit;
+}
+
+.ml-1 {
+  margin-left: var.$unit;
+}
+
+.ml-2-3 {
+  @include media.zero-small {
+    margin-left: var.$unit-2;
+  }
+
+  @include media.above-small {
+    margin-left: var.$unit-3;
+  }
+}
+
+.mr-2-3 {
+  @include media.zero-small {
+    margin-right: var.$unit-2;
+  }
+
+  @include media.above-small {
+    margin-right: var.$unit-3;
+  }
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.p-2 {
+  padding: var.$unit-2;
+}
+
+/* Padding */
+// as mobile-first approach is followed; 2 - for mobile, 3 - for others
+.p-2-3 {
+  @include media.zero-small {
+    padding: var.$unit-2;
+  }
+
+  @include media.above-small {
+    padding: var.$unit-3;
+  }
+}
+
+.pt-2-3 {
+  @include media.zero-small {
+    padding-top: var.$unit-2;
+  }
+
+  @include media.above-small {
+    padding-top: var.$unit-3;
+  }
+}
+
+.pb-2-3 {
+  @include media.zero-small {
+    padding-bottom: var.$unit-2;
+  }
+
+  @include media.above-small {
+    padding-bottom: var.$unit-3;
+  }
+}
+
+.px-2 {
+  padding-left: var.$unit-2;
+  padding-right: var.$unit-2;
+}
+
+.px-2-3 {
+  @include media.zero-small {
+    padding-left: var.$unit-2;
+    padding-right: var.$unit-2;
+  }
+
+  @include media.above-small {
+    padding-left: var.$unit-3;
+    padding-right: var.$unit-3;
+  }
+}
+
+.fw-medium {
+  font-weight: var.$font-weight-medium;
+}
+
+.fw-bold {
+  font-weight: var.$font-weight-bold;
+}
+
+.fs-italic {
+  font-style: italic;
+}
+
+/* Background */
+.bg-primary {
+  background-color: var.$color-primary-light;
+}
+
+.bg-accent {
+  background-color: var.$color-accent-light;
+}
+
+.bg-light {
+  background-color: var.$color-light;
+}
+
+/* Color */
+.c-accent {
+  color: var.$color-accent;
+}
