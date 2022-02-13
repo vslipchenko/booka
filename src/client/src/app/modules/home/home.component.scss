@@ -1,0 +1,9 @@
+@use 'variables' as var;
+
+.container {
+  overflow-y: auto;
+}
+
+.content {
+  max-width: var.$container-max-width;
+}

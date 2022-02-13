@@ -22,6 +22,10 @@
   justify-content: space-between;
 }
 
+.fd-column {
+  flex-direction: column;
+}
+
 /* Margin */
 .mt-1 {
   margin-top: var.$unit;
