@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
+import {ButtonComponent} from '~app/typings/button.interfaces';
 
 @Component({
   selector: 'app-flat-button',
@@ -7,8 +8,11 @@ import {ThemePalette} from '@angular/material/core';
   styleUrls: ['./flat-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlatButtonComponent {
+export class FlatButtonComponent implements ButtonComponent {
+  @Input() public ariaLabel = '';
   @Input() public color: ThemePalette;
-  @Input() public text?: string;
-  @Input() public disabled?: boolean;
+  @Input() public text = '';
+  @Input() public disabled = false;
+  @Input() public icon = '';
+  @Input() public svgIcon = '';
 }

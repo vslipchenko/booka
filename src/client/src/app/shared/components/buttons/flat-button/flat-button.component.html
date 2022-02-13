@@ -1,1 +1,4 @@
-<button mat-flat-button [color]="color" [disabled]="disabled">{{ text }}</button>
+<button mat-flat-button [color]="color" [disabled]="disabled" [attr.aria-label]="ariaLabel">
+  <mat-icon [svgIcon]="svgIcon">{{ icon }}</mat-icon
+  >{{ text }}
+</button>

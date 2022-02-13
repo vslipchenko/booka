@@ -29,8 +29,8 @@ export class AppComponent {
   private registerIcons(): void {
     ICONS.forEach((icon) => {
       this.matIconRegistry.addSvgIcon(
-        icon.name,
-        this.domSanitizer.bypassSecurityTrustResourceUrl(`${ICONS_PATH}${icon.fileName}.svg`),
+        icon,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(`${ICONS_PATH}/${icon}.svg`),
       );
     });
   }

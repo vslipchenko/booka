@@ -1,7 +1,12 @@
 @use 'variables' as var;
 
-.link {
+.action-text {
   color: var.$color-primary;
   border-bottom: 1px dashed var.$color-primary;
   cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var.$color-primary;
 }
