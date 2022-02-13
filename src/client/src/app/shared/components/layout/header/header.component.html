@@ -1,13 +1,19 @@
 <header class="header bg-light">
   <div class="header-wrapper h-100 mx-auto px-2-3 d-flex ai-center jc-between">
-    <div class="d-flex ai-center">
+    <a routerLink="/" class="d-flex ai-center">
       <img src="../../../../../assets/images/booka-logo.svg" class="brand-logo" alt="" />
-      <h1 class="ml-1 fw-bold">Booka</h1>
-    </div>
+      <h1 class="brand-name ml-1 fw-bold">Booka</h1>
+    </a>
 
     <nav class="fw-medium">
-      <ul>
-        <li>О нас</li>
+      <ul class="d-flex ai-center">
+        <li class="mr-2"><a routerLink="/service" routerLinkActive="active" class="nav-link">Услуги</a></li>
+        <li>
+          <a routerLink="/pricing" routerLinkActive="active" class="nav-link">Тарифы</a>
+        </li>
+        <div class="y-divider mx-2"></div>
+        <li class="mr-2"><a routerLink="/sign-in"><app-mini-fab icon="login" color="primary" tooltipText="Вход"></app-mini-fab></a></li>
+        <li><a routerLink="/sign-up"><app-mini-fab svgIcon="account-plus" color="accent" tooltipText="Регистрация"></app-mini-fab></a></li>
       </ul>
     </nav>
   </div>

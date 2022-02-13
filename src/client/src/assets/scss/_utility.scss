@@ -55,9 +55,18 @@
   }
 }
 
+.mr-2 {
+  margin-right: var.$unit-2;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mx-2 {
+  margin-left: var.$unit-2;
+  margin-right: var.$unit-2;
 }
 
 .p-2 {
@@ -145,5 +154,5 @@
 
 /* Box shadow */
 .bs-none {
-  box-shadow: none;
+  box-shadow: none !important;
 }
