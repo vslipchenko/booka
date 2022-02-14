@@ -3,11 +3,11 @@ import {CommonModule} from '@angular/common';
 import {HomepageComponent} from './homepage.component';
 import {RouterModule} from '@angular/router';
 import {TRANSLOCO_SCOPE, TranslocoModule} from '@ngneat/transloco';
-import {HomepageSectionComponent} from './components/homepage-section/homepage-section.component';
 import {MatIconModule} from '@angular/material/icon';
+import {SharedModule} from '~app/shared/shared.module';
 
 @NgModule({
-  declarations: [HomepageComponent, HomepageSectionComponent],
+  declarations: [HomepageComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -18,7 +18,9 @@ import {MatIconModule} from '@angular/material/icon';
     ]),
     TranslocoModule,
     MatIconModule,
+    SharedModule,
   ],
   providers: [{provide: TRANSLOCO_SCOPE, useValue: 'homepage'}],
+  exports: [],
 })
 export class HomepageModule {}

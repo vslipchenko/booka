@@ -1,15 +1,16 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-homepage-section',
-  templateUrl: './homepage-section.component.html',
-  styleUrls: ['./homepage-section.component.scss'],
+  selector: 'app-info-section',
+  templateUrl: './info-section.component.html',
+  styleUrls: ['./info-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomepageSectionComponent implements OnInit {
+export class InfoSectionComponent implements OnInit {
   @Input() public horizontalPosition: 'left' | 'right' = 'left';
   @Input() public imageName = '';
   @Input() public icon = '';
+  @Input() public svgIcon = '';
   @Input() public title = '';
   @Input() public description = '';
 

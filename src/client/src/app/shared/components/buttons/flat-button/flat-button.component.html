@@ -1,4 +1,4 @@
 <button mat-flat-button [color]="color" [disabled]="disabled" [attr.aria-label]="ariaLabel">
-  <mat-icon [svgIcon]="svgIcon">{{ icon }}</mat-icon
+  <mat-icon *ngIf="svgIcon || icon" [svgIcon]="svgIcon">{{ icon }}</mat-icon
   >{{ text }}
 </button>
