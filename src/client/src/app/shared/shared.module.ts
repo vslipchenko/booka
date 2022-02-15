@@ -12,6 +12,7 @@ import {CommonModule} from '@angular/common';
 import {HelpSectionComponent} from './components/help-section/help-section.component';
 import {ExpansionPanelComponent} from './components/expansion-panel/expansion-panel.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {AlertComponent} from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MiniFabComponent,
     HelpSectionComponent,
     ExpansionPanelComponent,
+    AlertComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -30,6 +32,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FlatButtonComponent,
     HelpSectionComponent,
     ExpansionPanelComponent,
+    AlertComponent,
   ],
   imports: [CommonModule, MatButtonModule, RouterModule, MatIconModule, MatTooltipModule, MatExpansionModule],
 })
