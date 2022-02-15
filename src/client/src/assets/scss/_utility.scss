@@ -62,7 +62,7 @@
 }
 
 .mb-1 {
-  margin-bottom: var.$unit;
+  margin-bottom: var.$unit !important;
 }
 
 .ml-1 {
@@ -96,6 +96,10 @@
 
 .p-2 {
   padding: var.$unit-2;
+}
+
+.pt-2 {
+  padding-top: var.$unit-2;
 }
 
 // as mobile-first approach is followed; 1 - for mobile, 2 - for others
@@ -183,7 +187,7 @@
 }
 
 .bg-primary-light {
-  background-color: var.$color-primary-light;
+  background-color: var.$color-primary-light !important;
 }
 
 .bg-accent {

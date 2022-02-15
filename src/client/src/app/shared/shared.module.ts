@@ -10,6 +10,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {InfoSectionComponent} from '~app/shared/components/info-section/info-section.component';
 import {CommonModule} from '@angular/common';
 import {HelpSectionComponent} from './components/help-section/help-section.component';
+import {ExpansionPanelComponent} from './components/expansion-panel/expansion-panel.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,16 @@ import {HelpSectionComponent} from './components/help-section/help-section.compo
     MainComponent,
     MiniFabComponent,
     HelpSectionComponent,
+    ExpansionPanelComponent,
   ],
-  exports: [InfoSectionComponent, HeaderComponent, MainComponent, FlatButtonComponent, HelpSectionComponent],
-  imports: [CommonModule, MatButtonModule, RouterModule, MatIconModule, MatTooltipModule],
+  exports: [
+    InfoSectionComponent,
+    HeaderComponent,
+    MainComponent,
+    FlatButtonComponent,
+    HelpSectionComponent,
+    ExpansionPanelComponent,
+  ],
+  imports: [CommonModule, MatButtonModule, RouterModule, MatIconModule, MatTooltipModule, MatExpansionModule],
 })
 export class SharedModule {}

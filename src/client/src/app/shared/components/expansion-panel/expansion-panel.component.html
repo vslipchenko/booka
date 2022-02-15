@@ -1,0 +1,10 @@
+<mat-accordion [multi]="multi">
+  <mat-expansion-panel *ngFor="let panel of panels; let last = last" class="bs-none" [class.mb-1]="!last">
+    <mat-expansion-panel-header class="bg-primary-light">
+      <mat-panel-title>
+        {{panel.title}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="pt-2">{{panel.body}}</div>
+  </mat-expansion-panel>
+</mat-accordion>
