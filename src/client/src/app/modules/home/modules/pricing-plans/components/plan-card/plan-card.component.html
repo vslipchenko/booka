@@ -1,0 +1,18 @@
+<div class="plan d-flex f-column bd-primary-light bd-rounded">
+  <div class="d-flex f-column ai-center h-100">
+    <div class="p-2">
+      <img [src]="'./assets/images/' + imageName + '.svg'" alt="" class="w-100" />
+    </div>
+
+    <div class="fw-medium">{{ title }}</div>
+  </div>
+  <div class="plan-body bg-primary-light p-2 mt-2">
+    <ul>
+      <li *ngFor="let service of services; let last = last" [class.mb-1]="!last">
+        {{service}}
+      </li>
+    </ul>
+  </div>
+  <div class="d-flex jc-center p-2 fw-medium">{{ price }}</div>
+  <a class="action d-flex jc-center p-2 bg-primary c-light" routerLink="/sign-up">Продолжить</a>
+</div>

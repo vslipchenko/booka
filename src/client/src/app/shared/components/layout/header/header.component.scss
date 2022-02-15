@@ -2,8 +2,8 @@
 @use 'media';
 
 .header {
-  height: 60px;
   box-shadow: 0 1px 2px 0 var.$color-light-darker;
+  height: 60px;
   position: relative;
 }
 
@@ -23,6 +23,6 @@
 }
 
 .y-divider {
-  border: 1px solid var.$color-light-darker;
+  border-left: 1px solid var.$color-light-darker;
   height: 30px;
 }
