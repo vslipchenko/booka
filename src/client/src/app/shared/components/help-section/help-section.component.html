@@ -1,7 +1,12 @@
 <div class="bg-accent p-2-3">
   <h2>Остались вопросы ?</h2>
 
-  <p class="mt-1">
-    <span class="action-text" tabindex="0">Напишите нам</span> и мы с радостью ответим Вам в ближайшее время!
-  </p>
+  <div class="mt-1">
+    <span
+      *ngIf="faq"
+      >Рекомендуем ознакомиться с часто задаваемыми вопросами - <a routerLink="/faq" class="action-text">FAQ</a>, в
+      противном случае,
+    </span>
+    <span class="action-text" tabindex="0"><span class="first-letter">н</span>апишите нам</span> и мы с радостью ответим Вам в ближайшее время!
+  </div>
 </div>

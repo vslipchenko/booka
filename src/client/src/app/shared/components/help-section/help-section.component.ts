@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-help-section',
@@ -6,4 +6,6 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   styleUrls: ['./help-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HelpSectionComponent {}
+export class HelpSectionComponent {
+  @Input() public faq = true;
+}
