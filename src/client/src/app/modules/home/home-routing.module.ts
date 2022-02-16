@@ -6,6 +6,7 @@ import {PricingPlansModule} from '~app/modules/home/modules/pricing-plans/pricin
 import {FaqModule} from '~app/modules/home/modules/faq/faq.module';
 import {HelpModule} from '~app/modules/home/modules/help/help.module';
 import {FeedbackModule} from '~app/modules/home/modules/feedback/feedback.module';
+import {ServicesModule} from '~app/modules/home/modules/services/services.module';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
         path: 'pricing',
         loadChildren: (): Promise<PricingPlansModule> =>
           import('~app/modules/home/modules/pricing-plans/pricing-plans.module').then((m) => m.PricingPlansModule),
+      },
+      {
+        path: 'services',
+        loadChildren: (): Promise<ServicesModule> =>
+          import('~app/modules/home/modules/services/services.module').then((m) => m.ServicesModule),
       },
       {
         path: 'feedback',
