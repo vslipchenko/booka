@@ -7,6 +7,8 @@ import {FaqModule} from '~app/modules/home/modules/faq/faq.module';
 import {HelpModule} from '~app/modules/home/modules/help/help.module';
 import {FeedbackModule} from '~app/modules/home/modules/feedback/feedback.module';
 import {ServicesModule} from '~app/modules/home/modules/services/services.module';
+import {SignInModule} from '~app/modules/home/modules/sign-in/sign-in.module';
+import {SignUpModule} from '~app/modules/home/modules/sign-up/sign-up.module';
 
 const routes: Routes = [
   {
@@ -32,6 +34,16 @@ const routes: Routes = [
         path: 'pricing',
         loadChildren: (): Promise<PricingPlansModule> =>
           import('~app/modules/home/modules/pricing-plans/pricing-plans.module').then((m) => m.PricingPlansModule),
+      },
+      {
+        path: 'sign-in',
+        loadChildren: (): Promise<SignInModule> =>
+          import('~app/modules/home/modules/sign-in/sign-in.module').then((m) => m.SignInModule),
+      },
+      {
+        path: 'sign-up',
+        loadChildren: (): Promise<SignUpModule> =>
+          import('~app/modules/home/modules/sign-up/sign-up.module').then((m) => m.SignUpModule),
       },
       {
         path: 'services',
