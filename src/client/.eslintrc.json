@@ -41,6 +41,12 @@
         "@typescript-eslint/no-empty-function": "warn",
         "@typescript-eslint/ban-ts-comment": "warn",
         "@typescript-eslint/restrict-template-expressions": "warn",
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ],
         "@typescript-eslint/consistent-type-assertions": [
           "error",
           {

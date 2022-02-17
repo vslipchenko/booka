@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MenuItem} from '~app/typings/menu.interfaces';
+import {MatDialog} from '@angular/material/dialog';
+import {LanguageDialogComponent} from '~app/shared/components/language-dialog/language-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +18,12 @@ export class HeaderComponent {
     {title: 'FAQ', routerLink: '/faq', icon: 'help_center'},
     {title: 'Помощь', routerLink: '/help', icon: 'support'},
     {title: 'Обратная связь', routerLink: '/feedback', icon: 'feedback'},
-    {title: 'Язык', icon: 'language'},
+    {title: 'Язык', icon: 'language', click: this.openLanguageDialog.bind(this)},
   ];
+
+  public constructor(public dialog: MatDialog) {}
+
+  public openLanguageDialog(): void {
+    this.dialog.open(LanguageDialogComponent);
+  }
 }

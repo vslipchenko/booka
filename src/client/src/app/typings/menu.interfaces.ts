@@ -6,6 +6,7 @@ export interface MenuItem {
   color?: ThemePalette;
   routerLink?: string;
   items?: Array<MenuItem>; // Used by nested menus
+  click?: () => void;
 }
 
 export interface MenuItemClickEvent {

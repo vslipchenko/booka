@@ -15,8 +15,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AlertComponent} from './components/alert/alert.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {MatMenuModule} from '@angular/material/menu';
-import { IconButtonComponent } from './components/buttons/icon-button/icon-button.component';
-import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
+import {IconButtonComponent} from './components/buttons/icon-button/icon-button.component';
+import {MenuItemComponent} from './components/menu/menu-item/menu-item.component';
+import {LanguageDialogComponent} from './components/language-dialog/language-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { MenuItemComponent } from './components/menu/menu-item/menu-item.compone
     MenuComponent,
     IconButtonComponent,
     MenuItemComponent,
+    LanguageDialogComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -49,6 +52,7 @@ import { MenuItemComponent } from './components/menu/menu-item/menu-item.compone
     MatTooltipModule,
     MatExpansionModule,
     MatMenuModule,
+    MatDialogModule,
   ],
 })
 export class SharedModule {}

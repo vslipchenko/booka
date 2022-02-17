@@ -5,3 +5,7 @@
   border-bottom: 1px dashed var.$color-primary;
   cursor: pointer;
 }
+
+mat-dialog-actions {
+  justify-content: flex-end;
+}
