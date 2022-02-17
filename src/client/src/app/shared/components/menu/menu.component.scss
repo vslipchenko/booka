@@ -1,0 +1,9 @@
+@use 'variables' as var;
+
+.menu-item.active {
+  color: var.$color-primary;
+}
+
+.menu-item:hover {
+  background-color: var.$color-primary-light;
+}

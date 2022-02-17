@@ -1,0 +1,21 @@
+<app-icon-button
+  [matMenuTriggerFor]="menu"
+  [icon]="icon"
+  [svgIcon]="svgIcon"
+  [tooltipText]="tooltipText"
+  [tooltipPosition]="tooltipPosition"
+></app-icon-button>
+
+<mat-menu #menu="matMenu">
+  <a
+    mat-menu-item
+    class="menu-item"
+    *ngFor="let item of items; let index = index"
+    [disableRipple]="true"
+    [routerLink]="item.routerLink"
+    routerLinkActive="active"
+    (click)="onClick.emit({item: item, index: index})"
+  >
+    {{ item.title }}
+  </a>
+</mat-menu>

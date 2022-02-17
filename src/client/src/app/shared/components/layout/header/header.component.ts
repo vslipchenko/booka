@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MenuItem} from '~app/typings/menu.interfaces';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,12 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent{
+export class HeaderComponent {
+  public readonly menuItems: Array<MenuItem> = [
+    {title: 'Услуги', routerLink: '/services'},
+    {title: 'Тарифы', routerLink: '/pricing'},
+    {title: 'FAQ', routerLink: '/faq'},
+    {title: 'Помощь', routerLink: '/help'},
+    {title: 'Обратная связь', routerLink: '/feedback'},
+  ];
 }

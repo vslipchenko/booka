@@ -13,6 +13,9 @@ import {HelpSectionComponent} from './components/help-section/help-section.compo
 import {ExpansionPanelComponent} from './components/expansion-panel/expansion-panel.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AlertComponent} from './components/alert/alert.component';
+import {MenuComponent} from './components/menu/menu.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { IconButtonComponent } from './components/buttons/icon-button/icon-button.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import {AlertComponent} from './components/alert/alert.component';
     HelpSectionComponent,
     ExpansionPanelComponent,
     AlertComponent,
+    MenuComponent,
+    IconButtonComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -34,6 +39,14 @@ import {AlertComponent} from './components/alert/alert.component';
     ExpansionPanelComponent,
     AlertComponent,
   ],
-  imports: [CommonModule, MatButtonModule, RouterModule, MatIconModule, MatTooltipModule, MatExpansionModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    RouterModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    MatMenuModule,
+  ],
 })
 export class SharedModule {}
