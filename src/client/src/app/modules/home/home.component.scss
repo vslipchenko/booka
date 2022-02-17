@@ -1,7 +1,9 @@
 @use 'variables' as var;
 
-.container {
-  overflow-y: auto;
+.header {
+  display: block;
+  position: sticky;
+  top: 0;
 }
 
 .content {

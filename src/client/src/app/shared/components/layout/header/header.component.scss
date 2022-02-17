@@ -14,3 +14,8 @@
 .header-wrapper {
   max-width: var.$container-max-width;
 }
+
+.menu {
+  // Fix empty space offset
+  margin-right: -11px;
+}
