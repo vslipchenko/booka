@@ -1,5 +1,4 @@
 @use 'variables' as var;
-@use 'media';
 
 .header {
   box-shadow: 0 1px 2px 0 var.$color-light-darker;
@@ -12,17 +11,6 @@
   width: 30px;
 }
 
-.brand-name {
-  @include media.zero-small {
-    display: none;
-  }
-}
-
 .header-wrapper {
   max-width: var.$container-max-width;
-}
-
-.y-divider {
-  border-left: 1px solid var.$color-light-darker;
-  height: 30px;
 }

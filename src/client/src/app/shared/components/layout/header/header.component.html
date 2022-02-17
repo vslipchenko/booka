@@ -1,19 +1,10 @@
 <header class="header bg-light">
   <div class="header-wrapper h-100 mx-auto px-2-3 d-flex ai-center jc-between">
-    <div class="d-flex ai-center">
-      <app-menu icon="menu" [items]="menuItems" tooltipText="Меню" tooltipPosition="below"></app-menu>
-      <a routerLink="/" class="d-flex ai-center">
-        <img src="../../../../../assets/images/booka-logo.svg" class="brand-logo" alt="" />
-        <h1 class="brand-name ml-1 fw-bold">Booka</h1>
-      </a>
-    </div>
+    <a routerLink="/" class="d-flex ai-center">
+      <img src="./assets/images/booka-logo.svg" class="brand-logo" alt="" />
+      <h1 class="brand-name ml-1 fw-bold">Booka</h1>
+    </a>
 
-    <nav class="fw-medium">
-      <ul class="d-flex ai-center">
-        <div class="y-divider mx-2"></div>
-        <li class="mr-2"><a routerLink="/sign-in"><app-mini-fab icon="login" color="primary" tooltipText="Вход"></app-mini-fab></a></li>
-        <li><a routerLink="/sign-up"><app-mini-fab icon="person_add" color="accent" tooltipText="Регистрация"></app-mini-fab></a></li>
-      </ul>
-    </nav>
+    <app-menu class="menu" icon="menu" [items]="menuItems" tooltipText="Меню" tooltipPosition="below"></app-menu>
   </div>
 </header>

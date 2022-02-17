@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input} from '@angular/core';
 import {MenuItem, MenuItemClickEvent} from '~app/typings/menu.interfaces';
 import {TooltipPosition} from '@angular/material/tooltip/tooltip';
+import {MenuPositionX} from '@angular/material/menu/menu-positions';
 
 @Component({
   selector: 'app-menu',
@@ -15,4 +16,5 @@ export class MenuComponent {
   @Input() public tooltipPosition: TooltipPosition = 'above';
   @Input() public items: Array<MenuItem> = [];
   @Input() public onClick = new EventEmitter<MenuItemClickEvent>();
+  @Input() public xPosition: MenuPositionX = 'before';
 }

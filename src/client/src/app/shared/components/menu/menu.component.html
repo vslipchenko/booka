@@ -6,7 +6,7 @@
   [tooltipPosition]="tooltipPosition"
 ></app-icon-button>
 
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" [xPosition]="xPosition">
   <a
     mat-menu-item
     class="menu-item"
@@ -16,6 +16,6 @@
     routerLinkActive="active"
     (click)="onClick.emit({item: item, index: index})"
   >
-    {{ item.title }}
+    <mat-icon [color]="item.color">{{item.icon}}</mat-icon> {{ item.title }}
   </a>
 </mat-menu>
