@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input} from '@angular/core';
-import {MenuItem, MenuItemClickEvent} from '~app/typings/menu.interfaces';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {MenuItem} from '~app/typings/menu.interfaces';
 import {TooltipPosition} from '@angular/material/tooltip/tooltip';
 import {MenuPositionX} from '@angular/material/menu/menu-positions';
 
@@ -14,7 +14,7 @@ export class MenuComponent {
   @Input() public svgIcon = '';
   @Input() public tooltipText = '';
   @Input() public tooltipPosition: TooltipPosition = 'above';
-  @Input() public items: Array<MenuItem> = [];
-  @Input() public onClick = new EventEmitter<MenuItemClickEvent>();
   @Input() public xPosition: MenuPositionX = 'before';
+  @Input() public items: Array<MenuItem> = [];
+  // @Input() public onClick = new EventEmitter<MenuItemClickEvent>();
 }

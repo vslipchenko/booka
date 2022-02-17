@@ -16,5 +16,6 @@ export class HeaderComponent {
     {title: 'FAQ', routerLink: '/faq', icon: 'help_center'},
     {title: 'Помощь', routerLink: '/help', icon: 'support'},
     {title: 'Обратная связь', routerLink: '/feedback', icon: 'feedback'},
+    {title: 'Язык', icon: 'language'},
   ];
 }

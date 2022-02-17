@@ -1,0 +1,14 @@
+<mat-menu #menu="matMenu" [xPosition]="xPosition">
+  <ng-container *ngFor="let item of items; let index = index">
+    <a
+      mat-menu-item
+      class="menu-item"
+      [disableRipple]="true"
+      [routerLink]="item.routerLink"
+      routerLinkActive="active"
+    >
+      <mat-icon *ngIf="item.icon" [color]="item.color">{{ item.icon }}</mat-icon
+      >{{ item.title }}
+    </a>
+  </ng-container>
+</mat-menu>

@@ -1,21 +1,10 @@
 <app-icon-button
-  [matMenuTriggerFor]="menu"
+  *ngIf="menuItem.menu"
+  [matMenuTriggerFor]="menuItem.menu"
   [icon]="icon"
   [svgIcon]="svgIcon"
   [tooltipText]="tooltipText"
   [tooltipPosition]="tooltipPosition"
 ></app-icon-button>
 
-<mat-menu #menu="matMenu" [xPosition]="xPosition">
-  <a
-    mat-menu-item
-    class="menu-item"
-    *ngFor="let item of items; let index = index"
-    [disableRipple]="true"
-    [routerLink]="item.routerLink"
-    routerLinkActive="active"
-    (click)="onClick.emit({item: item, index: index})"
-  >
-    <mat-icon [color]="item.color">{{item.icon}}</mat-icon> {{ item.title }}
-  </a>
-</mat-menu>
+<app-menu-item #menuItem [xPosition]="xPosition" [items]="items"></app-menu-item>

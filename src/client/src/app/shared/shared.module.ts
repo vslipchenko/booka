@@ -16,6 +16,7 @@ import {AlertComponent} from './components/alert/alert.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { IconButtonComponent } from './components/buttons/icon-button/icon-button.component';
+import { MenuItemComponent } from './components/menu/menu-item/menu-item.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { IconButtonComponent } from './components/buttons/icon-button/icon-butto
     AlertComponent,
     MenuComponent,
     IconButtonComponent,
+    MenuItemComponent,
   ],
   exports: [
     InfoSectionComponent,
