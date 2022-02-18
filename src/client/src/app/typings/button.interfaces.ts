@@ -17,3 +17,9 @@ export interface FabButtonComponent extends ButtonComponentBase {
   tooltipText: string;
   tooltipPosition: TooltipPosition;
 }
+
+export interface RadioGroupItem {
+  title: string;
+  value: unknown;
+  disabled?: boolean;
+}

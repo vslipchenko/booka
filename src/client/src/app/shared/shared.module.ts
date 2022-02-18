@@ -19,8 +19,9 @@ import {IconButtonComponent} from './components/buttons/icon-button/icon-button.
 import {MenuItemComponent} from './components/menu/menu-item/menu-item.component';
 import {LanguageDialogComponent} from './components/language-dialog/language-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { RadioGroupComponent } from './components/buttons/radio-group/radio-group.component';
+import {RadioGroupComponent} from './components/buttons/radio-group/radio-group.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatMenuModule,
     MatDialogModule,
     MatRadioModule,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}

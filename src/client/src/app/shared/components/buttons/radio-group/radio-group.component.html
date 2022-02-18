@@ -1,8 +1,9 @@
 <mat-radio-group
-  aria-labelledby="example-radio-group-label"
-  class="example-radio-group"
+  [color]="color"
+  [ngClass]="{'d-flex f-column y-position': position === 'vertical'}"
+  [formControl]="control"
 >
-  <mat-radio-button class="example-radio-button" *ngFor="let item of items" [value]="item">
-    {{item}}
+  <mat-radio-button class="radio-button" *ngFor="let item of items" [value]="item.value" [disabled]="item.disabled">
+    {{item.title}}
   </mat-radio-button>
 </mat-radio-group>

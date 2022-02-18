@@ -24,6 +24,6 @@ export class HeaderComponent {
   public constructor(public dialog: MatDialog) {}
 
   public openLanguageDialog(): void {
-    this.dialog.open(LanguageDialogComponent);
+    this.dialog.open(LanguageDialogComponent, {autoFocus: 'dialog'});
   }
 }

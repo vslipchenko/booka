@@ -1,7 +1,8 @@
 <h2 mat-dialog-title>Выбор языка</h2>
 <mat-dialog-content>
-  This is a dialog
+  <app-radio-group [control]="languageControl" [items]="languages" color="primary"></app-radio-group>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Okay</button>
+  <button mat-button mat-dialog-close>Отмена</button>
+  <button mat-button color="primary" mat-dialog-close>ОК</button>
 </mat-dialog-actions>

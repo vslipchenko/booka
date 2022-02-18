@@ -1,4 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {RadioGroupPosition} from '~app/typings/button.types';
+import {ThemePalette} from '@angular/material/core';
+import {FormControl} from '@angular/forms';
+import {RadioGroupItem} from '~app/typings/button.interfaces';
 
 @Component({
   selector: 'app-radio-group',
@@ -7,5 +11,8 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioGroupComponent {
-  @Input() public items: Array<string> = [];
+  @Input() public color: ThemePalette;
+  @Input() public items: Array<RadioGroupItem> = [];
+  @Input() public position: RadioGroupPosition = 'vertical';
+  @Input() public control = new FormControl();
 }
