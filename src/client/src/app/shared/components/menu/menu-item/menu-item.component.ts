@@ -14,5 +14,5 @@ export class MenuItemComponent {
   // @Input() public onClick = new EventEmitter<MenuItemClickEvent>();
   @Input() public xPosition: MenuPositionX = 'before';
 
-  @ViewChild('menu') public menu?: MatMenuPanel;
+  @ViewChild('menu', {static: true}) public menu?: MatMenuPanel;
 }

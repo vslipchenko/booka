@@ -19,6 +19,8 @@ import {IconButtonComponent} from './components/buttons/icon-button/icon-button.
 import {MenuItemComponent} from './components/menu/menu-item/menu-item.component';
 import {LanguageDialogComponent} from './components/language-dialog/language-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { RadioGroupComponent } from './components/buttons/radio-group/radio-group.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     IconButtonComponent,
     MenuItemComponent,
     LanguageDialogComponent,
+    RadioGroupComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -53,6 +56,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatExpansionModule,
     MatMenuModule,
     MatDialogModule,
+    MatRadioModule,
   ],
 })
 export class SharedModule {}
