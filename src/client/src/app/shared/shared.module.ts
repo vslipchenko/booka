@@ -22,6 +22,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {RadioGroupComponent} from './components/buttons/radio-group/radio-group.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {ReactiveFormsModule} from '@angular/forms';
+import {InputComponent} from './components/input/input.component';
+import {MatInputModule} from '@angular/material/input';
+import {AuthPageComponent} from '~app/shared/components/layout/auth-page/auth-page.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MenuItemComponent,
     LanguageDialogComponent,
     RadioGroupComponent,
+    InputComponent,
+    AuthPageComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -47,6 +52,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     HelpSectionComponent,
     ExpansionPanelComponent,
     AlertComponent,
+    InputComponent,
+    AuthPageComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +66,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatDialogModule,
     MatRadioModule,
     ReactiveFormsModule,
+    MatInputModule,
   ],
 })
 export class SharedModule {}

@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'app-pricing-plans',
   templateUrl: './pricing-plans.component.html',
-  styleUrls: ['./pricing-plans.component.scss']
+  styleUrls: ['./pricing-plans.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PricingPlansComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class PricingPlansComponent {}
