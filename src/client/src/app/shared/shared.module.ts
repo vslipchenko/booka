@@ -25,7 +25,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {InputComponent} from './components/input/input.component';
 import {MatInputModule} from '@angular/material/input';
 import {AuthPageComponent} from '~app/shared/components/layout/auth-page/auth-page.component';
-import { ButtonComponent } from './components/buttons/button/button.component';
+import {ButtonComponent} from './components/buttons/button/button.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +56,7 @@ import { ButtonComponent } from './components/buttons/button/button.component';
     AlertComponent,
     InputComponent,
     AuthPageComponent,
+    ButtonComponent,
   ],
   imports: [
     CommonModule,
