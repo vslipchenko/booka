@@ -2,11 +2,23 @@
   <app-info-section icon="login" title="Вход" class="d-block pt-2-3"></app-info-section>
 
   <div class="p-2-3 d-flex f-column">
-    <app-input appearance="outline" label="Email" extendClass="w-100"></app-input>
-    <app-input appearance="outline" label="Пароль" extendClass="w-100"></app-input>
+    <span (keyup.enter)="signIn()">
+      <app-input appearance="outline" label="Email" extendClass="w-100"></app-input>
+      <app-input appearance="outline" label="Пароль" extendClass="w-100"></app-input>
+    </span>
 
     <a routerLink="/recovery" class="action-text mb-3">Забыли пароль ?</a>
 
-    <app-flat-button class="mx-auto" text="Войти" color="primary"></app-flat-button>
+    <div class="d-flex jc-between">
+      <app-checkbox [control]="rememberMeControl" label="Запомнить меня"></app-checkbox>
+      <app-flat-button (clicked)="signIn()" text="Войти" color="primary"></app-flat-button>
+    </div>
+
+  </div>
+
+  <div class="pt-2 bg-primary-light">
+    <div class="px-2-3 py-2 bg-light d-flex jc-between">
+      Нет аккаунта ? <a routerLink="/recovery" class="action-text">Зарегистрироваться</a>
+    </div>
   </div>
 </app-auth-page>

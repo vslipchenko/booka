@@ -26,6 +26,8 @@ import {InputComponent} from './components/input/input.component';
 import {MatInputModule} from '@angular/material/input';
 import {AuthPageComponent} from '~app/shared/components/layout/auth-page/auth-page.component';
 import {ButtonComponent} from './components/buttons/button/button.component';
+import {CheckboxComponent} from './components/checkbox/checkbox.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import {ButtonComponent} from './components/buttons/button/button.component';
     InputComponent,
     AuthPageComponent,
     ButtonComponent,
+    CheckboxComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -57,6 +60,7 @@ import {ButtonComponent} from './components/buttons/button/button.component';
     InputComponent,
     AuthPageComponent,
     ButtonComponent,
+    CheckboxComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +74,7 @@ import {ButtonComponent} from './components/buttons/button/button.component';
     MatRadioModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatCheckboxModule,
   ],
 })
 export class SharedModule {}
