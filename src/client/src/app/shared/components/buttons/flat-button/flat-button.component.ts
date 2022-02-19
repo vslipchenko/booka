@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
-import {ButtonComponent} from '~app/typings/button.interfaces';
+import {Button} from '~app/typings/button.interfaces';
 
 @Component({
   selector: 'app-flat-button',
@@ -8,7 +8,7 @@ import {ButtonComponent} from '~app/typings/button.interfaces';
   styleUrls: ['./flat-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlatButtonComponent implements ButtonComponent {
+export class FlatButtonComponent implements Button {
   @Input() public ariaLabel = '';
   @Input() public color: ThemePalette;
   @Input() public text = '';

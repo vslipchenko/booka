@@ -1,7 +1,7 @@
 import {ThemePalette} from '@angular/material/core';
 import {TooltipPosition} from '@angular/material/tooltip/tooltip';
 
-interface ButtonComponentBase {
+interface ButtonBase {
   ariaLabel: string;
   disabled: boolean;
   icon: string;
@@ -9,11 +9,11 @@ interface ButtonComponentBase {
   color: ThemePalette;
 }
 
-export interface ButtonComponent extends ButtonComponentBase {
+export interface Button extends ButtonBase {
   text: string;
 }
 
-export interface FabButtonComponent extends ButtonComponentBase {
+export interface FabButton extends ButtonBase {
   tooltipText: string;
   tooltipPosition: TooltipPosition;
 }
