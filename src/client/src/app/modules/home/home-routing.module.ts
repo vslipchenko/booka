@@ -9,6 +9,7 @@ import {FeedbackModule} from '~app/modules/home/modules/feedback/feedback.module
 import {ServicesModule} from '~app/modules/home/modules/services/services.module';
 import {SignInModule} from '~app/modules/home/modules/sign-in/sign-in.module';
 import {SignUpModule} from '~app/modules/home/modules/sign-up/sign-up.module';
+import {RecoveryModule} from '~app/modules/home/modules/recovery/recovery.module';
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
         path: 'sign-up',
         loadChildren: (): Promise<SignUpModule> =>
           import('~app/modules/home/modules/sign-up/sign-up.module').then((m) => m.SignUpModule),
+      },
+      {
+        path: 'recovery',
+        loadChildren: (): Promise<RecoveryModule> =>
+          import('~app/modules/home/modules/recovery/recovery.module').then((m) => m.RecoveryModule),
       },
       {
         path: 'services',
