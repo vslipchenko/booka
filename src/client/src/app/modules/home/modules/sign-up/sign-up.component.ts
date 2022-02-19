@@ -6,4 +6,9 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   styleUrls: ['./sign-up.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignUpComponent {}
+export class SignUpComponent {
+  public signUp(): void {
+    // ...
+    console.log('Sign up');
+  }
+}
