@@ -39,7 +39,7 @@ const bootstrapApplication = async (): Promise<void> => {
   await server.start();
   app.register(server.createHandler());
 
-  await app.listen(4000);
+  await app.listen(environment.variables.PORT);
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 };
 

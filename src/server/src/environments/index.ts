@@ -4,6 +4,7 @@ export const environment: {
   // name: 'development' | 'production';
   // isDevEnv: boolean;
   variables: {
+    PORT: number;
     DB_NAME: string;
     DB_USERNAME: string;
     DB_PASSWORD: string;
@@ -13,5 +14,5 @@ export const environment: {
 } = {
   // isDevEnv,
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  variables: require(`./${isDevEnv ? 'dev' : 'prod'}.env.ts`),
+  variables: require(`./${isDevEnv ? 'development' : 'production'}.ts`),
 };

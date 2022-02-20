@@ -1,4 +1,5 @@
 export = {
+  PORT: 4000,
   DB_NAME: 'booka',
   DB_USERNAME: 'postgres',
   DB_PASSWORD: 'root',

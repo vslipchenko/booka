@@ -5,10 +5,18 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {TranslocoRootModule} from './transloco-root.module';
+import {GraphQLModule} from '~app/graphql/graphql.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, TranslocoRootModule],
+  imports: [
+    BrowserModule,
+    GraphQLModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    TranslocoRootModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
