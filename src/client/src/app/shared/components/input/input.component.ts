@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, TemplateRef} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {ThemePalette} from '@angular/material/core';
@@ -19,9 +19,11 @@ export class InputComponent {
   @Input() public label = '';
   @Input() public placeholder = '';
   @Input() public hint = '';
+  // @Input() public prefix?: TemplateRef<unknown>;
+  @Input() public suffix?: TemplateRef<unknown>;
   public hide = true;
 
-  public iconClick(): void {
+  public toggleVisibility(): void {
     if (this.type === 'password') this.hide = !this.hide;
   }
 

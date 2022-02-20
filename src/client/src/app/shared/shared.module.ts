@@ -28,6 +28,7 @@ import {AuthPageComponent} from '~app/shared/components/layout/auth-page/auth-pa
 import {ButtonComponent} from './components/buttons/button/button.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {InputHideSuffixComponent} from './components/input/suffixes/input-hide-suffix/input-hide-suffix.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AuthPageComponent,
     ButtonComponent,
     CheckboxComponent,
+    InputHideSuffixComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -61,6 +63,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     AuthPageComponent,
     ButtonComponent,
     CheckboxComponent,
+    InputHideSuffixComponent,
   ],
   imports: [
     CommonModule,

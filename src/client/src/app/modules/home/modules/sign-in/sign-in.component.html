@@ -4,7 +4,11 @@
   <div class="p-2-3 d-flex f-column">
     <span (keyup.enter)="signIn()">
       <app-input type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
-      <app-input type="password" appearance="outline" label="Пароль" extendClass="w-100"></app-input>
+      <app-input #input type="password" appearance="outline" label="Пароль" extendClass="w-100" [suffix]="suffix">
+        <ng-template #suffix>
+          <app-input-hide-suffix [input]="input"></app-input-hide-suffix>
+        </ng-template>
+      </app-input>
     </span>
 
     <div class="d-flex jc-between mb-3">
