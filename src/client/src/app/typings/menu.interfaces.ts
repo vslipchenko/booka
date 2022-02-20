@@ -9,7 +9,7 @@ export interface MenuItem {
   click?: () => void;
 }
 
-export interface MenuItemClickEvent {
-  item: MenuItem;
-  index: number;
-}
+// export interface MenuItemClickEvent {
+//   item: MenuItem;
+//   index: number;
+// }

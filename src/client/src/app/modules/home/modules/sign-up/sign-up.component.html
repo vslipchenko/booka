@@ -3,18 +3,16 @@
 
   <div class="p-2-3 d-flex f-column">
     <span (keyup.enter)="signUp()">
-      <app-input appearance="outline" label="Email" extendClass="w-100"></app-input>
-      <app-input appearance="outline" label="Пароль" extendClass="w-100"></app-input>
+      <app-input type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
+      <app-input type="password" appearance="outline" label="Пароль" extendClass="w-100"></app-input>
     </span>
 
-    <div class="d-flex">
-      <app-flat-button (clicked)="signUp()" text="Зарегистрироваться" color="primary"></app-flat-button>
-    </div>
+    <app-flat-button (clicked)="signUp()" text="Зарегистрироваться" color="primary" extendClass="w-100"></app-flat-button>
   </div>
 
   <div class="pt-2 bg-primary-light">
     <div class="px-2-3 py-2 bg-light d-flex jc-between">
-      Уже зарегистрированы ? <a routerLink="/sign-in" class="action-text">Войти</a>
+      Есть аккаунт ? <a routerLink="/sign-in" class="action-text">Войти</a>
     </div>
   </div>
 </app-auth-page>

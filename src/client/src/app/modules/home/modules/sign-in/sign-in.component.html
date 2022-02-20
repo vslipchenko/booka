@@ -3,16 +3,16 @@
 
   <div class="p-2-3 d-flex f-column">
     <span (keyup.enter)="signIn()">
-      <app-input appearance="outline" label="Email" extendClass="w-100"></app-input>
-      <app-input appearance="outline" label="Пароль" extendClass="w-100"></app-input>
+      <app-input type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
+      <app-input type="password" appearance="outline" label="Пароль" extendClass="w-100"></app-input>
     </span>
 
-    <a routerLink="/recovery" class="action-text mb-3">Забыли пароль ?</a>
-
-    <div class="d-flex jc-between">
+    <div class="d-flex jc-between mb-3">
       <app-checkbox [control]="rememberMeControl" label="Запомнить меня"></app-checkbox>
-      <app-flat-button (clicked)="signIn()" text="Войти" color="primary"></app-flat-button>
+      <a routerLink="/recovery" class="action-text">Забыли пароль ?</a>
     </div>
+
+    <app-flat-button (clicked)="signIn()" text="Войти" color="primary" extendClass="w-100"></app-flat-button>
   </div>
 
   <div class="pt-2 bg-primary-light">

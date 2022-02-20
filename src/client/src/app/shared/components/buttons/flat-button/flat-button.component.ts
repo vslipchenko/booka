@@ -15,6 +15,7 @@ export class FlatButtonComponent implements Button {
   @Input() public disabled = false;
   @Input() public icon = '';
   @Input() public svgIcon = '';
+  @Input() public extendClass = '';
 
   @Output() public clicked = new EventEmitter<void>();
 }

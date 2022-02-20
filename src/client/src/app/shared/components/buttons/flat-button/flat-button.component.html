@@ -1,4 +1,11 @@
-<button mat-flat-button [color]="color" [disabled]="disabled" [attr.aria-label]="ariaLabel" (click)="clicked.emit()">
+<button
+  mat-flat-button
+  [class]="extendClass"
+  [color]="color"
+  [disabled]="disabled"
+  [attr.aria-label]="ariaLabel"
+  (click)="clicked.emit()"
+>
   <mat-icon *ngIf="svgIcon || icon" [svgIcon]="svgIcon">{{ icon }}</mat-icon
   >{{ text }}
 </button>
