@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Params} from '@angular/router';
 
 @Component({
   selector: 'app-plan-card',
@@ -11,4 +12,5 @@ export class PlanCardComponent {
   @Input() public title = '';
   @Input() public services: Array<string> = [];
   @Input() public price = '';
+  @Input() public queryParams: Params = {};
 }

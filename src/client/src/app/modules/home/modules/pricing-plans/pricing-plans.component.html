@@ -7,14 +7,16 @@
     title="КЛИЕНТ"
     [services]="['Личный профиль', 'Букинг услуг']"
     price="БЕСПЛАТНО"
+    [queryParams]="{account: 'client'}"
   >
   </app-plan-card>
   <app-plan-card
     class="p-1 f-1"
-    imageName="individual"
+    imageName="entrepreneur"
     title="ПРЕДПРИНИМАТЕЛЬ"
     [services]="['Личный профиль', 'Букинг услуг', 'Предоставление услуг']"
     price="250 грн/мес"
+    [queryParams]="{account: 'entrepreneur'}"
   >
   </app-plan-card>
   <app-plan-card
@@ -23,6 +25,7 @@
     title="БИЗНЕС"
     [services]="['Бизнес-профиль', 'Предоставление услуг', 'Управление персоналом']"
     price="500 грн/мес"
+    [queryParams]="{account: 'business'}"
   >
   </app-plan-card>
 </div>
