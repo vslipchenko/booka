@@ -16,7 +16,7 @@ import {AlertComponent} from './components/alert/alert.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {IconButtonComponent} from './components/buttons/icon-button/icon-button.component';
-import {MenuItemComponent} from './components/menu/menu-item/menu-item.component';
+import {MenuItemsComponent} from './components/menu/menu-items/menu-items.component';
 import {LanguageDialogComponent} from './components/language-dialog/language-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {RadioGroupComponent} from './components/buttons/radio-group/radio-group.component';
@@ -42,7 +42,7 @@ import {InputHideSuffixComponent} from './components/input/suffixes/input-hide-s
     AlertComponent,
     MenuComponent,
     IconButtonComponent,
-    MenuItemComponent,
+    MenuItemsComponent,
     LanguageDialogComponent,
     RadioGroupComponent,
     InputComponent,

@@ -13,6 +13,7 @@ import {InputType} from '~app/typings/input.types';
 export class InputComponent {
   @Input() public type: InputType = 'text';
   @Input() public control = new FormControl();
+  @Input() public required = false;
   @Input() public color: ThemePalette;
   @Input() public appearance: MatFormFieldAppearance = 'standard';
   @Input() public extendClass = '';
@@ -21,6 +22,7 @@ export class InputComponent {
   @Input() public hint = '';
   // @Input() public prefix?: TemplateRef<unknown>;
   @Input() public suffix?: TemplateRef<unknown>;
+
   public hide = true;
 
   public toggleVisibility(): void {

@@ -4,12 +4,12 @@ import {MenuPositionX} from '@angular/material/menu/menu-positions';
 import {MatMenuPanel} from '@angular/material/menu/menu-panel';
 
 @Component({
-  selector: 'app-menu-item',
-  templateUrl: './menu-item.component.html',
-  styleUrls: ['./menu-item.component.scss'],
+  selector: 'app-menu-items',
+  templateUrl: './menu-items.component.html',
+  styleUrls: ['./menu-items.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuItemComponent {
+export class MenuItemsComponent {
   @Input() public items: Array<MenuItem> = [];
   // @Input() public onClick = new EventEmitter<MenuItemClickEvent>();
   @Input() public xPosition: MenuPositionX = 'before';

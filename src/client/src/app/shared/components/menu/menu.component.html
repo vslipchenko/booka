@@ -1,10 +1,10 @@
 <app-icon-button
-  *ngIf="menuItem.menu"
-  [matMenuTriggerFor]="menuItem.menu"
+  *ngIf="menuItems.menu"
+  [matMenuTriggerFor]="menuItems.menu"
   [icon]="icon"
   [svgIcon]="svgIcon"
   [tooltipText]="tooltipText"
   [tooltipPosition]="tooltipPosition"
 ></app-icon-button>
 
-<app-menu-item #menuItem [xPosition]="xPosition" [items]="items"></app-menu-item>
+<app-menu-items #menuItems [xPosition]="xPosition" [items]="items"></app-menu-items>
