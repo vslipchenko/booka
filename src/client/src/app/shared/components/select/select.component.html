@@ -1,0 +1,11 @@
+<mat-form-field [appearance]="appearance" [color]="color" [class]="extendClass">
+  <mat-label>{{label}}</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let item of items" [value]="item.value">
+      {{item.title}}
+    </mat-option>
+  </mat-select>
+  <mat-hint *ngIf="hint">
+    <ng-container [ngTemplateOutlet]="hint"></ng-container>
+  </mat-hint>
+</mat-form-field>

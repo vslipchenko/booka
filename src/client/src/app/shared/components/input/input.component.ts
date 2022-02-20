@@ -3,6 +3,7 @@ import {FormControl} from '@angular/forms';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {ThemePalette} from '@angular/material/core';
 import {InputType} from '~app/typings/input.types';
+import {FormField} from '~app/typings/form-field.interfaces';
 
 @Component({
   selector: 'app-input',
@@ -10,10 +11,11 @@ import {InputType} from '~app/typings/input.types';
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent {
+export class InputComponent implements FormField {
   @Input() public type: InputType = 'text';
   @Input() public control = new FormControl();
-  @Input() public required = false;
+  // @Input() public required = false;
+  // @Input() public disabled = false;
   @Input() public color: ThemePalette;
   @Input() public appearance: MatFormFieldAppearance = 'standard';
   @Input() public extendClass = '';

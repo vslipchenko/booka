@@ -2,6 +2,12 @@
   <app-info-section icon="person_add" title="Регистрация" class="d-block pt-2-3"></app-info-section>
 
   <div class="p-2-3 d-flex f-column">
+    <app-select label="Аккаунт" [items]="accountTypes" appearance="outline" extendClass="w-100 mb-3" [hint]="hint">
+      <ng-template #hint>
+        <div class="pb-1"><a class="action-text" routerLink="/pricing">Подробнее</a></div>
+      </ng-template>
+    </app-select>
+
     <span (keyup.enter)="signUp()">
       <app-input type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
       <app-input #input type="password" appearance="outline" label="Пароль" extendClass="w-100" [suffix]="suffix">

@@ -29,6 +29,8 @@ import {ButtonComponent} from './components/buttons/button/button.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {InputHideSuffixComponent} from './components/input/suffixes/input-hide-suffix/input-hide-suffix.component';
+import {SelectComponent} from './components/select/select.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import {InputHideSuffixComponent} from './components/input/suffixes/input-hide-s
     ButtonComponent,
     CheckboxComponent,
     InputHideSuffixComponent,
+    SelectComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -64,6 +67,7 @@ import {InputHideSuffixComponent} from './components/input/suffixes/input-hide-s
     ButtonComponent,
     CheckboxComponent,
     InputHideSuffixComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +82,7 @@ import {InputHideSuffixComponent} from './components/input/suffixes/input-hide-s
     ReactiveFormsModule,
     MatInputModule,
     MatCheckboxModule,
+    MatSelectModule,
   ],
 })
 export class SharedModule {}
