@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, TemplateRef} from '@angular/core';
 import {FormField} from '~app/typings/form-field.interfaces';
-import {FormControl} from '@angular/forms';
+import {FormControl, ValidationErrors} from '@angular/forms';
 import {ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {SelectItem} from '~app/typings/select.interfaces';
@@ -19,6 +19,8 @@ export class SelectComponent implements FormField {
   @Input() public label = '';
   @Input() public items: Array<SelectItem> = [];
   @Input() public hint?: TemplateRef<unknown>;
+  @Input() public errorMessage?: (errors: ValidationErrors | null) => string | void;
+
   // @Input() public required = false;
   // @Input() public disabled = false;
 }

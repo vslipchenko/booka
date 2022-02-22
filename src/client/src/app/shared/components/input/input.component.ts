@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, TemplateRef} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormControl, ValidationErrors} from '@angular/forms';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {ThemePalette} from '@angular/material/core';
 import {InputType} from '~app/typings/input.types';
@@ -14,6 +14,7 @@ import {FormField} from '~app/typings/form-field.interfaces';
 export class InputComponent implements FormField {
   @Input() public type: InputType = 'text';
   @Input() public control = new FormControl();
+  @Input() public errorMessage?: (errors: ValidationErrors | null) => string | void;
   // @Input() public required = false;
   // @Input() public disabled = false;
   @Input() public color: ThemePalette;

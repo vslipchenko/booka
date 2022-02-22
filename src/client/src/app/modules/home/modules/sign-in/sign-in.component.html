@@ -11,9 +11,9 @@
       </app-input>
     </span>
 
-    <div class="d-flex jc-between mb-3">
-      <app-checkbox [control]="rememberMeControl" label="Запомнить меня"></app-checkbox>
-      <a routerLink="/recovery" class="action-text">Забыли пароль ?</a>
+    <div class="d-flex jc-between f-wrap mb-2">
+      <app-checkbox class="mb-2 mr-1" [control]="rememberMeControl" label="Запомнить меня"></app-checkbox>
+      <a routerLink="/recovery" class="action-text mb-2">Забыли пароль ?</a>
     </div>
 
     <app-flat-button (clicked)="signIn()" text="Войти" color="primary" extendClass="w-100"></app-flat-button>

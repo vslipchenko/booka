@@ -8,5 +8,5 @@
     <ng-container [ngTemplateOutlet]="suffix"></ng-container>
   </ng-container>
   <mat-hint>{{hint}}</mat-hint>
-  <mat-error *ngIf="control.invalid">Control error goes here...</mat-error>
+  <mat-error *ngIf="control.invalid && errorMessage">{{ errorMessage(control.errors) }}</mat-error>
 </mat-form-field>

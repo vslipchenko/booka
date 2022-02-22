@@ -2,10 +2,10 @@
 @use 'sass:map';
 
 /* font */
-$font-size-regular-small: 16px; // 1rem for mobile devices
+$font-size-regular-small: 14px; // 1rem for mobile devices
 $font-size-regular: 18px; // 1rem for devices > than mobile
-$font-size-medium: 1.25rem; // 16 - 20px, 18 - 22.5px
-$font-size-large: 1.5rem; // 16 - 24px, 18 - 27px
+$font-size-medium: 1.25rem; // 14 - 17.5px, 18 - 22.5px
+$font-size-large: 1.5rem; // 14 - 21px, 18 - 27px
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 
@@ -25,6 +25,7 @@ $unit: 8px;
 $unit-half: $unit * 0.5;
 $unit-2: $unit * 2;
 $unit-3: $unit * 3;
+$unit-4: $unit * 4;
 
 /* container */
 $container-max-width: 800px;

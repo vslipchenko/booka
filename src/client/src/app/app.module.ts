@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {TranslocoRootModule} from './transloco-root.module';
 import {GraphQLModule} from '~app/graphql/graphql.module';
+import {AuthenticationInterceptorProvider} from '~app/interceptors/authentication/authentication.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,7 @@ import {GraphQLModule} from '~app/graphql/graphql.module';
     HttpClientModule,
     TranslocoRootModule,
   ],
-  providers: [],
+  providers: [AuthenticationInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

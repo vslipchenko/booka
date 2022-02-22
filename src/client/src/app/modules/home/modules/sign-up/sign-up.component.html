@@ -2,22 +2,45 @@
   <app-info-section icon="person_add" title="Регистрация" class="d-block pt-2-3"></app-info-section>
 
   <div class="p-2-3 d-flex f-column">
-    <app-select [control]="account" label="Аккаунт" [items]="accountTypes" appearance="outline" extendClass="w-100 mb-3" [hint]="hint">
+    <app-select
+      [control]="account"
+      [errorMessage]="errorMessage"
+      label="Аккаунт"
+      [items]="accountTypes"
+      appearance="outline"
+      extendClass="w-100 mb-2"
+      [hint]="hint"
+    >
       <ng-template #hint>
         <div class="pb-1"><a class="action-text" routerLink="/pricing">Подробнее</a></div>
       </ng-template>
     </app-select>
 
     <span (keyup.enter)="signUp()">
-      <app-input type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
-      <app-input #input type="password" appearance="outline" label="Пароль" extendClass="w-100" [suffix]="suffix">
+      <app-input [control]="email" [errorMessage]="errorMessage" type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
+      <app-input
+        #input
+        [control]="password"
+        [errorMessage]="errorMessage"
+        type="password"
+        appearance="outline"
+        label="Пароль"
+        extendClass="w-100 mb-4"
+        hint="Пароль должен содержать не менее восьми знаков, включать цифры, латинские буквы и символы"
+        [suffix]="suffix"
+      >
         <ng-template #suffix>
           <app-input-hide-suffix [input]="input"></app-input-hide-suffix>
         </ng-template>
       </app-input>
     </span>
 
-    <app-flat-button (clicked)="signUp()" text="Зарегистрироваться" color="primary" extendClass="w-100"></app-flat-button>
+    <app-flat-button
+      (clicked)="signUp()"
+      text="Зарегистрироваться"
+      color="primary"
+      extendClass="w-100"
+    ></app-flat-button>
   </div>
 
   <div class="pt-2 bg-primary-light">

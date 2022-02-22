@@ -1,9 +1,10 @@
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {ThemePalette} from '@angular/material/core';
-import {FormControl} from '@angular/forms';
+import {AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
 
 export interface FormField {
-  control: FormControl;
+  control: FormControl | AbstractControl;
+  errorMessage?: (errors: ValidationErrors | null) => string | void;
   label: string;
   appearance: MatFormFieldAppearance;
   color: ThemePalette;

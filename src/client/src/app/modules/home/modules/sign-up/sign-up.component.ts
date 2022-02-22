@@ -1,11 +1,13 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {SelectItem} from '~app/typings/select.interfaces';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {Subject, take, takeUntil} from 'rxjs';
 import {AccountType} from '~app/typings/account-type.types';
 import {AccountTypes} from '~app/typings/account-type.enums';
 import {Destroyable} from '~app/typings/component.interfaces';
+import {AuthenticationService} from '~app/services/authentication/authentication.service';
+import {PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,9 +22,13 @@ export class SignUpComponent implements Destroyable {
     {title: 'Бизнес', value: AccountTypes.Business},
   ];
   public readonly destroy$ = new Subject<void>();
-  public readonly account = new FormControl();
 
-  public constructor(private readonly activatedRoute: ActivatedRoute) {
+  public readonly signUpForm = this.signUpFormGroup;
+
+  public constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly authenticationService: AuthenticationService,
+  ) {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.destroy$), take(1))
       .subscribe((params) => this.setAccountValue((params as {account: AccountType}).account));
@@ -34,8 +40,36 @@ export class SignUpComponent implements Destroyable {
   }
 
   public signUp(): void {
-    // ...
-    console.log('Sign up');
+    this.validateForm();
+
+    if (!this.signUpForm.valid) return;
+
+    this.authenticationService.signUp();
+  }
+
+  public errorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    switch (true) {
+      case 'required' in errors:
+        return 'Обязательное поле';
+      case 'email' in errors:
+        return 'Неверный формат';
+      case 'minlength' in errors:
+        return `Минимум ${PASSWORD_MIN_LENGTH} знаков`;
+      case 'maxlength' in errors:
+        return `Максимум ${PASSWORD_MAX_LENGTH} знаков`;
+      case 'pattern' in errors:
+        return 'Пароль должен содержать цифры и латинские буквы. Разрешены символы';
+    }
+  }
+
+  private validateForm(): void {
+    this.signUpForm.markAllAsTouched();
+
+    this.account.updateValueAndValidity();
+    this.email.updateValueAndValidity();
+    this.password.updateValueAndValidity();
   }
 
   private setAccountValue(type: AccountType): void {
@@ -50,5 +84,30 @@ export class SignUpComponent implements Destroyable {
         this.account.setValue(AccountTypes.Business);
         break;
     }
+  }
+
+  public get signUpFormGroup(): FormGroup {
+    return new FormGroup({
+      account: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(PASSWORD_MIN_LENGTH),
+        Validators.maxLength(PASSWORD_MAX_LENGTH),
+        Validators.pattern(PASSWORD_REGEXP),
+      ]),
+    });
+  }
+
+  public get account(): FormControl {
+    return this.signUpForm.controls['account'] as FormControl;
+  }
+
+  public get email(): FormControl {
+    return this.signUpForm.controls['email'] as FormControl;
+  }
+
+  public get password(): FormControl {
+    return this.signUpForm.controls['password'] as FormControl;
   }
 }
