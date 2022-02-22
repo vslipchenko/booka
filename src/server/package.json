@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "format": "npx prettier-eslint --write 'src/**/*.ts'",
-    "dev": "npx ts-node-dev src/index.ts",
+    "dev": "npx ts-node-dev src/index.ts --debug",
     "build": "npx tsc"
   },
   "repository": {

@@ -1,13 +1,14 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {SelectItem} from '~app/typings/select.interfaces';
-import {FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
-import {Subject, take, takeUntil} from 'rxjs';
+import {map, Observable, Subject, take, takeUntil} from 'rxjs';
 import {AccountType} from '~app/typings/account-type.types';
 import {AccountTypes} from '~app/typings/account-type.enums';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
 import {PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
+import {UserService} from '~app/services/user/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -28,6 +29,7 @@ export class SignUpComponent implements Destroyable {
   public constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly authenticationService: AuthenticationService,
+    private readonly userService: UserService,
   ) {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.destroy$), take(1))
@@ -40,6 +42,7 @@ export class SignUpComponent implements Destroyable {
   }
 
   public signUp(): void {
+    console.log('Sign up');
     this.validateForm();
 
     if (!this.signUpForm.valid) return;
@@ -61,7 +64,19 @@ export class SignUpComponent implements Destroyable {
         return `Максимум ${PASSWORD_MAX_LENGTH} знаков`;
       case 'pattern' in errors:
         return 'Пароль должен содержать цифры и латинские буквы. Разрешены символы';
+      case 'duplicateEmail' in errors:
+        return 'Пользователь с таким email уже существует';
     }
+  }
+
+  private duplicateEmailValidator(control: AbstractControl): Observable<null | ValidationErrors> {
+    const email = control.value;
+
+    return this.userService.checkExistenceByEmail(email).pipe(
+      map(({data}) => {
+        return data.userWithEmailExists.exists ? {duplicateEmail: true} : null;
+      }),
+    );
   }
 
   private validateForm(): void {
@@ -89,7 +104,7 @@ export class SignUpComponent implements Destroyable {
   public get signUpFormGroup(): FormGroup {
     return new FormGroup({
       account: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      email: new FormControl(null, [Validators.required, Validators.email], this.duplicateEmailValidator.bind(this)),
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(PASSWORD_MIN_LENGTH),
