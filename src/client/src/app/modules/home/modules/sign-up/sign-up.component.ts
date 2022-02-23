@@ -42,12 +42,12 @@ export class SignUpComponent implements Destroyable {
   }
 
   public signUp(): void {
-    console.log('Sign up');
+    console.log('Sign up', this.signUpForm.value);
     this.validateForm();
 
     if (!this.signUpForm.valid) return;
 
-    this.authenticationService.signUp();
+    this.userService.create(this.signUpForm.value);
   }
 
   public errorMessage(errors: ValidationErrors | null): string | void {
@@ -104,7 +104,11 @@ export class SignUpComponent implements Destroyable {
   public get signUpFormGroup(): FormGroup {
     return new FormGroup({
       account: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.required, Validators.email], this.duplicateEmailValidator.bind(this)),
+      email: new FormControl(null, {
+        validators: [Validators.required, Validators.email],
+        asyncValidators: this.duplicateEmailValidator.bind(this),
+        updateOn: 'blur', // Make API call on blur
+      }),
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(PASSWORD_MIN_LENGTH),

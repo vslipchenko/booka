@@ -2,6 +2,8 @@ import {Pool, QueryConfig, QueryResult} from 'pg';
 import {environment} from '../environments';
 import {UsersTable} from './tables/users';
 
+// PostgreSQL v14
+
 const {DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_PORT} = environment.variables;
 
 const pool = new Pool({

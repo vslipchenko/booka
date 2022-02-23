@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/vslipchenko/booka#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.15",
     "@types/pg": "^8.6.4",
@@ -33,7 +34,9 @@
   "dependencies": {
     "apollo-server-core": "^3.6.2",
     "apollo-server-fastify": "^3.6.2",
+    "bcrypt": "^5.0.1",
     "graphql": "^16.3.0",
+    "joi": "^17.6.0",
     "lodash": "^4.17.21",
     "pg": "^8.7.3"
   }

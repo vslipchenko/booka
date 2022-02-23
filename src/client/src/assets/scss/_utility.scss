@@ -82,7 +82,7 @@
 }
 
 .mb-4 {
-  margin-bottom: var.$unit-4; // use of !important might be a breaking issue; check sign-up page
+  margin-bottom: var.$unit-4 !important; // use of !important might be a breaking issue; check sign-up page
 }
 
 .ml-1 {

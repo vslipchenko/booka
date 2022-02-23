@@ -9,6 +9,4 @@ export class AuthenticationService {
   public getRefreshToken(): string | null {
     return sessionStorage.getItem('token') || localStorage.getItem('token');
   }
-
-  public signUp(): void {}
 }
