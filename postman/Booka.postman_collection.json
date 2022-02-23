@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "2f16ade8-8cad-450d-a91f-b0a2fb42213d",
+		"name": "Booka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($input: CreateUser!) {\r\n    createUser(input: $input) {\r\n        success\r\n    }\r\n}",
+								"variables": "{\r\n    \"input\": {\r\n        \"accountType\": 1,\r\n        \"email\": \"a@a.com\",\r\n        \"password\": \"client11\"\r\n    }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Email Exists",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($email: String!) {\r\n    userWithEmailExists(email: $email) {\r\n      exists\r\n    }\r\n}",
+								"variables": "{\r\n    \"email\": \"test@gmail.com\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

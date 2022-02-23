@@ -16,7 +16,7 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
 
   if (error) return null;
 
-  input.password = hashSync(input.password, 15);
+  input.password = hashSync(input.password, 10);
   // TODO add created_at timestamp
   const result = await db.query(userCreate(input));
 
