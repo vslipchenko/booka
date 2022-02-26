@@ -4,7 +4,7 @@ import {UsersTable} from './tables/users';
 
 // PostgreSQL v14
 
-const {DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_PORT} = environment.variables;
+const {DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOSTNAME, DB_PORT} = environment;
 
 const pool = new Pool({
   user: DB_USERNAME,
