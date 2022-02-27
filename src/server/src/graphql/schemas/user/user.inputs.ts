@@ -5,5 +5,6 @@ export const userInputs = gql`
     accountType: Int!
     email: String!
     password: String!
+    locale: Locale!
   }
 `;

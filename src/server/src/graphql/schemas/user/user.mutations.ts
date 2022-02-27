@@ -6,8 +6,9 @@ import {userCreate, userDeleteByEmail} from '../../../data/queries/user';
 import {hashSync} from 'bcrypt';
 import {v5 as uuidv5} from 'uuid';
 import {mailer} from '../../../mailer';
-import {EMAIL_FROM} from '../../../constants/email';
+import {EMAIL_CONFIRMATION_HTML, EMAIL_CONFIRMATION_SUBJECT, EMAIL_FROM} from '../../../constants/email';
 import {environment} from '../../../environments';
+import {imprint} from '../../../utilities/string';
 
 export const userMutationTypeDefinitions = gql`
   type Mutation {
@@ -37,10 +38,11 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
     await mailer.sendMail({
       from: EMAIL_FROM,
       to: input.email,
-      subject: 'Регистрация аккаунта', // TODO locale
-      html: `Для активации аккаунта, пожалуйста, перейдите по <a href="//localhost:4200/#/confirmation?key=${confirmationKey}">ссылке</a>.`,
+      subject: EMAIL_CONFIRMATION_SUBJECT[input.locale],
+      html: imprint(EMAIL_CONFIRMATION_HTML[input.locale], {confirmationKey}),
     });
-  } catch {
+  } catch (error) {
+    console.log(error, EMAIL_CONFIRMATION_HTML[input.locale]);
     await db.query(userDeleteByEmail(input.email));
 
     return {success: false};

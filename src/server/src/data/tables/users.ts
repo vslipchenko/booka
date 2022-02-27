@@ -8,7 +8,7 @@ export const UsersTable: Table = {
       account_type SMALLINT,
       confirmation_key CHAR (36),
       email VARCHAR (254) UNIQUE,
-      password VARCHAR (60),
+      password CHAR (60),
       blocked SMALLINT,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
     );

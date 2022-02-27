@@ -9,6 +9,7 @@ import {Destroyable} from '~app/typings/component.interfaces';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
 import {PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
 import {UserService} from '~app/services/user/user.service';
+import {TranslocoService} from '@ngneat/transloco';
 
 @Component({
   selector: 'app-sign-up',
@@ -30,6 +31,7 @@ export class SignUpComponent implements Destroyable {
     private readonly activatedRoute: ActivatedRoute,
     private readonly authenticationService: AuthenticationService,
     private readonly userService: UserService,
+    private readonly translocoService: TranslocoService,
   ) {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.destroy$), take(1))
@@ -47,7 +49,7 @@ export class SignUpComponent implements Destroyable {
 
     if (!this.signUpForm.valid) return;
 
-    this.userService.create(this.signUpForm.value);
+    this.userService.create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()});
   }
 
   public errorMessage(errors: ValidationErrors | null): string | void {
