@@ -49,7 +49,15 @@ export class SignUpComponent implements Destroyable {
 
     if (!this.signUpForm.valid) return;
 
-    this.userService.create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()});
+    this.userService
+      .create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()})
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        if (result.data?.createUser.success) {
+          /* Show success snackbar */
+        } // Регистрация прошла успешно.
+        // Else show error snackbar; Что-то пошло не так. Пожалуйста, проверьте правильность введенных данных или повторите попытку позже.
+      });
   }
 
   public emailErrorMessage(errors: ValidationErrors | null): string | void {

@@ -1,8 +1,13 @@
 import {AccountTypes} from '~app/typings/account-type.enums';
 import {Locale} from '~app/typings/i18n.types';
+import {ExistsResponse, SuccessResponse} from '~app/typings/response.interfaces';
 
-export interface UserWithEmailExists {
-  userWithEmailExists: {exists: boolean};
+export interface UserWithEmailExistsQueryResult {
+  userWithEmailExists: ExistsResponse;
+}
+
+export interface CreateUserMutationResult {
+  createUser: SuccessResponse;
 }
 
 export interface CreateUser {
