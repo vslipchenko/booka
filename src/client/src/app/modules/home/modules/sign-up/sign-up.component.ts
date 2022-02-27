@@ -7,7 +7,7 @@ import {AccountType} from '~app/typings/account-type.types';
 import {AccountTypes} from '~app/typings/account-type.enums';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
-import {PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
+import {EMAIL_REGEXP, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
 import {UserService} from '~app/services/user/user.service';
 import {TranslocoService} from '@ngneat/transloco';
 
@@ -52,14 +52,23 @@ export class SignUpComponent implements Destroyable {
     this.userService.create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()});
   }
 
+  public emailErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    switch (true) {
+      case 'required' in errors:
+        return this.requiredMessage;
+      case 'pattern' in errors:
+        return 'Неверный формат';
+    }
+  }
+
   public errorMessage(errors: ValidationErrors | null): string | void {
     if (!errors) return;
 
     switch (true) {
       case 'required' in errors:
-        return 'Обязательное поле';
-      case 'email' in errors:
-        return 'Неверный формат';
+        return this.requiredMessage;
       case 'minlength' in errors:
         return `Минимум ${PASSWORD_MIN_LENGTH} знаков`;
       case 'maxlength' in errors:
@@ -107,7 +116,7 @@ export class SignUpComponent implements Destroyable {
     return new FormGroup({
       account: new FormControl(null, Validators.required),
       email: new FormControl(null, {
-        validators: [Validators.required, Validators.email],
+        validators: [Validators.required, Validators.pattern(EMAIL_REGEXP)],
         asyncValidators: this.duplicateEmailValidator.bind(this),
         updateOn: 'blur', // Make API call on blur
       }),
@@ -130,5 +139,9 @@ export class SignUpComponent implements Destroyable {
 
   public get password(): FormControl {
     return this.signUpForm.controls['password'] as FormControl;
+  }
+
+  private get requiredMessage(): string {
+    return 'Обязательное поле';
   }
 }

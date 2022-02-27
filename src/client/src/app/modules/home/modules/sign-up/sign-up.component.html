@@ -17,7 +17,7 @@
     </app-select>
 
     <span (keyup.enter)="signUp()">
-      <app-input [control]="email" [errorMessage]="errorMessage" type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
+      <app-input [control]="email" [errorMessage]="emailErrorMessage" type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
       <app-input
         #input
         [control]="password"
