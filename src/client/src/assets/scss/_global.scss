@@ -1,5 +1,4 @@
 @use 'variables' as var;
-@use 'media';
 
 .action-text {
   color: var.$color-primary;
@@ -7,25 +6,4 @@
   cursor: pointer;
   width: max-content;
   height: max-content;
-}
-
-.mat-dialog-actions {
-  justify-content: flex-end;
-}
-
-.mat-form-field-invalid {
-  margin-bottom: var.$unit-2;
-}
-
-.mat-expansion-panel-header {
-  height: auto !important;
-  padding-bottom: var.$unit-2 !important;
-  padding-top: var.$unit-2 !important;
-}
-
-// Extend dialog width on small devices
-.cdk-overlay-pane {
-  @include media.zero-small {
-    max-width: calc(100vw - #{var.$unit-4}) !important;
-  }
 }

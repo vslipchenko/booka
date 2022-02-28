@@ -1,0 +1,9 @@
+@use 'variables' as var;
+@use 'media';
+
+// Extend dialog width on small devices
+.cdk-overlay-pane {
+  @include media.zero-small {
+    max-width: calc(100vw - #{var.$unit-4}) !important;
+  }
+}

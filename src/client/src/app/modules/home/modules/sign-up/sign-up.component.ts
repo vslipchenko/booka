@@ -88,13 +88,10 @@ export class SignUpComponent implements Destroyable {
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         if (result.data?.createUser.success) {
-          this.snackbarService.open('Регистрация прошла успешно.', 'ОК');
+          this.snackbarService.open('Регистрация прошла успешно.', 'OK');
         }
 
-        this.snackbarService.open(
-          'Что-то пошло не так. Пожалуйста, проверьте правильность введенных данных или повторите попытку позже/',
-          'ОК',
-        );
+        this.snackbarService.open('Что-то пошло не так. Проверьте введенные данные или повторите попытку позже.', 'OK');
       });
   }
 

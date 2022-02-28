@@ -1,0 +1,15 @@
+@use 'variables' as var;
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.mat-form-field-invalid {
+  margin-bottom: var.$unit-2;
+}
+
+.mat-expansion-panel-header {
+  height: auto !important;
+  padding-bottom: var.$unit-2 !important;
+  padding-top: var.$unit-2 !important;
+}
