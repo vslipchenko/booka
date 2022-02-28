@@ -4,7 +4,7 @@
   <div class="p-2-3 d-flex f-column">
     <app-select
       [control]="account"
-      [errorMessage]="errorMessage"
+      [errorMessage]="errorMessage.bind(this)"
       label="Аккаунт"
       [items]="accountTypes"
       appearance="outline"
@@ -17,11 +17,11 @@
     </app-select>
 
     <span (keyup.enter)="signUp()">
-      <app-input [control]="email" [errorMessage]="emailErrorMessage" type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
+      <app-input [control]="email" [errorMessage]="emailErrorMessage.bind(this)" type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
       <app-input
         #input
         [control]="password"
-        [errorMessage]="errorMessage"
+        [errorMessage]="errorMessage.bind(this)"
         type="password"
         appearance="outline"
         label="Пароль"

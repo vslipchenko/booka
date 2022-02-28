@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {TranslocoRootModule} from './transloco-root.module';
 import {GraphQLModule} from '~app/graphql/graphql.module';
 import {AuthenticationInterceptorProvider} from '~app/interceptors/authentication/authentication.interceptor';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import {AuthenticationInterceptorProvider} from '~app/interceptors/authenticatio
     BrowserAnimationsModule,
     HttpClientModule,
     TranslocoRootModule,
+    MatSnackBarModule,
   ],
   providers: [AuthenticationInterceptorProvider],
   bootstrap: [AppComponent],

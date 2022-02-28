@@ -10,6 +10,7 @@ import {AuthenticationService} from '~app/services/authentication/authentication
 import {EMAIL_REGEXP, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
 import {UserService} from '~app/services/user/user.service';
 import {TranslocoService} from '@ngneat/transloco';
+import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -32,6 +33,7 @@ export class SignUpComponent implements Destroyable {
     private readonly authenticationService: AuthenticationService,
     private readonly userService: UserService,
     private readonly translocoService: TranslocoService,
+    private readonly snackbarService: SnackbarService,
   ) {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.destroy$), take(1))
@@ -44,20 +46,9 @@ export class SignUpComponent implements Destroyable {
   }
 
   public signUp(): void {
-    console.log('Sign up', this.signUpForm.value);
     this.validateForm();
 
-    if (!this.signUpForm.valid) return;
-
-    this.userService
-      .create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()})
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((result) => {
-        if (result.data?.createUser.success) {
-          /* Show success snackbar */
-        } // Регистрация прошла успешно.
-        // Else show error snackbar; Что-то пошло не так. Пожалуйста, проверьте правильность введенных данных или повторите попытку позже.
-      });
+    setTimeout(this.createUser.bind(this));
   }
 
   public emailErrorMessage(errors: ValidationErrors | null): string | void {
@@ -86,6 +77,25 @@ export class SignUpComponent implements Destroyable {
       case 'duplicateEmail' in errors:
         return 'Пользователь с таким email уже существует';
     }
+  }
+
+  private createUser(): void {
+    // signUpForm.invalid prop values is always false for whatever reason
+    if (!this.signUpForm.valid) return;
+
+    this.userService
+      .create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()})
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        if (result.data?.createUser.success) {
+          this.snackbarService.open('Регистрация прошла успешно.', 'ОК');
+        }
+
+        this.snackbarService.open(
+          'Что-то пошло не так. Пожалуйста, проверьте правильность введенных данных или повторите попытку позже/',
+          'ОК',
+        );
+      });
   }
 
   private duplicateEmailValidator(control: AbstractControl): Observable<null | ValidationErrors> {
@@ -122,7 +132,7 @@ export class SignUpComponent implements Destroyable {
 
   public get signUpFormGroup(): FormGroup {
     return new FormGroup({
-      account: new FormControl(null, Validators.required),
+      accountType: new FormControl(null, Validators.required),
       email: new FormControl(null, {
         validators: [Validators.required, Validators.pattern(EMAIL_REGEXP)],
         asyncValidators: this.duplicateEmailValidator.bind(this),
@@ -138,7 +148,7 @@ export class SignUpComponent implements Destroyable {
   }
 
   public get account(): FormControl {
-    return this.signUpForm.controls['account'] as FormControl;
+    return this.signUpForm.controls['accountType'] as FormControl;
   }
 
   public get email(): FormControl {
