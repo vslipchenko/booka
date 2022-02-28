@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomepageModule} from '~app/modules/home/modules/homepage/homepage.module';
-import {HomeComponent} from '~app/modules/home/home.component';
 import {PricingPlansModule} from '~app/modules/home/modules/pricing-plans/pricing-plans.module';
 import {FaqModule} from '~app/modules/home/modules/faq/faq.module';
 import {HelpModule} from '~app/modules/home/modules/help/help.module';
@@ -11,11 +10,12 @@ import {SignInModule} from '~app/modules/home/modules/sign-in/sign-in.module';
 import {SignUpModule} from '~app/modules/home/modules/sign-up/sign-up.module';
 import {RecoveryModule} from '~app/modules/home/modules/recovery/recovery.module';
 import {ConfirmationModule} from '~app/modules/home/modules/confirmation/confirmation.module';
+import {MainComponent} from '~app/shared/components/layout/main/main.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: MainComponent,
     children: [
       {
         path: '',

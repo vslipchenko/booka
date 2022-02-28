@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subject, take, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {UUID_REGEXP} from '~app/constants/regexp';
@@ -13,7 +13,7 @@ import {UUID_REGEXP} from '~app/constants/regexp';
 export class ConfirmationComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
 
-  public constructor(private readonly activatedRoute: ActivatedRoute) {
+  public constructor(private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.destroy$), take(1))
       .subscribe((params) => this.activateAccount((params as {key: string}).key));
@@ -27,7 +27,12 @@ export class ConfirmationComponent implements Destroyable {
   private activateAccount(key: string): void {
     const isValidKey = UUID_REGEXP.test(key);
 
-    if (!isValidKey) return; // TODO redirect 404 page
+    if (!isValidKey) {
+      // Navigate 404 page
+      return void this.router.navigate(['**'], {
+        skipLocationChange: true,
+      });
+    }
 
     // TODO send API request
   }
