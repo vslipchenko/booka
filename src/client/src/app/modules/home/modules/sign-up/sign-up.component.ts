@@ -87,11 +87,16 @@ export class SignUpComponent implements Destroyable {
       .create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()})
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
-        if (result.data?.createUser.success) {
-          this.snackbarService.open('Регистрация прошла успешно.', 'OK');
+        if (!result.data?.createUser.success) {
+          // Fail
+          return this.snackbarService.open(
+            'Что-то пошло не так. Проверьте введенные данные или повторите попытку позже.',
+            'OK',
+          );
         }
-
-        this.snackbarService.open('Что-то пошло не так. Проверьте введенные данные или повторите попытку позже.', 'OK');
+        // Success
+        this.snackbarService.open('Письмо с подтверждением отправлено Вам на почту.', 'OK');
+        this.signUpForm.reset();
       });
   }
 
