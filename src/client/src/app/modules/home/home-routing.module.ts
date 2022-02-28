@@ -10,6 +10,7 @@ import {ServicesModule} from '~app/modules/home/modules/services/services.module
 import {SignInModule} from '~app/modules/home/modules/sign-in/sign-in.module';
 import {SignUpModule} from '~app/modules/home/modules/sign-up/sign-up.module';
 import {RecoveryModule} from '~app/modules/home/modules/recovery/recovery.module';
+import {ConfirmationModule} from '~app/modules/home/modules/confirmation/confirmation.module';
 
 const routes: Routes = [
   {
@@ -60,6 +61,11 @@ const routes: Routes = [
         path: 'feedback',
         loadChildren: (): Promise<FeedbackModule> =>
           import('~app/modules/home/modules/feedback/feedback.module').then((m) => m.FeedbackModule),
+      },
+      {
+        path: 'confirmation',
+        loadChildren: (): Promise<ConfirmationModule> =>
+          import('~app/modules/home/modules/confirmation/confirmation.module').then((m) => m.ConfirmationModule),
       },
     ],
   },
