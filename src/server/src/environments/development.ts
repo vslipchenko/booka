@@ -1,5 +1,5 @@
 export = {
-  DOMAIN: 'booka.ua',
+  APP_ORIGIN: 'http://localhost:4200',
   PORT: 4000,
   DB_NAME: 'booka',
   DB_USERNAME: 'postgres',

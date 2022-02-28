@@ -39,10 +39,9 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
       from: EMAIL_FROM,
       to: input.email,
       subject: EMAIL_CONFIRMATION_SUBJECT[input.locale],
-      html: imprint(EMAIL_CONFIRMATION_HTML[input.locale], {confirmationKey}),
+      html: imprint(EMAIL_CONFIRMATION_HTML[input.locale], {confirmationKey, appOrigin: environment.APP_ORIGIN}),
     });
-  } catch (error) {
-    console.log(error, EMAIL_CONFIRMATION_HTML[input.locale]);
+  } catch {
     await db.query(userDeleteByEmail(input.email));
 
     return {success: false};

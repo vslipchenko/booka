@@ -3,7 +3,7 @@ const isDevEnv = Boolean(process.env.TS_NODE_DEV); // As ts-node-dev is probably
 export const environment: {
   // name: 'development' | 'production';
   // isDevEnv: boolean;
-  DOMAIN: string;
+  APP_ORIGIN: string;
   PORT: number;
   DB_NAME: string;
   DB_USERNAME: string;

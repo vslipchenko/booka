@@ -7,6 +7,6 @@ export const EMAIL_CONFIRMATION_SUBJECT: Translations = {
   uk: 'Реєстрація акаунту',
 };
 export const EMAIL_CONFIRMATION_HTML: Translations = {
-  ru: 'Для активации аккаунта, пожалуйста, перейдите по <a href="//localhost:4200/#/confirmation?key={{confirmationKey}}">ссылке</a>',
-  uk: 'Для активації акаунту, будь ласка, перейдіть за <a href="//localhost:4200/#/confirmation?key={{confirmationKey}}">посиланням</a>',
+  ru: 'Для активации аккаунта, пожалуйста, перейдите по <a href="{{appOrigin}}/#/confirmation?key={{confirmationKey}}">ссылке</a>.',
+  uk: 'Для активації акаунту, будь ласка, перейдіть за <a href="{{appOrigin}}/#/confirmation?key={{confirmationKey}}">посиланням</a>.',
 };
