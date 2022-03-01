@@ -7,3 +7,11 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const CONFIRM_ACCOUNT = gql`
+  mutation ($key: String!) {
+    confirmAccount(key: $key) {
+      success
+    }
+  }
+`;

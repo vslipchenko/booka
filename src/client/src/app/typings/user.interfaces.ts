@@ -10,6 +10,10 @@ export interface CreateUserMutationResult {
   createUser: SuccessResponse;
 }
 
+export interface ConfirmAccountMutationResult {
+  confirmAccount: SuccessResponse;
+}
+
 export interface CreateUser {
   accountType: AccountTypes;
   email: string;

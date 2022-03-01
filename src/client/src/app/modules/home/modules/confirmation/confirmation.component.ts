@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subject, take, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {UUID_REGEXP} from '~app/constants/regexp';
+import {UserService} from '~app/services/user/user.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -13,10 +14,14 @@ import {UUID_REGEXP} from '~app/constants/regexp';
 export class ConfirmationComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
 
-  public constructor(private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
+  public constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router,
+    private readonly userService: UserService,
+  ) {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.destroy$), take(1))
-      .subscribe((params) => this.activateAccount((params as {key: string}).key));
+      .subscribe((params) => this.confirmAccount((params as {key: string}).key));
   }
 
   public ngOnDestroy(): void {
@@ -24,7 +29,7 @@ export class ConfirmationComponent implements Destroyable {
     this.destroy$.complete();
   }
 
-  private activateAccount(key: string): void {
+  private confirmAccount(key: string): void {
     const isValidKey = UUID_REGEXP.test(key);
 
     if (!isValidKey) {
@@ -34,6 +39,7 @@ export class ConfirmationComponent implements Destroyable {
       });
     }
 
-    // TODO send API request
+    this.userService.confirmAccount(key).pipe(takeUntil(this.destroy$)).subscribe(({data}) => {
+    });
   }
 }

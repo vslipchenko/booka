@@ -3,8 +3,13 @@ import {Apollo, MutationResult} from 'apollo-angular';
 import {USER_WITH_EMAIL_EXISTS} from '~app/graphql/user/user.queries';
 import {Observable} from 'rxjs';
 import {ApolloQueryResult} from '@apollo/client/core';
-import {CreateUser, CreateUserMutationResult, UserWithEmailExistsQueryResult} from '~app/typings/user.interfaces';
-import {CREATE_USER} from '~app/graphql/user/user.mutations';
+import {
+  ConfirmAccountMutationResult,
+  CreateUser,
+  CreateUserMutationResult,
+  UserWithEmailExistsQueryResult,
+} from '~app/typings/user.interfaces';
+import {CONFIRM_ACCOUNT, CREATE_USER} from '~app/graphql/user/user.mutations';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +21,13 @@ export class UserService {
     return this.apollo.mutate<CreateUserMutationResult>({
       mutation: CREATE_USER,
       variables: {input},
+    });
+  }
+
+  public confirmAccount(key: string): Observable<MutationResult<ConfirmAccountMutationResult>> {
+    return this.apollo.mutate<ConfirmAccountMutationResult>({
+      mutation: CONFIRM_ACCOUNT,
+      variables: {key},
     });
   }
 

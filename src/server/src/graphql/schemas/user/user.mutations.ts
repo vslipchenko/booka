@@ -1,8 +1,8 @@
 import {gql} from 'apollo-server-core';
 import {CreateUser} from '../../../typings/user.interfaces';
-import {createUserValidator} from './user.validators';
+import {confirmationKeyValidator, createUserValidator} from './user.validators';
 import {db} from '../../../data';
-import {userCreate, userDeleteByEmail} from '../../../data/queries/user';
+import {userConfirmAccount, userCreate, userDeleteByEmail} from '../../../data/queries/user';
 import {hashSync} from 'bcrypt';
 import {v5 as uuidv5} from 'uuid';
 import {mailer} from '../../../mailer';
@@ -13,6 +13,7 @@ import {imprint} from '../../../utilities/string';
 export const userMutationTypeDefinitions = gql`
   type Mutation {
     createUser(input: CreateUser!): Success
+    confirmAccount(key: String!): Success
   }
 `;
 
@@ -50,8 +51,19 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
   return {success: true};
 };
 
+const confirmAccount = async (_: unknown, {key}: {key: string}): Promise<{success: boolean} | null> => {
+  const {error} = confirmationKeyValidator.validate(key);
+
+  if (error) return null;
+
+  const result = await db.query(userConfirmAccount(key));
+
+  return {success: Boolean(result.rowCount)};
+};
+
 export const userMutationResolvers = {
   Mutation: {
     createUser,
+    confirmAccount,
   },
 };

@@ -29,3 +29,12 @@ export const userDeleteByEmail: QueryBuilder = (email: string) => ({
   `,
   values: [email],
 });
+
+export const userConfirmAccount: QueryBuilder = (key: string) => ({
+  text: `
+    UPDATE users
+    SET confirmation_key = NULL
+    WHERE confirmation_key = $1
+  `,
+  values: [key],
+});
