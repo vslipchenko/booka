@@ -45,7 +45,9 @@ export class ConfirmationComponent implements Destroyable {
       .confirmAccount(key)
       .pipe(
         takeUntil(this.destroy$),
-        finalize(() => this.loading$.next(false)),
+        finalize(() => {
+          this.loading$.next(false);
+        }),
       )
       .subscribe(({data}) => {
         if (data?.confirmAccount.success) this.success = true;

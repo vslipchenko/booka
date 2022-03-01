@@ -1,7 +1,20 @@
 <app-auth-page>
-  <app-info-section icon="how_to_reg" title="Подтверждение аккаунта" class="d-block pt-2-3"></app-info-section>
+  <app-info-section icon="how_to_reg" imageName="confirm" title="Подтверждение аккаунта"></app-info-section>
 
   <div class="p-2-3 d-flex f-column">
-    <app-progress-spinner *ngIf="loading$ | async" class="mx-auto"></app-progress-spinner>
+    <app-progress-spinner *ngIf="loading$ | async; else alert" class="mx-auto"></app-progress-spinner>
+
+    <ng-template #alert>
+      <app-alert *ngIf="success; else error" type="success">
+        Активация прошла успешно. Теперь Вы можете
+        <a class="action-text" routerLink="/sign-in">войти в аккаунт</a>.
+      </app-alert>
+
+      <ng-template #error>
+        <app-alert type="error">
+          Аккаунт уже активирован либо активационный код невалиден.
+        </app-alert>
+      </ng-template>
+    </ng-template>
   </div>
 </app-auth-page>
