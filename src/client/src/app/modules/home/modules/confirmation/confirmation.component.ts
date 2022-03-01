@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subject, take, takeUntil} from 'rxjs';
+import {BehaviorSubject, finalize, Subject, take, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {UUID_REGEXP} from '~app/constants/regexp';
 import {UserService} from '~app/services/user/user.service';
@@ -13,6 +13,8 @@ import {UserService} from '~app/services/user/user.service';
 })
 export class ConfirmationComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
+  public loading$ = new BehaviorSubject(true);
+  public success = false;
 
   public constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -39,7 +41,14 @@ export class ConfirmationComponent implements Destroyable {
       });
     }
 
-    this.userService.confirmAccount(key).pipe(takeUntil(this.destroy$)).subscribe(({data}) => {
-    });
+    this.userService
+      .confirmAccount(key)
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.loading$.next(false)),
+      )
+      .subscribe(({data}) => {
+        if (data?.confirmAccount.success) this.success = true;
+      });
   }
 }

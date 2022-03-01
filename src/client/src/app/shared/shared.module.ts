@@ -31,6 +31,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {InputHideSuffixComponent} from './components/input/suffixes/input-hide-suffix/input-hide-suffix.component';
 import {SelectComponent} from './components/select/select.component';
 import {MatSelectModule} from '@angular/material/select';
+import {ProgressSpinnerComponent} from './components/progress-spinner/progress-spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import {MatSelectModule} from '@angular/material/select';
     CheckboxComponent,
     InputHideSuffixComponent,
     SelectComponent,
+    ProgressSpinnerComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -68,6 +71,7 @@ import {MatSelectModule} from '@angular/material/select';
     CheckboxComponent,
     InputHideSuffixComponent,
     SelectComponent,
+    ProgressSpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -83,6 +87,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class SharedModule {}
