@@ -1,1 +1,1 @@
-export const JWT_ALGORITHM = 'ES256';
+export const JWT_ALGORITHM = 'HS256';

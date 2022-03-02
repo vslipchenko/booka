@@ -47,3 +47,12 @@ export const userResetPassword = (email: string, password: string): QueryConfig 
   `,
   values: [password, email],
 });
+
+export const userByEmail = (email: string): QueryConfig => ({
+  text: `
+    SELECT 1
+    FROM users
+    WHERE email = $1
+  `,
+  values: [email],
+});

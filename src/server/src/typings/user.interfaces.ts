@@ -17,3 +17,8 @@ export interface ResetPassword {
   password: string;
   key: string;
 }
+
+export interface SignIn {
+  email: string;
+  password: string;
+}
