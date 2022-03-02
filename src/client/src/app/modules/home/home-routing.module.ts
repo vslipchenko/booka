@@ -11,6 +11,7 @@ import {SignUpModule} from '~app/modules/home/modules/sign-up/sign-up.module';
 import {RecoveryModule} from '~app/modules/home/modules/recovery/recovery.module';
 import {ConfirmationModule} from '~app/modules/home/modules/confirmation/confirmation.module';
 import {MainComponent} from '~app/shared/components/layout/main/main.component';
+import {ResetModule} from '~app/modules/home/modules/reset/reset.module';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
         path: 'help',
         loadChildren: (): Promise<HelpModule> =>
           import('~app/modules/home/modules/help/help.module').then((m) => m.HelpModule),
+      },
+      {
+        path: 'reset',
+        loadChildren: (): Promise<ResetModule> =>
+          import('~app/modules/home/modules/reset/reset.module').then((m) => m.ResetModule),
       },
       {
         path: 'pricing',

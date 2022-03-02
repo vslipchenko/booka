@@ -18,6 +18,10 @@ export interface RecoverPasswordMutationResult {
   recoverPassword: SuccessResponse;
 }
 
+export interface ResetPasswordMutationResult {
+  resetPassword: SuccessResponse;
+}
+
 export interface CreateUser {
   accountType: AccountTypes;
   email: string;
@@ -28,4 +32,9 @@ export interface CreateUser {
 export interface RecoverPassword {
   email: string;
   locale: Locale;
+}
+
+export interface ResetPassword {
+  password: string;
+  key: string;
 }

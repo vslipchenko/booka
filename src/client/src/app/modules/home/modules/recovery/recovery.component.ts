@@ -15,7 +15,7 @@ import {Locale} from '~app/typings/i18n.types';
 })
 export class RecoveryComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
-  public readonly email = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEXP)]);
+  public readonly email = new FormControl(null, [Validators.required, Validators.pattern(EMAIL_REGEXP)]);
   public readonly loading$ = new BehaviorSubject<boolean>(false);
   public submitted = false;
   public success = false;

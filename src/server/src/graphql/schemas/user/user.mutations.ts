@@ -1,5 +1,5 @@
 import {gql} from 'apollo-server-core';
-import {CreateUser, RecoverPassword} from '../../../typings/user.interfaces';
+import {CreateUser, RecoverPassword, ResetPassword} from '../../../typings/user.interfaces';
 import {confirmationKeyValidator, createUserValidator, recoverPasswordValidator} from './user.validators';
 import {db} from '../../../data';
 import {
@@ -7,6 +7,7 @@ import {
   userConfirmAccount,
   userCreate,
   userDeleteByEmail,
+  userResetPassword,
 } from '../../../data/queries/user';
 import {hashSync} from 'bcrypt';
 import {v5 as uuidv5} from 'uuid';
@@ -22,12 +23,14 @@ import {environment} from '../../../environments';
 import {imprint} from '../../../utilities/string';
 import jwt from 'jsonwebtoken';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
+import {passwordValidator} from '../shared/shared.validators';
 
 export const userMutationTypeDefinitions = gql`
   type Mutation {
     createUser(input: CreateUser!): Success
     confirmAccount(key: String!): Success
     recoverPassword(input: RecoverPassword!): Success
+    resetPassword(input: ResetPassword!): Success
   }
 `;
 
@@ -103,10 +106,30 @@ const recoverPassword = async (_: unknown, {input}: {input: RecoverPassword}): P
   }
 };
 
+const resetPassword = async (_: unknown, {input}: {input: ResetPassword}): Promise<{success: boolean} | null> => {
+  // Validate key with the use of jwt lib instead
+  const {error} = passwordValidator.validate(input.password);
+
+  if (error) return null;
+
+  try {
+    const data = jwt.verify(input.key, environment.RECOVERY_SECRET, {algorithms: [JWT_ALGORITHM]}) as {email: string};
+
+    input.password = hashSync(input.password, 10);
+
+    const result = await db.query(userResetPassword(data.email, input.password));
+
+    return {success: Boolean(result.rowCount)};
+  } catch {
+    return {success: false};
+  }
+};
+
 export const userMutationResolvers = {
   Mutation: {
     createUser,
     confirmAccount,
     recoverPassword,
+    resetPassword,
   },
 };

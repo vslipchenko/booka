@@ -12,4 +12,9 @@ export const userInputs = gql`
     email: String!
     locale: Locale!
   }
+
+  input ResetPassword {
+    password: String!
+    key: String!
+  }
 `;

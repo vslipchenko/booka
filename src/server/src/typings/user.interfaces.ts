@@ -12,3 +12,8 @@ export interface RecoverPassword {
   email: string;
   locale: Locale;
 }
+
+export interface ResetPassword {
+  password: string;
+  key: string;
+}
