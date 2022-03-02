@@ -29,6 +29,7 @@ export class ConfirmationComponent implements Destroyable {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.loading$.complete();
   }
 
   private confirmAccount(key: string): void {

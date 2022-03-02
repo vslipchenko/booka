@@ -25,6 +25,7 @@ export class RecoveryComponent implements Destroyable {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.loading$.complete();
   }
 
   public recoverPassword(): void {
