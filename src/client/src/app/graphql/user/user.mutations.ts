@@ -15,3 +15,11 @@ export const CONFIRM_ACCOUNT = gql`
     }
   }
 `;
+
+export const RECOVER_PASSWORD = gql`
+  mutation ($input: RecoverPassword!) {
+    recoverPassword(input: $input) {
+      success
+    }
+  }
+`;

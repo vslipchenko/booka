@@ -1,4 +1,11 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {UserService} from '~app/services/user/user.service';
+import {FormControl, ValidationErrors, Validators} from '@angular/forms';
+import {EMAIL_REGEXP} from '~app/constants/regexp';
+import {Subject, takeUntil} from 'rxjs';
+import {Destroyable} from '~app/typings/component.interfaces';
+import {TranslocoService} from '@ngneat/transloco';
+import {Locale} from '~app/typings/i18n.types';
 
 @Component({
   selector: 'app-recovery',
@@ -6,4 +13,34 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   styleUrls: ['./recovery.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecoveryComponent {}
+export class RecoveryComponent implements Destroyable {
+  public readonly destroy$ = new Subject<void>();
+  public readonly email = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEXP)]);
+
+  public constructor(private readonly userService: UserService, private readonly translocoService: TranslocoService) {}
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public recoverPassword(): void {
+    this.email.markAsTouched();
+    this.email.updateValueAndValidity();
+
+    if (!this.email.valid) return;
+
+    this.userService
+      .recoverPassword({email: this.email.value, locale: this.translocoService.getActiveLang() as Locale})
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+  }
+
+  public errorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('required' in errors) return 'Обязательное поле';
+
+    return 'Неверный формат';
+  }
+}

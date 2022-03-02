@@ -7,4 +7,9 @@ export const userInputs = gql`
     password: String!
     locale: Locale!
   }
+
+  input RecoverPassword {
+    email: String!
+    locale: Locale!
+  }
 `;

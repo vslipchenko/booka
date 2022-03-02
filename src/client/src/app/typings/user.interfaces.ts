@@ -14,9 +14,18 @@ export interface ConfirmAccountMutationResult {
   confirmAccount: SuccessResponse;
 }
 
+export interface RecoverPasswordMutationResult {
+  recoverPassword: SuccessResponse;
+}
+
 export interface CreateUser {
   accountType: AccountTypes;
   email: string;
   password: string;
+  locale: Locale;
+}
+
+export interface RecoverPassword {
+  email: string;
   locale: Locale;
 }

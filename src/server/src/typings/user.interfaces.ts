@@ -7,3 +7,8 @@ export interface CreateUser {
   password: string;
   locale: Locale;
 }
+
+export interface RecoverPassword {
+  email: string;
+  locale: Locale;
+}

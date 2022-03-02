@@ -7,9 +7,10 @@ import {
   ConfirmAccountMutationResult,
   CreateUser,
   CreateUserMutationResult,
+  RecoverPassword, RecoverPasswordMutationResult,
   UserWithEmailExistsQueryResult,
 } from '~app/typings/user.interfaces';
-import {CONFIRM_ACCOUNT, CREATE_USER} from '~app/graphql/user/user.mutations';
+import {CONFIRM_ACCOUNT, CREATE_USER, RECOVER_PASSWORD} from '~app/graphql/user/user.mutations';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,13 @@ export class UserService {
     return this.apollo.mutate<ConfirmAccountMutationResult>({
       mutation: CONFIRM_ACCOUNT,
       variables: {key},
+    });
+  }
+
+  public recoverPassword(input: RecoverPassword): Observable<MutationResult<RecoverPasswordMutationResult>> {
+    return this.apollo.mutate<RecoverPasswordMutationResult>({
+      mutation: RECOVER_PASSWORD,
+      variables: {input},
     });
   }
 

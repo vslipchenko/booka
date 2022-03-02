@@ -1,1 +1,9 @@
-<p>recovery works!</p>
+<app-auth-page>
+  <app-info-section icon="lock_reset" imageName="auth" title="Восстановление пароля"></app-info-section>
+
+  <div class="p-2-3">
+    <app-input type="email" [control]="email" appearance="outline" label="Email" hint="На этот email вам придет письмо с подтверждением" [errorMessage]="errorMessage" extendClass="mb-2 w-100"></app-input>
+
+    <app-flat-button (clicked)="recoverPassword()" text="Продолжить" color="primary" extendClass="w-100"></app-flat-button>
+  </div>
+</app-auth-page>
