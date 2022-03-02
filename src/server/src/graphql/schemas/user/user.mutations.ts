@@ -2,7 +2,12 @@ import {gql} from 'apollo-server-core';
 import {CreateUser, RecoverPassword} from '../../../typings/user.interfaces';
 import {confirmationKeyValidator, createUserValidator, recoverPasswordValidator} from './user.validators';
 import {db} from '../../../data';
-import {userCheckExistenceByEmail, userConfirmAccount, userCreate, userDeleteByEmail} from '../../../data/queries/user';
+import {
+  userCheckExistenceByEmail,
+  userConfirmAccount,
+  userCreate,
+  userDeleteByEmail,
+} from '../../../data/queries/user';
 import {hashSync} from 'bcrypt';
 import {v5 as uuidv5} from 'uuid';
 import {mailer} from '../../../mailer';
@@ -15,6 +20,8 @@ import {
 } from '../../../constants/email';
 import {environment} from '../../../environments';
 import {imprint} from '../../../utilities/string';
+import jwt from 'jsonwebtoken';
+import {JWT_ALGORITHM} from '../../../constants/jwt';
 
 export const userMutationTypeDefinitions = gql`
   type Mutation {
@@ -77,7 +84,10 @@ const recoverPassword = async (_: unknown, {input}: {input: RecoverPassword}): P
 
   if (!result.rowCount) return {success: false};
 
-  const resetKey = ''; // TODO token with 10 min expiration
+  const resetKey = jwt.sign({email: input.email}, environment.RECOVERY_SECRET, {
+    algorithm: JWT_ALGORITHM,
+    expiresIn: environment.RECOVERY_KEY_EXPIRES_IN,
+  });
 
   try {
     await mailer.sendMail({

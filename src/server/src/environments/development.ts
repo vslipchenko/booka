@@ -10,4 +10,7 @@ export = {
   MAIL_SERVICE: 'gmail',
   MAIL_USERNAME: 'mail.booka.ua@gmail.com',
   MAIL_PASSWORD: 'RmdUKaxew5',
+  // https://cloud.google.com/iot/docs/how-tos/credentials/keys#generating_an_elliptic_curve_keys
+  RECOVERY_SECRET: `-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIPKgLlAWUcq9j+T6us94dIbSFUaT7ZmWX4RAyMCLIOODoAoGCCqGSM49\nAwEHoUQDQgAEX11zG4en+hNZpxjR5wbCF+lQZ1AFUE/AxoAl6orJ3/1L8E1O1/BB\nswGjWWWEBzw8rPSHNfSDueliWtkD3WgV5Q==\n-----END EC PRIVATE KEY-----`,
+  RECOVERY_KEY_EXPIRES_IN: '30m',
 };

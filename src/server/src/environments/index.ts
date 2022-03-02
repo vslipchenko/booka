@@ -14,5 +14,7 @@ export const environment: {
   MAIL_SERVICE: string;
   MAIL_USERNAME: string;
   MAIL_PASSWORD: string;
+  RECOVERY_SECRET: string;
+  RECOVERY_KEY_EXPIRES_IN: string;
   // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require(`./${isDevEnv ? 'development' : 'production'}.ts`);
