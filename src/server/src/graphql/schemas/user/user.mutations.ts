@@ -24,6 +24,7 @@ import {imprint} from '../../../utilities/string';
 import jwt from 'jsonwebtoken';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {passwordValidator} from '../shared/shared.validators';
+import {randomBytes} from 'crypto';
 
 export const userMutationTypeDefinitions = gql`
   type Mutation {
@@ -42,11 +43,13 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
   input.password = hashSync(input.password, 10);
 
   const confirmationKey = uuidv5(input.email, environment.UUID_BASE);
+  const accessKey = randomBytes(18).toString('base64'); // Produces string of 24 char length
 
   const result = await db.query(
     userCreate({
       ...input,
       confirmationKey,
+      accessKey,
     }),
   );
 

@@ -14,13 +14,14 @@ export const userCreate = ({
   accountType,
   email,
   password,
+  accessKey,
   confirmationKey,
-}: CreateUser & {confirmationKey: string}): QueryConfig => ({
+}: CreateUser & {accessKey: string; confirmationKey: string}): QueryConfig => ({
   text: `
-    INSERT INTO users (account_type, email, password, confirmation_key)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO users (account_type, email, password, access_key, confirmation_key)
+    VALUES ($1, $2, $3, $4, $5)
   `,
-  values: [accountType, email, password, confirmationKey],
+  values: [accountType, email, password, accessKey, confirmationKey],
 });
 
 export const userDeleteByEmail = (email: string): QueryConfig => ({

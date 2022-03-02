@@ -6,10 +6,10 @@ export const UsersTable: Table = {
     CREATE TABLE IF NOT EXISTS users (
       id BIGSERIAL PRIMARY KEY,
       account_type SMALLINT,
+      access_key CHAR (24),
       confirmation_key CHAR (36),
       email VARCHAR (254) UNIQUE,
       password CHAR (60),
-      blocked SMALLINT,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
     );
   `,
