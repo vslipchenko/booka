@@ -2,8 +2,28 @@
   <app-info-section icon="lock_reset" imageName="auth" title="Восстановление пароля"></app-info-section>
 
   <div class="p-2-3">
-    <app-input type="email" [control]="email" appearance="outline" label="Email" hint="На этот email вам придет письмо с подтверждением" [errorMessage]="errorMessage" extendClass="mb-2 w-100"></app-input>
+    <app-progress-spinner *ngIf="loading$ | async; else main" class="d-flex jc-center"></app-progress-spinner>
 
-    <app-flat-button (clicked)="recoverPassword()" text="Продолжить" color="primary" extendClass="w-100"></app-flat-button>
+    <ng-template #main>
+      <ng-container *ngIf="submitted; else recovery">
+        <ng-container *ngIf="success; else error">
+          <app-alert type="success">
+            Письмо с подтверждением для сброса пароля отправлено вам на почту.
+          </app-alert>
+        </ng-container>
+
+        <ng-template #error>
+          <app-alert type="error">
+            Что-то пошло не так. Проверьте правильность email либо повторите попытку позже. <span class="action-text" (click)="submitted = false">Вернуться</span>
+          </app-alert>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #recovery>
+        <app-input type="email" [control]="email" appearance="outline" label="Email" hint="На этот email вам придет письмо с подтверждением" [errorMessage]="errorMessage" extendClass="mb-2 w-100"></app-input>
+
+        <app-flat-button (clicked)="recoverPassword()" text="Продолжить" color="primary" extendClass="w-100"></app-flat-button>
+      </ng-template>
+    </ng-template>
   </div>
 </app-auth-page>

@@ -1,8 +1,8 @@
 <app-auth-page>
   <app-info-section icon="how_to_reg" imageName="confirm" title="Активация аккаунта"></app-info-section>
 
-  <div class="p-2-3 d-flex f-column">
-    <app-progress-spinner *ngIf="loading$ | async; else alert" class="mx-auto"></app-progress-spinner>
+  <div class="p-2-3">
+    <app-progress-spinner *ngIf="loading$ | async; else alert" class="d-flex jc-center"></app-progress-spinner>
 
     <ng-template #alert>
       <app-alert *ngIf="success; else error" type="success">
