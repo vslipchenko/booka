@@ -1,7 +1,9 @@
 <app-auth-page>
   <app-info-section icon="person_add" title="Регистрация" class="d-block pt-2-3"></app-info-section>
 
-  <div class="p-2-3 d-flex f-column">
+  <div class="p-2-3 d-flex f-column relative">
+    <app-progress-spinner *ngIf="loading$ | async" class="overlay"></app-progress-spinner>
+
     <app-select
       [control]="account"
       [errorMessage]="errorMessage.bind(this)"

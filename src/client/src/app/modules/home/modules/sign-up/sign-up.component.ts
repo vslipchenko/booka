@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {SelectItem} from '~app/typings/select.interfaces';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
-import {map, Observable, Subject, take, takeUntil} from 'rxjs';
+import {BehaviorSubject, finalize, map, Observable, Subject, take, takeUntil} from 'rxjs';
 import {AccountType} from '~app/typings/account-type.types';
 import {AccountTypes} from '~app/typings/account-type.enums';
 import {Destroyable} from '~app/typings/component.interfaces';
@@ -25,6 +25,7 @@ export class SignUpComponent implements Destroyable {
     {title: 'Бизнес', value: AccountTypes.Business},
   ];
   public readonly destroy$ = new Subject<void>();
+  public readonly loading$ = new BehaviorSubject(false);
 
   public readonly signUpForm = this.signUpFormGroup;
 
@@ -43,6 +44,7 @@ export class SignUpComponent implements Destroyable {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.loading$.complete();
   }
 
   public signUp(): void {
@@ -59,6 +61,8 @@ export class SignUpComponent implements Destroyable {
         return this.requiredMessage;
       case 'pattern' in errors:
         return 'Неверный формат';
+      case 'duplicateEmail' in errors:
+        return 'Пользователь с таким email уже существует';
     }
   }
 
@@ -74,8 +78,6 @@ export class SignUpComponent implements Destroyable {
         return `Максимум ${PASSWORD_MAX_LENGTH} знаков`;
       case 'pattern' in errors:
         return 'Пароль должен содержать цифры и латинские буквы. Разрешены символы';
-      case 'duplicateEmail' in errors:
-        return 'Пользователь с таким email уже существует';
     }
   }
 
@@ -83,9 +85,14 @@ export class SignUpComponent implements Destroyable {
     // signUpForm.invalid prop values is always false for whatever reason
     if (!this.signUpForm.valid) return;
 
+    this.loading$.next(true);
+
     this.userService
       .create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()})
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.loading$.next(false)),
+      )
       .subscribe((result) => {
         if (!result.data?.createUser.success) {
           // Fail
