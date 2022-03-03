@@ -1,20 +1,18 @@
 <app-auth-page>
   <app-info-section icon="how_to_reg" imageName="confirm" title="Активация аккаунта"></app-info-section>
 
-  <div class="p-2-3">
-    <app-progress-spinner *ngIf="loading$ | async; else alert" class="d-flex jc-center"></app-progress-spinner>
+  <div class="p-2-3 relative">
+    <app-progress-spinner *ngIf="loading$ | async" class="overlay"></app-progress-spinner>
 
-    <ng-template #alert>
-      <app-alert *ngIf="success; else error" type="success">
-        Активация прошла успешно. Теперь Вы можете
-        <a class="action-text" routerLink="/sign-in">войти в аккаунт</a>.
+    <app-alert *ngIf="success; else error" type="success">
+      Активация прошла успешно. Теперь Вы можете
+      <a class="action-text" routerLink="/sign-in">войти в аккаунт</a>.
+    </app-alert>
+
+    <ng-template #error>
+      <app-alert type="error">
+        Аккаунт уже активирован либо активационный код невалиден.
       </app-alert>
-
-      <ng-template #error>
-        <app-alert type="error">
-          Аккаунт уже активирован либо активационный код невалиден.
-        </app-alert>
-      </ng-template>
     </ng-template>
   </div>
 </app-auth-page>

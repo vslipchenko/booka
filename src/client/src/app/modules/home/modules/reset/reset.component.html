@@ -1,43 +1,46 @@
 <app-auth-page>
   <app-info-section icon="lock_reset" imageName="auth" title="Сброс пароля"></app-info-section>
 
-  <div class="p-2-3">
-    <app-progress-spinner *ngIf="loading$ | async; else main" class="d-flex jc-center"></app-progress-spinner>
+  <div class="p-2-3 relative">
+    <app-progress-spinner *ngIf="loading$ | async" class="overlay"></app-progress-spinner>
 
-    <ng-template #main>
-      <ng-container *ngIf="submitted; else reset">
-        <ng-container *ngIf="success; else error">
-          <app-alert type="success">
-            Новый пароль успешно установлен. <a class="action-text" routerLink="/sign-in">Войти</a>
-          </app-alert>
-        </ng-container>
-
-        <ng-template #error>
-          <app-alert type="error">
-            Что-то пошло не так. Возможно, ссылка уже устарела. Повторите попытку позже.
-          </app-alert>
-        </ng-template>
+    <ng-container *ngIf="submitted; else reset">
+      <ng-container *ngIf="success; else error">
+        <app-alert type="success">
+          Новый пароль успешно установлен. <a class="action-text" routerLink="/sign-in">Войти</a>
+        </app-alert>
       </ng-container>
 
-      <ng-template #reset>
-        <app-input
-          #input
-          [control]="password"
-          [errorMessage]="errorMessage.bind(this)"
-          type="password"
-          appearance="outline"
-          label="Новый пароль"
-          extendClass="w-100 mb-4"
-          hint="Пароль должен содержать не менее восьми знаков, включать цифры, латинские буквы и символы"
-          [suffix]="suffix"
-        >
-          <ng-template #suffix>
-            <app-input-hide-suffix [input]="input"></app-input-hide-suffix>
-          </ng-template>
-        </app-input>
-
-        <app-flat-button (clicked)="resetPassword()" text="Продолжить" color="primary" extendClass="w-100"></app-flat-button>
+      <ng-template #error>
+        <app-alert type="error">
+          Что-то пошло не так. Возможно, ссылка уже устарела. Повторите попытку позже.
+        </app-alert>
       </ng-template>
+    </ng-container>
+
+    <ng-template #reset>
+      <app-input
+        #input
+        [control]="password"
+        [errorMessage]="errorMessage.bind(this)"
+        type="password"
+        appearance="outline"
+        label="Новый пароль"
+        extendClass="w-100 mb-4"
+        hint="Пароль должен содержать не менее восьми знаков, включать цифры, латинские буквы и символы"
+        [suffix]="suffix"
+      >
+        <ng-template #suffix>
+          <app-input-hide-suffix [input]="input"></app-input-hide-suffix>
+        </ng-template>
+      </app-input>
+
+      <app-flat-button
+        (clicked)="resetPassword()"
+        text="Продолжить"
+        color="primary"
+        extendClass="w-100"
+      ></app-flat-button>
     </ng-template>
   </div>
 </app-auth-page>
