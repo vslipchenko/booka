@@ -17,7 +17,7 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "mutation ($input: CreateUser!) {\r\n    createUser(input: $input) {\r\n        success\r\n    }\r\n}",
-								"variables": "{\r\n    \"input\": {\r\n        \"accountType\": 1,\r\n        \"email\": \"a@a.com\",\r\n        \"password\": \"client11\"\r\n    }\r\n}"
+								"variables": "{\r\n    \"input\": {\r\n        \"accountType\": 1,\r\n        \"email\": \"this.quo@gmail.com\",\r\n        \"password\": \"client11\",\r\n        \"locale\": \"uk\"\r\n    }\r\n}"
 							}
 						},
 						"url": {
@@ -39,6 +39,48 @@
 							"graphql": {
 								"query": "query ($email: String!) {\r\n    userWithEmailExists(email: $email) {\r\n      exists\r\n    }\r\n}",
 								"variables": "{\r\n    \"email\": \"test@gmail.com\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($key: String!) {\r\n    confirmAccount(key: $key) {\r\n      success\r\n    }\r\n}",
+								"variables": "{\r\n    \"key\": \"bb497255-5407-5552-9d63-9e7f1ad873a1\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recover Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($input: RecoverPassword!) {\r\n    recoverPassword(input: $input) {\r\n      success\r\n    }\r\n}",
+								"variables": "{\r\n    \"input\": {\r\n        \"email\": \"this.quo@gmail.com\",\r\n        \"locale\": \"ru\"\r\n    }\r\n}"
 							}
 						},
 						"url": {
