@@ -1,10 +1,28 @@
 <app-auth-page>
   <app-info-section icon="login" title="Вход" class="d-block pt-2-3"></app-info-section>
 
-  <div class="p-2-3 d-flex f-column">
+  <div class="p-2-3 d-flex f-column relative">
+    <app-progress-spinner *ngIf="loading$ | async" class="overlay"></app-progress-spinner>
+
     <span (keyup.enter)="signIn()">
-      <app-input type="email" appearance="outline" label="Email" extendClass="w-100"></app-input>
-      <app-input #input type="password" appearance="outline" label="Пароль" extendClass="w-100" [suffix]="suffix">
+      <app-input
+        type="email"
+        appearance="outline"
+        label="Email"
+        extendClass="w-100"
+        [control]="email"
+        [errorMessage]="errorMessage"
+      ></app-input>
+      <app-input
+        #input
+        type="password"
+        appearance="outline"
+        label="Пароль"
+        extendClass="w-100"
+        [suffix]="suffix"
+        [control]="password"
+        [errorMessage]="errorMessage"
+      >
         <ng-template #suffix>
           <app-input-hide-suffix [input]="input"></app-input-hide-suffix>
         </ng-template>
@@ -12,7 +30,7 @@
     </span>
 
     <div class="d-flex jc-between f-wrap mb-2">
-      <app-checkbox class="mb-2 mr-1" [control]="rememberMeControl" label="Запомнить меня"></app-checkbox>
+      <app-checkbox class="mb-2 mr-1" [control]="rememberMe" label="Запомнить меня"></app-checkbox>
       <a routerLink="/recovery" class="action-text mb-2">Забыли пароль ?</a>
     </div>
 

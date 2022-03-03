@@ -2,6 +2,7 @@ import {Table} from '../../typings/data';
 
 export const UsersTable: Table = {
   name: 'users',
+  // access_key is used in order to bring diversity to tokens being used;
   query: `
     CREATE TABLE IF NOT EXISTS users (
       id BIGSERIAL PRIMARY KEY,

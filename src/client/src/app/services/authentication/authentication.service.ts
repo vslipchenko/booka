@@ -1,4 +1,9 @@
 import {Injectable} from '@angular/core';
+import {Apollo} from 'apollo-angular';
+import {SIGN_IN} from '~app/graphql/authentication/authentication.queries';
+import {Observable} from 'rxjs';
+import {ApolloQueryResult} from '@apollo/client/core';
+import {SignIn, SignInQueryResult} from '~app/typings/authentication.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -6,7 +11,21 @@ import {Injectable} from '@angular/core';
 export class AuthenticationService {
   public accessToken = '';
 
+  public constructor(private readonly apollo: Apollo) {}
+
+  public signIn(input: SignIn): Observable<ApolloQueryResult<SignInQueryResult>> {
+    return this.apollo.query<SignInQueryResult>({
+      query: SIGN_IN,
+      variables: {input},
+    });
+  }
+
   public getRefreshToken(): string | null {
     return sessionStorage.getItem('token') || localStorage.getItem('token');
+  }
+
+  public setRefreshToken(token: string, session: boolean): void {
+    if (session) return sessionStorage.setItem('token', token);
+    localStorage.setItem('token', token);
   }
 }

@@ -96,10 +96,11 @@ export class SignUpComponent implements Destroyable {
       .subscribe((result) => {
         if (!result.data?.createUser.success) {
           // Fail
-          return this.snackbarService.open(
+          this.snackbarService.open(
             'Что-то пошло не так. Проверьте введенные данные или повторите попытку позже.',
             'OK',
           );
+          return;
         }
         // Success
         this.snackbarService.open('Письмо с подтверждением отправлено Вам на почту.', 'OK');

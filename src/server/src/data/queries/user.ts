@@ -49,9 +49,9 @@ export const userResetPassword = (email: string, password: string): QueryConfig 
   values: [password, email],
 });
 
-export const userByEmail = (email: string): QueryConfig => ({
+export const userSignIn = (email: string): QueryConfig => ({
   text: `
-    SELECT 1
+    SELECT id, password, access_key, confirmation_key
     FROM users
     WHERE email = $1
   `,

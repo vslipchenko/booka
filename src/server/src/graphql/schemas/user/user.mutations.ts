@@ -21,7 +21,7 @@ import {
 } from '../../../constants/email';
 import {environment} from '../../../environments';
 import {imprint} from '../../../utilities/string';
-import jwt from 'jsonwebtoken';
+import {sign, verify} from 'jsonwebtoken';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {passwordValidator} from '../shared/shared.validators';
 import {randomBytes} from 'crypto';
@@ -90,7 +90,7 @@ const recoverPassword = async (_: unknown, {input}: {input: RecoverPassword}): P
 
   if (!result.rowCount) return {success: false};
 
-  const resetKey = jwt.sign({email: input.email}, environment.RECOVERY_SECRET, {
+  const resetKey = sign({email: input.email}, environment.RECOVERY_SECRET, {
     algorithm: JWT_ALGORITHM,
     expiresIn: environment.RECOVERY_KEY_EXPIRES_IN,
   });
@@ -116,7 +116,7 @@ const resetPassword = async (_: unknown, {input}: {input: ResetPassword}): Promi
   if (error) return null;
 
   try {
-    const data = jwt.verify(input.key, environment.RECOVERY_SECRET, {algorithms: [JWT_ALGORITHM]}) as {email: string};
+    const data = verify(input.key, environment.RECOVERY_SECRET, {algorithms: [JWT_ALGORITHM]}) as {email: string};
 
     input.password = hashSync(input.password, 10);
 

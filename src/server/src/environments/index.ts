@@ -14,6 +14,10 @@ export const environment: {
   MAIL_SERVICE: string;
   MAIL_USERNAME: string;
   MAIL_PASSWORD: string;
+  ACCESS_TOKEN_EXPIRES_IN: string;
+  REFRESH_TOKEN_EXPIRES_IN: string;
+  ACCESS_TOKEN_SECRET: string;
+  REFRESH_TOKEN_SECRET: string;
   RECOVERY_SECRET: string;
   RECOVERY_KEY_EXPIRES_IN: string;
   // eslint-disable-next-line @typescript-eslint/no-var-requires
