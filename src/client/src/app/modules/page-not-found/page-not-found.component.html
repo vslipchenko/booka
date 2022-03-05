@@ -1,3 +1,11 @@
-<app-info-section imageName="404" icon="broken_image" title="404: Страница не найдена"></app-info-section>
+<app-main [header]="header" [content]="content">
+  <ng-template #header>
+    <app-header></app-header>
+  </ng-template>
 
-<p class="p-2-3">Проверьте правильность или актуальность запрашиваемого ресурса.</p>
+  <ng-template #content>
+    <app-info-section imageName="404" icon="broken_image" title="404: Страница не найдена"></app-info-section>
+
+    <p class="p-2-3">Проверьте правильность или актуальность запрашиваемого ресурса.</p>
+  </ng-template>
+</app-main>

@@ -1,9 +1,13 @@
 <main class="main h-100 d-flex f-column">
-  <app-header class="header"></app-header>
+  <ng-container *ngIf="header" [ngTemplateOutlet]="header"></ng-container>
 
   <div class="f-1 bg-primary-light">
     <div class="content bg-light mx-auto">
-      <router-outlet></router-outlet>
+      <ng-container *ngIf="content; else outlet" [ngTemplateOutlet]="content"></ng-container>
+
+      <ng-template #outlet>
+        <router-outlet></router-outlet>
+      </ng-template>
     </div>
   </div>
 </main>

@@ -10,13 +10,13 @@ import {SignInModule} from '~app/modules/home/modules/sign-in/sign-in.module';
 import {SignUpModule} from '~app/modules/home/modules/sign-up/sign-up.module';
 import {RecoveryModule} from '~app/modules/home/modules/recovery/recovery.module';
 import {ConfirmationModule} from '~app/modules/home/modules/confirmation/confirmation.module';
-import {MainComponent} from '~app/shared/components/layout/main/main.component';
 import {ResetModule} from '~app/modules/home/modules/reset/reset.module';
+import {HomeComponent} from '~app/modules/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
+    component: HomeComponent,
     children: [
       {
         path: '',

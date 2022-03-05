@@ -4,15 +4,6 @@
   overflow-y: auto;
 }
 
-.header {
-  display: block;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
 .content {
   max-width: var.$container-max-width;
 }
-
-
