@@ -72,6 +72,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     InputHideSuffixComponent,
     SelectComponent,
     ProgressSpinnerComponent,
+    IconButtonComponent,
   ],
   imports: [
     CommonModule,
