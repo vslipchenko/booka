@@ -1,4 +1,4 @@
-<main class="main h-100 d-flex f-column">
+<main class="main d-flex f-column">
   <ng-container *ngIf="header" [ngTemplateOutlet]="header"></ng-container>
 
   <div class="f-1 bg-primary-light">
@@ -10,4 +10,6 @@
       </ng-template>
     </div>
   </div>
+
+  <ng-container *ngIf="footer" [ngTemplateOutlet]="footer"></ng-container>
 </main>

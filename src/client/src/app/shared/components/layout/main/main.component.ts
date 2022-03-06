@@ -9,4 +9,5 @@ import {ChangeDetectionStrategy, Component, Input, TemplateRef} from '@angular/c
 export class MainComponent {
   @Input() public header?: TemplateRef<unknown>;
   @Input() public content?: TemplateRef<unknown>;
+  @Input() public footer?: TemplateRef<unknown>;
 }

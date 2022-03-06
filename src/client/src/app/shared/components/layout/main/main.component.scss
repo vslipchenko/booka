@@ -1,7 +1,7 @@
 @use 'variables' as var;
 
 .main {
-  overflow-y: auto;
+  min-height: 100%;
 }
 
 .content {
