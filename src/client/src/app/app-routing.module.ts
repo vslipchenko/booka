@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeModule} from '~app/modules/home/home.module';
 import {PageNotFoundModule} from '~app/modules/page-not-found/page-not-found.module';
-import {AccountModule} from '~app/modules/account/account.module';
+import {ProfileModule} from '~app/modules/profile/profile.module';
 
 const routes: Routes = [
   {
@@ -12,8 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: (): Promise<string | typeof AccountModule> =>
-      import('~app/modules/account/account.module').then((m) => m.AccountModule),
+    loadChildren: (): Promise<string | typeof ProfileModule> =>
+      import('~app/modules/profile/profile.module').then((m) => m.ProfileModule),
   },
   {
     path: '**',
