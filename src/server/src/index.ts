@@ -1,5 +1,5 @@
 import {environment} from './environments';
-import {ApolloServer} from 'apollo-server-fastify';
+import {ApolloServer, FastifyContext} from 'apollo-server-fastify';
 import {ApolloServerPluginDrainHttpServer} from 'apollo-server-core';
 import {ApolloServerPlugin} from 'apollo-server-plugin-base';
 import {GraphQLServerListener} from 'apollo-server-plugin-base/src';
@@ -33,7 +33,14 @@ const bootstrapApplication = async (): Promise<void> => {
   const server = new ApolloServer({
     schema,
     plugins: [fastifyAppClosePlugin(app), ApolloServerPluginDrainHttpServer({httpServer: app.server})],
-    // TODO parse & save token to context
+    context: (context: FastifyContext): void | {accessToken: string} => {
+      const authorizationHeader = context.request.headers.authorization;
+
+      if (authorizationHeader) {
+        // E.g. Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        return {accessToken: authorizationHeader.split(' ')[1]};
+      }
+    },
   });
 
   await server.start();
