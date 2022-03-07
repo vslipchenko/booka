@@ -4,6 +4,7 @@ import {SIGN_IN} from '~app/graphql/authentication/authentication.queries';
 import {Observable} from 'rxjs';
 import {ApolloQueryResult} from '@apollo/client/core';
 import {SignIn, SignInQueryResult} from '~app/typings/authentication.interfaces';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,10 @@ export class AuthenticationService {
       query: SIGN_IN,
       variables: {input},
     });
+  }
+
+  public getAccessTokenData(): {userId: string} {
+    return jwt_decode(this.accessToken);
   }
 
   public getRefreshToken(): string | null {

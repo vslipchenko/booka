@@ -11,7 +11,9 @@ const routes: Routes = [
       import('~app/modules/home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'account',
+    path: 'profile',
+    // canActivate: [ProfileCanActivateGuard],
+    // canLoad: [ProfileCanLoadGuard],
     loadChildren: (): Promise<string | typeof ProfileModule> =>
       import('~app/modules/profile/profile.module').then((m) => m.ProfileModule),
   },
