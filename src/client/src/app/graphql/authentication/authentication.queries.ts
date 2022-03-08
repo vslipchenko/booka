@@ -9,3 +9,8 @@ export const SIGN_IN = gql`
     }
   }
 `;
+export const REFRESH_ACCESS_TOKEN = gql`
+  query ($refreshToken: String!) {
+    refreshAccessToken(refreshToken: $refreshToken)
+  }
+`;

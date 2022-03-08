@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from 'apollo-angular';
-import {SIGN_IN} from '~app/graphql/authentication/authentication.queries';
+import {REFRESH_ACCESS_TOKEN, SIGN_IN} from '~app/graphql/authentication/authentication.queries';
 import {Observable} from 'rxjs';
 import {ApolloQueryResult} from '@apollo/client/core';
 import {AccessTokenByRefreshTokenQueryResult, SignIn, SignInQueryResult} from '~app/typings/authentication.interfaces';
 import jwt_decode from 'jwt-decode';
-import {REFRESH_ACCESS_TOKEN} from '~app/graphql/booking/booking.queries';
 
 @Injectable({
   providedIn: 'root',

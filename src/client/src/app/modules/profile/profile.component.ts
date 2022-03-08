@@ -15,6 +15,6 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.bookingService.bookedServicesByUserId().subscribe();
+    // this.bookingService.bookedServicesByUserId().subscribe();
   }
 }

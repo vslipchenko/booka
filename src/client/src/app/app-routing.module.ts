@@ -3,6 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeModule} from '~app/modules/home/home.module';
 import {PageNotFoundModule} from '~app/modules/page-not-found/page-not-found.module';
 import {ProfileModule} from '~app/modules/profile/profile.module';
+import {ProfileCanActivateGuard} from '~app/guards/profile/can-activate/profile.guard';
+import {ProfileCanLoadGuard} from '~app/guards/profile/can-load/profile.guard';
 
 const routes: Routes = [
   {
@@ -12,8 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    // canActivate: [ProfileCanActivateGuard],
-    // canLoad: [ProfileCanLoadGuard],
+    canActivate: [ProfileCanActivateGuard],
+    canLoad: [ProfileCanLoadGuard],
     loadChildren: (): Promise<string | typeof ProfileModule> =>
       import('~app/modules/profile/profile.module').then((m) => m.ProfileModule),
   },
