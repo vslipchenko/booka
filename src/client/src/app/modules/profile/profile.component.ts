@@ -1,4 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {BookingService} from '~app/services/booking/booking.service';
+import {AuthenticationService} from '~app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +9,12 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements OnInit {
-  constructor() {}
+  public constructor(
+    private readonly authenticationService: AuthenticationService,
+    private readonly bookingService: BookingService,
+  ) {}
 
-  ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.bookingService.bookedServicesByUserId().subscribe();
+  }
 }

@@ -1,17 +1,20 @@
 import {SignIn} from '../../../typings/user.interfaces';
 import {signInValidator} from './authentication.validators';
 import {gql} from 'apollo-server-core';
-import {userSignIn} from '../../../data/queries/user';
+import {UserAccessKeyByUserId, UserSignIn} from '../../../data/queries/user';
 import {db} from '../../../data';
 import {SignInFailReason} from '../../../typings/authentication.enums';
 import {compareSync} from 'bcrypt';
-import {sign} from 'jsonwebtoken';
+import {decode, verify, sign} from 'jsonwebtoken';
 import {environment} from '../../../environments';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
+import {ApolloError} from 'apollo-server-fastify';
+import {ApolloErrorCode} from '../../../typings/apollo.enums';
 
 export const authenticationQueryTypeDefinitions = gql`
   type Query {
     signIn(input: SignIn!): SignInResult
+    refreshAccessToken(refreshToken: String!): String
   }
 `;
 
@@ -23,7 +26,7 @@ const signIn = async (
 
   if (error) return null;
 
-  const result = await db.query(userSignIn(input.email));
+  const result = await db.query(UserSignIn(input.email));
 
   if (!result.rowCount) return null;
 
@@ -49,8 +52,43 @@ const signIn = async (
   return {accessToken, refreshToken};
 };
 
+const refreshAccessToken = async (
+  _: unknown,
+  {refreshToken}: {refreshToken: string},
+): Promise<ApolloError | string> => {
+  if (!refreshToken) return new ApolloError('', ApolloErrorCode.EmptyRefreshToken);
+
+  const userId = (decode(refreshToken) as {userId: string})?.userId;
+  // Invalid user id
+  if (!userId) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
+
+  const result = await db.query(UserAccessKeyByUserId(userId));
+  // Invalid refresh token data
+  if (!result.rowCount) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
+
+  const row = result.rows[0];
+
+  if (!row.access_key) return new ApolloError('', ApolloErrorCode.BlockedUser);
+
+  const REFRESH_JWT_SECRET = `${environment.REFRESH_TOKEN_SECRET}${row.access_key}`;
+
+  try {
+    verify(refreshToken, REFRESH_JWT_SECRET, {algorithms: [JWT_ALGORITHM]});
+  } catch {
+    // Token is forged or expired
+    return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
+  }
+
+  // Token is valid; issue fresh access token
+  return sign({userId}, environment.ACCESS_TOKEN_SECRET, {
+    algorithm: JWT_ALGORITHM,
+    expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
+  });
+};
+
 export const authenticationQueryResolvers = {
   Query: {
     signIn,
+    refreshAccessToken,
   },
 };

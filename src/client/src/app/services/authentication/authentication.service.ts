@@ -3,8 +3,9 @@ import {Apollo} from 'apollo-angular';
 import {SIGN_IN} from '~app/graphql/authentication/authentication.queries';
 import {Observable} from 'rxjs';
 import {ApolloQueryResult} from '@apollo/client/core';
-import {SignIn, SignInQueryResult} from '~app/typings/authentication.interfaces';
+import {AccessTokenByRefreshTokenQueryResult, SignIn, SignInQueryResult} from '~app/typings/authentication.interfaces';
 import jwt_decode from 'jwt-decode';
+import {REFRESH_ACCESS_TOKEN} from '~app/graphql/booking/booking.queries';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,13 @@ export class AuthenticationService {
     });
   }
 
+  public refreshAccessToken(): Observable<ApolloQueryResult<AccessTokenByRefreshTokenQueryResult>> {
+    return this.apollo.query<AccessTokenByRefreshTokenQueryResult>({
+      query: REFRESH_ACCESS_TOKEN,
+      variables: {refreshToken: this.getRefreshToken()},
+    });
+  }
+
   public getAccessTokenData(): {userId: string} {
     return jwt_decode(this.accessToken);
   }
@@ -32,5 +40,11 @@ export class AuthenticationService {
   public setRefreshToken(token: string, session: boolean): void {
     if (session) return sessionStorage.setItem('token', token);
     localStorage.setItem('token', token);
+  }
+
+  public resetTokens(): void {
+    this.accessToken = '';
+    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
   }
 }

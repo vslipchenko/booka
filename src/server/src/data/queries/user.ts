@@ -1,7 +1,7 @@
 import {CreateUser} from '../../typings/user.interfaces';
 import {QueryConfig} from 'pg';
 
-export const userCheckExistenceByEmail = (email: string): QueryConfig => ({
+export const UserCheckExistenceByEmail = (email: string): QueryConfig => ({
   text: `
     SELECT 1
     FROM users
@@ -10,7 +10,7 @@ export const userCheckExistenceByEmail = (email: string): QueryConfig => ({
   values: [email],
 });
 
-export const userCreate = ({
+export const UserCreate = ({
   accountType,
   email,
   password,
@@ -24,14 +24,14 @@ export const userCreate = ({
   values: [accountType, email, password, accessKey, confirmationKey],
 });
 
-export const userDeleteByEmail = (email: string): QueryConfig => ({
+export const UserDeleteByEmail = (email: string): QueryConfig => ({
   text: `
     DELETE FROM users WHERE email = $1
   `,
   values: [email],
 });
 
-export const userConfirmAccount = (key: string): QueryConfig => ({
+export const UserConfirmAccount = (key: string): QueryConfig => ({
   text: `
     UPDATE users
     SET confirmation_key = NULL
@@ -40,7 +40,7 @@ export const userConfirmAccount = (key: string): QueryConfig => ({
   values: [key],
 });
 
-export const userResetPassword = (email: string, password: string): QueryConfig => ({
+export const UserResetPassword = (email: string, password: string): QueryConfig => ({
   text: `
     UPDATE users
     SET password = $1
@@ -49,11 +49,20 @@ export const userResetPassword = (email: string, password: string): QueryConfig 
   values: [password, email],
 });
 
-export const userSignIn = (email: string): QueryConfig => ({
+export const UserSignIn = (email: string): QueryConfig => ({
   text: `
     SELECT id, password, access_key, confirmation_key
     FROM users
     WHERE email = $1
   `,
   values: [email],
+});
+
+export const UserAccessKeyByUserId = (userId: string): QueryConfig => ({
+  text: `
+    SELECT access_key
+    FROM users
+    WHERE id = $1
+  `,
+  values: [userId],
 });
