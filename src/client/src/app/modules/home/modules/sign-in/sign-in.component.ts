@@ -6,6 +6,7 @@ import {AuthenticationService} from '~app/services/authentication/authentication
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 import {EMAIL_REGEXP, PASSWORD_REGEXP} from '~app/constants/regexp';
 import {SignInFailReason} from '~app/typings/authentication.enums';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -24,6 +25,7 @@ export class SignInComponent implements Destroyable {
   public constructor(
     private readonly authenticationService: AuthenticationService,
     private readonly snackbarService: SnackbarService,
+    private readonly router: Router,
   ) {}
 
   public ngOnDestroy(): void {
@@ -63,6 +65,7 @@ export class SignInComponent implements Destroyable {
 
         this.authenticationService.accessToken = data.signIn.accessToken;
         this.authenticationService.setRefreshToken(data.signIn.refreshToken, !this.rememberMe.value);
+        void this.router.navigate(['/profile']);
       });
   }
 

@@ -10,12 +10,14 @@ import {AuthenticationInterceptorProvider} from '~app/interceptors/authenticatio
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
 import {Observable, tap} from 'rxjs';
+import {NgxsModule} from '@ngxs/store';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     GraphQLModule,
+    NgxsModule.forRoot([]),
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
