@@ -1,6 +1,7 @@
 import {Pool, QueryConfig, QueryResult} from 'pg';
 import {environment} from '../environments';
 import {UsersTable} from './tables/users';
+import {AccountsTable} from './tables/accounts';
 
 // PostgreSQL v14
 
@@ -20,6 +21,7 @@ export const db = {
   sync: function (): Promise<void> {
     const tables = [
       UsersTable,
+      AccountsTable,
       // ... Append other tables to sync
     ];
     // Sync tables
