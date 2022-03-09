@@ -10,7 +10,7 @@ export = {
   MAIL_SERVICE: 'gmail',
   MAIL_USERNAME: 'mail.booka.ua@gmail.com',
   MAIL_PASSWORD: 'RmdUKaxew5',
-  ACCESS_TOKEN_EXPIRES_IN: '1d',
+  ACCESS_TOKEN_EXPIRES_IN: '5m',
   REFRESH_TOKEN_EXPIRES_IN: '30d',
   ACCESS_TOKEN_SECRET: 'B!MSG&Tw)E[ajqt#V[HBG4q?8W+p7(PA&ZhG4eyD{[$a%X)n(TT=ut;)vc(`8Zc$', // 64 chars / 512 bits
   REFRESH_TOKEN_SECRET: '9b*8]#d7k#9Zs/#m[tu$W;ke3+wA2Y]aPY=9B`rJ', // 40 chars + 24 chars of access key = 64 / 512 bits; per https://stackoverflow.com/a/30520284

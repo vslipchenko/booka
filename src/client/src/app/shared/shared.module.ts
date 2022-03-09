@@ -73,6 +73,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     SelectComponent,
     ProgressSpinnerComponent,
     IconButtonComponent,
+    MenuComponent,
   ],
   imports: [
     CommonModule,

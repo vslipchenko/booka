@@ -46,4 +46,8 @@ export class AuthenticationService {
     sessionStorage.removeItem('token');
     localStorage.removeItem('token');
   }
+
+  public get authenticated(): boolean {
+    return Boolean(this.accessToken);
+  }
 }
