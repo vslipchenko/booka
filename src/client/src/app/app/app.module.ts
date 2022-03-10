@@ -9,7 +9,7 @@ import {GraphQLModule} from '~app/graphql/graphql.module';
 import {AuthenticationInterceptorProvider} from '~app/interceptors/authentication/authentication.interceptor';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
-import {Observable, tap} from 'rxjs';
+import {catchError, Observable, of, tap} from 'rxjs';
 import {NgxsModule} from '@ngxs/store';
 
 @NgModule({
@@ -47,6 +47,9 @@ function authenticationFactory(authenticationService: AuthenticationService): ()
     return authenticationService.refreshAccessToken().pipe(
       tap(({data}) => {
         authenticationService.accessToken = data.refreshAccessToken;
+      }),
+      catchError(() => {
+        return of(); // Ignore error; let auth interceptor handle authentication
       }),
     );
   };
