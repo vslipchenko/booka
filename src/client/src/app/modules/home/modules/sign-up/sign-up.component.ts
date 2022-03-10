@@ -103,7 +103,7 @@ export class SignUpComponent implements Destroyable {
           return;
         }
         // Success
-        this.snackbarService.open('Письмо с подтверждением отправлено Вам на почту.', 'OK');
+        this.snackbarService.open('Успешно. Письмо с подтверждением отправлено Вам на почту.', 'OK');
         this.signUpForm.reset();
       });
   }

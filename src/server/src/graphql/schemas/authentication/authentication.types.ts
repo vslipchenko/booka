@@ -4,6 +4,6 @@ export const authenticationTypes = gql`
   type SignInResult {
     accessToken: String
     refreshToken: String
-    reason: String
+    reason: Int
   }
 `;

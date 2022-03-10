@@ -53,14 +53,14 @@ export class SignInComponent implements Destroyable {
         if (!data.signIn) return this.showErrorSnackbar();
 
         if (data.signIn.reason === SignInFailReason.Unconfirmed) {
-          this.snackbarService.open(
+          return this.snackbarService.open(
             'Аккаунт не активирован. Пожалуйста, воспользуйтесь активационной ссылкой отправленной вам на почту при регистрации.',
             'OK',
           );
         }
 
         if (data.signIn.reason === SignInFailReason.Blocked) {
-          this.snackbarService.open('Аккаунт заблокирован.', 'OK');
+          return this.snackbarService.open('Аккаунт заблокирован.', 'OK');
         }
 
         this.authenticationService.accessToken = data.signIn.accessToken;
