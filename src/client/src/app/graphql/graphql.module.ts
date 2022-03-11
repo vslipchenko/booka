@@ -1,12 +1,33 @@
 import {NgModule} from '@angular/core';
 import {APOLLO_OPTIONS, ApolloModule} from 'apollo-angular';
-import {ApolloClientOptions, InMemoryCache} from '@apollo/client/core';
+import {ApolloClientOptions, ApolloLink, InMemoryCache} from '@apollo/client/core';
 import {HttpLink} from 'apollo-angular/http';
 import {environment} from '~environments/environment';
+import {onError} from '@apollo/client/link/error';
+import {ApolloErrorCode} from '~app/typings/apollo.enums';
 
 export function apolloClientOptions(httpLink: HttpLink): ApolloClientOptions<unknown> {
+  // Suppress errors handled by auth interceptor
+  const error = onError(({response}) => {
+    if (response?.errors) {
+      for (let i = 0; i < response.errors.length; i++) {
+        switch (response.errors[i].extensions['code']) {
+          case ApolloErrorCode.EmptyAccessToken:
+          case ApolloErrorCode.ExpiredAccessToken:
+          case ApolloErrorCode.InvalidAccessToken:
+          case ApolloErrorCode.InvalidRefreshToken:
+          case ApolloErrorCode.EmptyRefreshToken:
+          case ApolloErrorCode.BlockedUser:
+            (response.errors as any).splice(i, 1); // Remove error from list
+        }
+      }
+    }
+  });
+
+  const link = httpLink.create({uri: `//${environment.api.host}:${environment.api.port}/graphql`});
+
   return {
-    link: httpLink.create({uri: `//${environment.api.host}:${environment.api.port}/graphql`}),
+    link: ApolloLink.from([error, link]),
     cache: new InMemoryCache(),
   };
 }
