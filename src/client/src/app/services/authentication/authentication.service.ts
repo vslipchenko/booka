@@ -18,6 +18,7 @@ export class AuthenticationService {
     return this.apollo.query<SignInQueryResult>({
       query: SIGN_IN,
       variables: {input},
+      fetchPolicy: 'network-only',
     });
   }
 

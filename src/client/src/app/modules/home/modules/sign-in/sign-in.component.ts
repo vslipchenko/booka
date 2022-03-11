@@ -85,7 +85,7 @@ export class SignInComponent implements Destroyable {
 
   private showErrorSnackbar(): void {
     this.snackbarService.open(
-      'Что-то пошло не так. Проверьте правильность введенных данных, или повторите попытку позже.', // И активность аккаунта
+      'Что-то пошло не так. Проверьте правильность введенных данных или повторите попытку позже.',
       'OK',
     );
   }
