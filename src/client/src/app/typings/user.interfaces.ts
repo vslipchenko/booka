@@ -1,4 +1,4 @@
-import {AccountTypes} from '~app/typings/account-type.enums';
+import {AccountTypes} from '~app/typings/account.enums';
 import {Locale} from '~app/typings/i18n.types';
 import {ExistsResponse, SuccessResponse} from '~app/typings/response.interfaces';
 
