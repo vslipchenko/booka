@@ -63,6 +63,8 @@ export class SignInComponent implements Destroyable {
           return this.snackbarService.open('Аккаунт заблокирован.', 'OK');
         }
 
+        this.authenticationService.resetTokens(); // Clear active session
+
         this.authenticationService.accessToken = data.signIn.accessToken;
         this.authenticationService.setRefreshToken(data.signIn.refreshToken, !this.rememberMe.value);
         void this.router.navigate(['/profile']);

@@ -16,7 +16,7 @@ const pool = new Pool({
 });
 
 export const db = {
-  query: (query: string | QueryConfig, params?: Array<any>): Promise<QueryResult<any>> => pool.query(query, params),
+  query: <T>(query: string | QueryConfig, params?: Array<any>): Promise<QueryResult<T>> => pool.query(query, params),
   close: (): Promise<void> => pool.end(),
   sync: function (): Promise<void> {
     const tables = [

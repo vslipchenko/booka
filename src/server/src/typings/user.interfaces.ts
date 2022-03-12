@@ -1,5 +1,5 @@
-import {AccountTypes} from './user.enums';
 import {Locale} from './i18n.types';
+import {AccountTypes} from './account.enums';
 
 export interface CreateUser {
   accountType: AccountTypes;

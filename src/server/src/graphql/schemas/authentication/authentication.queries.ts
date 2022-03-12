@@ -26,7 +26,12 @@ const signIn = async (
 
   if (error) return null;
 
-  const result = await db.query(UserSignIn(input.email));
+  const result = await db.query<{
+    id: string;
+    access_key: string;
+    confirmation_key: string;
+    password: string;
+  }>(UserSignIn(input.email));
 
   if (!result.rowCount) return null;
 
@@ -62,7 +67,9 @@ const refreshAccessToken = async (
   // Invalid user id
   if (!userId) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
 
-  const result = await db.query(UserAccessKeyByUserId(userId));
+  const result = await db.query<{
+    access_key: string;
+  }>(UserAccessKeyByUserId(userId));
   // Invalid refresh token data
   if (!result.rowCount) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
 

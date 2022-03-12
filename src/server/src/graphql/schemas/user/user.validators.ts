@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import {getNumericEnumValues} from '../../../utilities/enum';
-import {AccountTypes} from '../../../typings/user.enums';
 import {UUID_REGEXP} from '../../../constants/regexp';
 import {emailValidator, localeValidator, passwordValidator} from '../shared/shared.validators';
+import {AccountTypes} from '../../../typings/account.enums';
 
 export const createUserValidator = Joi.object({
   accountType: Joi.number().valid(...getNumericEnumValues(AccountTypes)),

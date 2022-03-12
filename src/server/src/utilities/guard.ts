@@ -1,7 +1,8 @@
-import jwt, {TokenExpiredError} from 'jsonwebtoken';
+import {TokenExpiredError, verify} from 'jsonwebtoken';
 import {environment} from '../environments';
 import {ApolloError} from 'apollo-server-fastify';
 import {ApolloErrorCode} from '../typings/apollo.enums';
+import {JWT_ALGORITHM} from '../constants/jwt';
 
 interface AuthenticationGuardResult {
   error: ApolloError;
@@ -16,7 +17,7 @@ export const authenticationGuard = (accessToken: string): AuthenticationGuardRes
   }
 
   try {
-    const tokenData = jwt.verify(accessToken, environment.ACCESS_TOKEN_SECRET);
+    const tokenData = verify(accessToken, environment.ACCESS_TOKEN_SECRET, {algorithms: [JWT_ALGORITHM]});
     return {tokenData} as AuthenticationGuardResult;
   } catch (error) {
     // The only legit error
