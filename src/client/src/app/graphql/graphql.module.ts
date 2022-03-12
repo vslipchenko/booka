@@ -8,6 +8,7 @@ import {ApolloErrorCode} from '~app/typings/apollo.enums';
 
 export function apolloClientOptions(httpLink: HttpLink): ApolloClientOptions<unknown> {
   // Suppress errors handled by auth interceptor
+  // https://apollo-angular.com/docs/1.0/features/error-handling/#ignoring-errors
   const error = onError(({response}) => {
     if (response?.errors) {
       for (let i = 0; i < response.errors.length; i++) {
