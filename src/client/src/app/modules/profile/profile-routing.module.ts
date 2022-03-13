@@ -2,12 +2,18 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {ProfileComponent} from '~app/modules/profile/profile.component';
 import {SettingsModule} from '~app/modules/profile/modules/settings/settings.module';
+import {ProfileHomeModule} from '~app/modules/profile/modules/profile-home/profile-home.module';
 
 const routes: Routes = [
   {
     path: '',
     component: ProfileComponent,
     children: [
+      {
+        path: '',
+        loadChildren: (): Promise<ProfileHomeModule> =>
+          import('~app/modules/profile/modules/profile-home/profile-home.module').then((m) => m.ProfileHomeModule),
+      },
       {
         path: 'settings',
         loadChildren: (): Promise<SettingsModule> =>

@@ -1,4 +1,4 @@
-<app-main [footer]="footer">
+<app-main [footer]="footer" [loading]="loading$ | async">
   <ng-template #footer>
     <div class="footer mx-auto w-100">
       <div class="toolbar d-flex ai-center bg-light w-100">

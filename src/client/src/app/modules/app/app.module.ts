@@ -11,6 +11,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
 import {catchError, Observable, of, tap} from 'rxjs';
 import {NgxsModule} from '@ngxs/store';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {environment} from '~environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +20,7 @@ import {NgxsModule} from '@ngxs/store';
     BrowserModule,
     GraphQLModule,
     NgxsModule.forRoot([]),
+    NgxsReduxDevtoolsPluginModule.forRoot({disabled: environment.production}),
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
