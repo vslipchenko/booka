@@ -7,12 +7,14 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertComponent {
-  @Input() public type: 'info' | 'success' | 'error' = 'info';
+  @Input() public type: 'warn' | 'info' | 'success' | 'error' = 'info';
 
   public get icon(): string {
     if (this.type === 'info') return 'info';
     if (this.type === 'success') return 'check_circle';
-    return 'error';
+    if (this.type === 'error') return 'error';
+
+    return 'warning';
   }
 
   public get color(): any {
@@ -25,12 +27,16 @@ export class AlertComponent {
   public get background(): string {
     if (this.type === 'info') return 'primary-light';
     if (this.type === 'success') return 'success';
+    if (this.type === 'error') return 'error';
+
     return 'warn';
   }
 
   public get label(): string {
     if (this.type === 'info') return 'Примечание';
     if (this.type === 'success') return 'Успех';
-    return 'Ошибка';
+    if (this.type === 'error') return 'Ошибка';
+
+    return 'Внимание';
   }
 }

@@ -1,4 +1,17 @@
-<app-main [footer]="footer" [loading]="loading$ | async">
+<app-main [footer]="footer" [contentHeader]="contentHeader" [loading]="loading$ | async">
+  <ng-template #contentHeader>
+    <div class="p-2-3">
+      <app-alert *ngIf="needsToBePaid$ | async" type="warn" class="d-block mb-2">
+        Аккаунт неактивен. Пожалуйста, <a class="action-text">продлите подписку</a>, чтобы продолжить пользоваться
+        услугами.
+      </app-alert>
+
+      <app-alert *ngIf="requiresAdditionalInfo$ | async" type="warn">
+        Пожалуйста, заполните необходимые данные профиля.
+      </app-alert>
+    </div>
+  </ng-template>
+
   <ng-template #footer>
     <div class="footer mx-auto w-100">
       <div class="toolbar d-flex ai-center bg-light w-100">

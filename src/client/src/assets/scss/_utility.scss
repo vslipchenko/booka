@@ -239,6 +239,10 @@
   background-color: var.$color-warn-light;
 }
 
+.bg-error {
+  background-color: var.$color-error-light;
+}
+
 .bg-light {
   background-color: var.$color-light;
 }
@@ -254,6 +258,10 @@
 
 .c-success {
   color: var.$color-success;
+}
+
+.c-warn {
+  color: var.$color-warn !important;
 }
 
 /* Box shadow */
