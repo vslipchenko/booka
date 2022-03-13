@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
 import {TooltipPosition} from '@angular/material/tooltip/tooltip';
 import {FabButton} from '~app/typings/button.interfaces';
@@ -17,4 +17,6 @@ export class IconButtonComponent implements FabButton {
   @Input() public svgIcon = '';
   @Input() public tooltipText = '';
   @Input() public tooltipPosition: TooltipPosition = 'above';
+
+  @Output() public clicked = new EventEmitter<void>();
 }

@@ -5,6 +5,7 @@
   [color]="color"
   [disabled]="disabled"
   [attr.aria-label]="ariaLabel"
+  (click)="clicked.emit()"
 >
   <mat-icon [svgIcon]="svgIcon">{{ icon }}</mat-icon>
 </button>

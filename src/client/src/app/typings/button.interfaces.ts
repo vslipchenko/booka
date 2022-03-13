@@ -1,5 +1,6 @@
 import {ThemePalette} from '@angular/material/core';
 import {TooltipPosition} from '@angular/material/tooltip/tooltip';
+import {EventEmitter} from '@angular/core';
 
 interface ButtonBase {
   ariaLabel: string;
@@ -7,6 +8,7 @@ interface ButtonBase {
   icon: string;
   svgIcon: string;
   color: ThemePalette;
+  clicked: EventEmitter<void>;
 }
 
 export interface Button extends ButtonBase {

@@ -23,7 +23,7 @@ Has public profile
             Search
             Inbox
             Favorites
-            Profile
+            // Profile
             Extra tri-dot menu (Settings, History)
 
     For entrepreneurs / business:
@@ -47,7 +47,7 @@ Has public profile
             Search for entrepreneurs / Staff members for business
             Inbox
             Favorites
-            Profile
+            Services (edit; for entrepreneurs); Staff members (for business)
             Settings (Statistic, Settings, History, Payment)
 
 Users
@@ -71,7 +71,7 @@ gender
 entrepreneur/business specific columns:
 website
 bio (short description up to 500 chars)
-payed_at
+paid_at
 contact info:
 city (multiple)
 street address (multiple)

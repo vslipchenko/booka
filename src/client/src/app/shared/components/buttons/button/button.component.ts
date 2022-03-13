@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Button} from '~app/typings/button.interfaces';
 import {ThemePalette} from '@angular/material/core';
 
@@ -15,4 +15,6 @@ export class ButtonComponent implements Button {
   @Input() public disabled = false;
   @Input() public icon = '';
   @Input() public svgIcon = '';
+
+  @Output() public clicked = new EventEmitter<void>();
 }

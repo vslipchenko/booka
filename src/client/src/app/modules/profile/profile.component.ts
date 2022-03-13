@@ -23,7 +23,10 @@ export class ProfileComponent implements OnInit, Destroyable {
 
   public readonly destroy$ = new Subject<void>();
   public readonly loading$ = new BehaviorSubject(false);
-  public readonly menuItems: Array<MenuItem> = [{title: 'Главная', routerLink: '/', icon: 'web'}];
+  public readonly menuItems: Array<MenuItem> = [
+    {title: 'Главная', routerLink: '/', icon: 'web'},
+    {title: 'Настройки', routerLink: '/profile/settings', icon: 'settings'},
+  ];
 
   public constructor(
     private readonly bookingService: BookingService,
