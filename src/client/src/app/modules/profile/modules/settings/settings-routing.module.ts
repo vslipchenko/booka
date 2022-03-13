@@ -1,21 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SettingsComponent} from '~app/modules/profile/modules/settings/settings.component';
 import {SettingsListModule} from '~app/modules/profile/modules/settings/modules/settings-list/settings-list.module';
+import {ProfileSettingsModule} from '~app/modules/profile/modules/settings/modules/profile-settings/profile-settings.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: SettingsComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: (): Promise<SettingsListModule> =>
-          import('~app/modules/profile/modules/settings/modules/settings-list/settings-list.module').then(
-            (m) => m.SettingsListModule,
-          ),
-      },
-    ],
+    loadChildren: (): Promise<SettingsListModule> =>
+      import('~app/modules/profile/modules/settings/modules/settings-list/settings-list.module').then(
+        (m) => m.SettingsListModule,
+      ),
+  },
+  {
+    path: 'profile',
+    loadChildren: (): Promise<ProfileSettingsModule> =>
+      import('~app/modules/profile/modules/settings/modules/profile-settings/profile-settings.module').then(
+        (m) => m.ProfileSettingsModule,
+      ),
   },
 ];
 
