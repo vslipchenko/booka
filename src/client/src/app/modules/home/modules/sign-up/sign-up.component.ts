@@ -3,8 +3,8 @@ import {SelectItem} from '~app/typings/select.interfaces';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {BehaviorSubject, finalize, map, Observable, Subject, take, takeUntil} from 'rxjs';
-import {AccountType} from '~app/typings/account.types';
-import {AccountTypes} from '~app/typings/account.enums';
+import {AccountTariff} from '~app/typings/account.types';
+import {AccountTariffs} from '~app/typings/account.enums';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
 import {EMAIL_REGEXP, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
@@ -20,9 +20,9 @@ import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 })
 export class SignUpComponent implements Destroyable {
   public readonly accountTypes: Array<SelectItem> = [
-    {title: 'Клиент', value: AccountTypes.Client},
-    {title: 'Предприниматель', value: AccountTypes.Entrepreneur},
-    {title: 'Бизнес', value: AccountTypes.Business},
+    {title: 'Клиент', value: AccountTariffs.Client},
+    {title: 'Предприниматель', value: AccountTariffs.Entrepreneur},
+    {title: 'Бизнес', value: AccountTariffs.Business},
   ];
   public readonly destroy$ = new Subject<void>();
   public readonly loading$ = new BehaviorSubject(false);
@@ -38,7 +38,7 @@ export class SignUpComponent implements Destroyable {
   ) {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.destroy$), take(1))
-      .subscribe((params) => this.setAccountValue((params as {account: AccountType}).account));
+      .subscribe((params) => this.setAccountValue((params as {account: AccountTariff}).account));
   }
 
   public ngOnDestroy(): void {
@@ -126,16 +126,16 @@ export class SignUpComponent implements Destroyable {
     this.password.updateValueAndValidity();
   }
 
-  private setAccountValue(type: AccountType): void {
+  private setAccountValue(type: AccountTariff): void {
     switch (type) {
       case 'client':
-        this.account.setValue(AccountTypes.Client);
+        this.account.setValue(AccountTariffs.Client);
         break;
       case 'entrepreneur':
-        this.account.setValue(AccountTypes.Entrepreneur);
+        this.account.setValue(AccountTariffs.Entrepreneur);
         break;
       case 'business':
-        this.account.setValue(AccountTypes.Business);
+        this.account.setValue(AccountTariffs.Business);
         break;
     }
   }

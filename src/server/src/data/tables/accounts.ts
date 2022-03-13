@@ -6,7 +6,7 @@ export const AccountsTable: Table = {
   query: `
     CREATE TABLE IF NOT EXISTS accounts (
       id BIGSERIAL PRIMARY KEY,
-      account_type SMALLINT,
+      tariff SMALLINT,
       first_name VARCHAR (50),
       last_name VARCHAR (50),
       middle_name VARCHAR (50),

@@ -1,1 +1,1 @@
-export type AccountType = 'client' | 'entrepreneur' | 'business';
+export type AccountTariff = 'client' | 'entrepreneur' | 'business';

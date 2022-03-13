@@ -23,7 +23,7 @@ export const UserCreate = ({
       VALUES ($1, $2, $3, $4)
       RETURNING id
     )
-    INSERT INTO accounts (user_id, account_type) VALUES ((SELECT id FROM inserted), $5);
+    INSERT INTO accounts (user_id, tariff) VALUES ((SELECT id FROM inserted), $5);
   `,
   values: [email, password, accessKey, confirmationKey, accountType],
 });

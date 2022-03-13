@@ -1,4 +1,4 @@
-import {AccountTypes} from '~app/typings/account.enums';
+import {AccountTariffs} from '~app/typings/account.enums';
 import {Locale} from '~app/typings/i18n.types';
 import {ExistsResponse, SuccessResponse} from '~app/typings/response.interfaces';
 
@@ -23,7 +23,7 @@ export interface ResetPasswordMutationResult {
 }
 
 export interface CreateUser {
-  accountType: AccountTypes;
+  accountType: AccountTariffs;
   email: string;
   password: string;
   locale: Locale;

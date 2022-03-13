@@ -1,8 +1,8 @@
 import {Locale} from './i18n.types';
-import {AccountTypes} from './account.enums';
+import {AccountTariffs} from './account.enums';
 
 export interface CreateUser {
-  accountType: AccountTypes;
+  accountType: AccountTariffs;
   email: string;
   password: string;
   locale: Locale;

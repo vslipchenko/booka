@@ -56,7 +56,7 @@ id
 Accounts
 id
 user_id FOREIGN KEY(id) REFERENCES users(id)
-account_type SMALLINT
+tariff SMALLINT
 symbolic_date (birth date for cliens & entrepreneurs, means establishment date for business)
 image_url (https://api.imgbb.com/)
 contact info:

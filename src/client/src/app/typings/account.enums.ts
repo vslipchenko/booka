@@ -1,4 +1,4 @@
-export enum AccountTypes {
+export enum AccountTariffs {
   Client = 1,
   Entrepreneur,
   Business,

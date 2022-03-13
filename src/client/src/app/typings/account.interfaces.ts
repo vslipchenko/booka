@@ -1,8 +1,8 @@
-import {AccountTypes} from '~app/typings/account.enums';
+import {AccountTariffs} from '~app/typings/account.enums';
 
 export interface AccountVitalsQueryResult {
   accountVitals: {
-    account_type: AccountTypes;
+    tariff: AccountTariffs;
     first_name: string;
     middle_name: string;
     last_name: string;
