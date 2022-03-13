@@ -24,7 +24,6 @@ import {MatRadioModule} from '@angular/material/radio';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputComponent} from './components/input/input.component';
 import {MatInputModule} from '@angular/material/input';
-import {AuthPageComponent} from '~app/shared/components/layout/auth-page/auth-page.component';
 import {ButtonComponent} from './components/buttons/button/button.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -33,6 +32,7 @@ import {SelectComponent} from './components/select/select.component';
 import {MatSelectModule} from '@angular/material/select';
 import {ProgressSpinnerComponent} from './components/progress-spinner/progress-spinner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {NarrowContainerComponent} from '~app/shared/components/layout/narrow-container/narrow-container.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     LanguageDialogComponent,
     RadioGroupComponent,
     InputComponent,
-    AuthPageComponent,
+    NarrowContainerComponent,
     ButtonComponent,
     CheckboxComponent,
     InputHideSuffixComponent,
@@ -66,7 +66,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ExpansionPanelComponent,
     AlertComponent,
     InputComponent,
-    AuthPageComponent,
+    NarrowContainerComponent,
     ButtonComponent,
     CheckboxComponent,
     InputHideSuffixComponent,

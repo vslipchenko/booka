@@ -89,6 +89,16 @@
   margin-bottom: var.$unit-4 !important; // use of !important might be a breaking issue; check sign-up page
 }
 
+.mb-1-2 {
+  @include media.zero-small {
+    margin-bottom: var.$unit;
+  }
+
+  @include media.above-small {
+    margin-bottom: var.$unit-2;
+  }
+}
+
 .ml-1 {
   margin-left: var.$unit;
 }
@@ -274,6 +284,10 @@
 //  text-transform: capitalize;
 //}
 
+.t-left {
+  text-align: left !important;
+}
+
 /* Cursor */
 .pointer {
   cursor: pointer;
@@ -286,4 +300,9 @@
 
 .relative {
   position: relative;
+}
+
+/* Positioning */
+.t-0 {
+  top: 0;
 }
