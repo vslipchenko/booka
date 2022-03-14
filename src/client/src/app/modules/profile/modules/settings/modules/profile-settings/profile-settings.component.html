@@ -1,1 +1,39 @@
-<p>profile-settings works!</p>
+<div class="p-1-2">
+  <div class="d-flex jc-between f-wrap">
+    <ng-container *ngIf="accountTariff$ | async as tariff">
+      <ng-container *ngIf="isClientTariff(tariff)">
+        <app-input
+          class="f-1 p-1"
+          extendClass="w-100"
+          appearance="outline"
+          label="Имя"
+          [control]="firstName"
+        ></app-input>
+
+        <app-input
+          class="f-1 p-1"
+          extendClass="w-100"
+          appearance="outline"
+          label="Фамилия"
+          [control]="lastName"
+        ></app-input>
+
+        <app-input
+          class="f-1 p-1"
+          extendClass="w-100"
+          appearance="outline"
+          label="Отчество"
+          [control]="middleName"
+        ></app-input>
+      </ng-container>
+
+      <ng-container *ngIf="isEntrepreneurTariff(tariff)">
+        Entrepreneur
+      </ng-container>
+
+      <ng-container *ngIf="isBusinessTariff(tariff)">
+        Business
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

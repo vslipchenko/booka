@@ -18,4 +18,8 @@ export class ProfileSelectors {
 
     return false;
   });
+
+  public static accountTariff = createSelector([ProfileState], (state: ProfileStateModel) => {
+    return state.account.tariff;
+  });
 }

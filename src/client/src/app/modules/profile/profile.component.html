@@ -8,6 +8,7 @@
 
       <app-alert *ngIf="requiresAdditionalInfo$ | async" type="warn">
         Пожалуйста, заполните необходимые данные профиля.
+        <a class="action-text" routerLink="/profile/settings/profile">Перейти к редактированию</a>
       </app-alert>
     </div>
   </ng-template>

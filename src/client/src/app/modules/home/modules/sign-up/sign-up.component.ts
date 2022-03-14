@@ -27,7 +27,7 @@ export class SignUpComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
   public readonly loading$ = new BehaviorSubject(false);
 
-  public readonly signUpForm = this.signUpFormGroup;
+  private readonly signUpForm = this.signUpFormGroup;
 
   public constructor(
     private readonly activatedRoute: ActivatedRoute,

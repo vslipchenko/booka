@@ -1,8 +1,8 @@
 import {Action, State, StateContext, StateToken} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {AccountTariffs} from '~app/typings/account.enums';
 import {SetAccountVitals} from '~app/modules/profile/store/profile.actions';
 import {AccountVitals} from '~app/typings/account.interfaces';
+import {AccountTariffs} from '~app/typings/account.enums';
 
 export interface ProfileStateModel {
   account: AccountVitals;
@@ -14,7 +14,7 @@ const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
   name: PROFILE_STATE,
   defaults: {
     account: {
-      tariff: AccountTariffs.Client,
+      tariff: AccountTariffs.None,
       first_name: '',
       middle_name: '',
       last_name: '',
