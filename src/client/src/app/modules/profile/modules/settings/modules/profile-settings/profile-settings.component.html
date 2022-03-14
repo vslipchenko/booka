@@ -1,9 +1,13 @@
-<div class="p-1-2">
-  <div class="d-flex jc-between f-wrap">
+<app-narrow-container class="w-100 absolute t-0">
+  <app-info-section svgIcon="account-edit" title="Редактирование профиля" class="d-block pt-2-3"> </app-info-section>
+
+  <div class="p-2-3">
     <ng-container *ngIf="accountTariff$ | async as tariff">
       <ng-container *ngIf="isClientTariff(tariff)">
+        <h3 class="mb-2">Основное</h3>
+
         <app-input
-          class="f-1 p-1"
+          class="d-block"
           extendClass="w-100"
           appearance="outline"
           label="Имя"
@@ -11,7 +15,7 @@
         ></app-input>
 
         <app-input
-          class="f-1 p-1"
+          class="d-block"
           extendClass="w-100"
           appearance="outline"
           label="Фамилия"
@@ -19,21 +23,36 @@
         ></app-input>
 
         <app-input
-          class="f-1 p-1"
+          class="d-block"
           extendClass="w-100"
           appearance="outline"
           label="Отчество"
           [control]="middleName"
         ></app-input>
+
+        <app-select
+          class="d-block"
+          extendClass="w-100"
+          label="Пол"
+          [items]="[]"
+          [control]="gender"
+          appearance="outline"
+        ></app-select>
+
+        <app-datepicker
+          class="d-block"
+          extendClass="w-100"
+          label="Дата рождения"
+          appearance="outline"
+          [control]="birthDate"
+        ></app-datepicker>
+
+        <h3 class="mb-2">Контакты</h3>
       </ng-container>
 
-      <ng-container *ngIf="isEntrepreneurTariff(tariff)">
-        Entrepreneur
-      </ng-container>
+      <ng-container *ngIf="isEntrepreneurTariff(tariff)"> Entrepreneur </ng-container>
 
-      <ng-container *ngIf="isBusinessTariff(tariff)">
-        Business
-      </ng-container>
+      <ng-container *ngIf="isBusinessTariff(tariff)"> Business </ng-container>
     </ng-container>
   </div>
-</div>
+</app-narrow-container>

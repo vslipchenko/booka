@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
-import {skip, Subject, take, takeUntil} from 'rxjs';
+import {filter, Subject, take, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AccountTariffs} from '~app/typings/account.enums';
 
@@ -14,7 +14,10 @@ import {AccountTariffs} from '~app/typings/account.enums';
 })
 export class ProfileSettingsComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
-  public readonly accountTariff$ = this.store.select(ProfileSelectors.accountTariff).pipe(skip(1), take(1));
+  public readonly accountTariff$ = this.store.select(ProfileSelectors.accountTariff).pipe(
+    filter((tariff) => tariff !== AccountTariffs.None),
+    take(1),
+  );
 
   private profileSettingsForm = new FormGroup({});
 
@@ -57,6 +60,8 @@ export class ProfileSettingsComponent implements Destroyable {
       firstName: new FormControl(null, Validators.required),
       middleName: new FormControl(null),
       lastName: new FormControl(null),
+      gender: new FormControl(null, Validators.required),
+      birthDate: new FormControl(null, Validators.required),
     });
   }
 
@@ -82,5 +87,13 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get lastName(): FormControl {
     return this.profileSettingsForm.controls['lastName'] as FormControl;
+  }
+
+  public get gender(): FormControl {
+    return this.profileSettingsForm.controls['gender'] as FormControl;
+  }
+
+  public get birthDate(): FormControl {
+    return this.profileSettingsForm.controls['birthDate'] as FormControl;
   }
 }

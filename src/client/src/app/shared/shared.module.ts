@@ -33,6 +33,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {ProgressSpinnerComponent} from './components/progress-spinner/progress-spinner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {NarrowContainerComponent} from '~app/shared/components/layout/narrow-container/narrow-container.component';
+import {DatepickerComponent} from './components/datepicker/datepicker.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,7 @@ import {NarrowContainerComponent} from '~app/shared/components/layout/narrow-con
     InputHideSuffixComponent,
     SelectComponent,
     ProgressSpinnerComponent,
+    DatepickerComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -74,6 +78,7 @@ import {NarrowContainerComponent} from '~app/shared/components/layout/narrow-con
     ProgressSpinnerComponent,
     IconButtonComponent,
     MenuComponent,
+    DatepickerComponent,
   ],
   imports: [
     CommonModule,
@@ -90,6 +95,8 @@ import {NarrowContainerComponent} from '~app/shared/components/layout/narrow-con
     MatCheckboxModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
 })
 export class SharedModule {}
