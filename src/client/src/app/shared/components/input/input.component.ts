@@ -22,9 +22,10 @@ export class InputComponent implements FormField {
   @Input() public extendClass = '';
   @Input() public label = '';
   @Input() public placeholder = '';
-  @Input() public hint = '';
   // @Input() public prefix?: TemplateRef<unknown>;
   @Input() public suffix?: TemplateRef<unknown>;
+  @Input() public hint?: TemplateRef<unknown>;
+  @Input() public hintAlign: 'start' | 'end' = 'start';
 
   public hide = true;
 

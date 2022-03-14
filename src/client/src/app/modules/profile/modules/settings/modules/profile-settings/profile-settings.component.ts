@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {filter, Subject, take, takeUntil} from 'rxjs';
@@ -43,6 +43,10 @@ export class ProfileSettingsComponent implements Destroyable {
     this.destroy$.complete();
   }
 
+  public addPhoneNumber(): void {
+    this.phoneNumbers.push(new FormControl(null));
+  }
+
   public isClientTariff(tariff: AccountTariffs): boolean {
     return tariff === AccountTariffs.Client;
   }
@@ -62,6 +66,7 @@ export class ProfileSettingsComponent implements Destroyable {
       lastName: new FormControl(null),
       gender: new FormControl(null, Validators.required),
       birthDate: new FormControl(null, Validators.required),
+      phoneNumbers: new FormArray([new FormControl(null)]),
     });
   }
 
@@ -95,5 +100,13 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get birthDate(): FormControl {
     return this.profileSettingsForm.controls['birthDate'] as FormControl;
+  }
+
+  public get phoneNumbers(): FormArray {
+    return this.profileSettingsForm.controls['phoneNumbers'] as FormArray;
+  }
+
+  public get phoneNumbersControls(): Array<FormControl> {
+    return this.phoneNumbers.controls as Array<FormControl>;
   }
 }

@@ -27,9 +27,13 @@
         appearance="outline"
         label="Новый пароль"
         extendClass="w-100 mb-4"
-        hint="Пароль должен содержать не менее восьми знаков, включать цифры, латинские буквы и символы"
+        [hint]="hint"
         [suffix]="suffix"
       >
+        <ng-template #hint>
+          Пароль должен содержать не менее восьми знаков, включать цифры, латинские буквы и символы
+        </ng-template>
+
         <ng-template #suffix>
           <app-input-hide-suffix [input]="input"></app-input-hide-suffix>
         </ng-template>

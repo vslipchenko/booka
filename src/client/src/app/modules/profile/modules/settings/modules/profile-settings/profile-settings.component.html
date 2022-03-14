@@ -48,6 +48,30 @@
         ></app-datepicker>
 
         <h3 class="mb-2">Контакты</h3>
+
+        <app-input
+          *ngFor="let phoneNumber of phoneNumbersControls; let isLast = last"
+          class="d-block"
+          extendClass="w-100"
+          type="tel"
+          appearance="outline"
+          label="Номер телефона"
+          [control]="phoneNumber"
+          [hint]="hint"
+          hintAlign="end"
+        >
+          <ng-template #hint>
+            <span *ngIf="isLast" class="d-flex ai-center pointer c-primary" tabindex="0" (click)="addPhoneNumber()">
+              <mat-icon class="mr-h">add</mat-icon> Добавить номер
+            </span>
+          </ng-template>
+        </app-input>
+
+        <app-input class="d-block" extendClass="w-100" type="url" appearance="outline" label="Telegram"></app-input>
+
+        <app-input class="d-block" extendClass="w-100" type="url" appearance="outline" label="Viber"></app-input>
+
+        <app-input class="d-block" extendClass="w-100" type="url" appearance="outline" label="WhatsApp"></app-input>
       </ng-container>
 
       <ng-container *ngIf="isEntrepreneurTariff(tariff)"> Entrepreneur </ng-container>

@@ -55,6 +55,10 @@
   margin-top: var.$unit-2;
 }
 
+.mr-h {
+  margin-right: var.$unit-half;
+}
+
 .mr-1 {
   margin-right: var.$unit;
 }
@@ -258,6 +262,10 @@
 }
 
 /* Color */
+.c-primary {
+  color: var.$color-primary;
+}
+
 .c-accent {
   color: var.$color-accent;
 }

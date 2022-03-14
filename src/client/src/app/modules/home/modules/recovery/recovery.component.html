@@ -23,10 +23,12 @@
         [control]="email"
         appearance="outline"
         label="Email"
-        hint="На этот email вам придет письмо с подтверждением"
+        [hint]="hint"
         [errorMessage]="errorMessage"
         extendClass="mb-2 w-100"
-      ></app-input>
+      >
+        <ng-template #hint>На этот email вам придет письмо с подтверждением</ng-template>
+      </app-input>
 
       <app-flat-button
         (clicked)="recoverPassword()"
