@@ -11,7 +11,7 @@ export const MIDDLE_NAME_MAX_LENGTH = 50;
 
 export const PHONE_NUMBER_REGEXP = /^[0-9]{9}$/;
 export const TELEGRAM_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,32}$/;
-export const WHATS_APP_NUMBER_REGEXP = /^[0-9]{4,15}$/;
+export const WHATS_APP_NUMBER_REGEXP = /^[0-9]{7,15}$/;
 
 // At least 1 letter & 1 number; includes all special characters
 export const PASSWORD_REGEXP = RegExp(
