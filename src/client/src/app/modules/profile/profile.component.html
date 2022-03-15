@@ -1,6 +1,6 @@
 <app-main [footer]="footer" [contentHeader]="contentHeader" [loading]="loading$ | async">
   <ng-template #contentHeader>
-    <div class="p-2-3">
+    <div *ngIf="showContentHeader" class="p-2-3">
       <app-alert *ngIf="needsToBePaid$ | async" type="warn" class="d-block mb-2">
         Аккаунт неактивен. Пожалуйста, <a class="action-text">продлите подписку</a>, чтобы продолжить пользоваться
         услугами.

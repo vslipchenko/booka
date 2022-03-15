@@ -4,7 +4,7 @@
   <div class="f-1 bg-primary-light relative">
     <app-progress-spinner *ngIf="loading" class="d-flex jc-center ai-center w-100 h-100 absolute bg-light"></app-progress-spinner>
 
-    <div class="content bg-light mx-auto relative">
+    <div class="content bg-light mx-auto">
       <ng-container *ngIf="contentHeader" [ngTemplateOutlet]="contentHeader"></ng-container>
 
       <ng-container *ngIf="content; else outlet" [ngTemplateOutlet]="content"></ng-container>

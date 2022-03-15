@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {BookingService} from '~app/services/booking/booking.service';
 import {MenuItem} from '~app/typings/menu.interfaces';
-import {BehaviorSubject, finalize, Observable, Subject, takeUntil, tap} from 'rxjs';
+import {BehaviorSubject, filter, finalize, Observable, Subject, takeUntil, tap} from 'rxjs';
 import {AccountService} from '~app/services/account/account.service';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {Select, Store} from '@ngxs/store';
 import {SetAccountVitals} from '~app/modules/profile/store/profile.actions';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,8 @@ export class ProfileComponent implements OnInit, Destroyable {
   public readonly requiresAdditionalInfo$!: Observable<boolean>;
 
   public readonly destroy$ = new Subject<void>();
-  public readonly loading$ = new BehaviorSubject(false);
+  public readonly loading$ = new BehaviorSubject(true);
+  public showContentHeader = false;
   public readonly menuItems: Array<MenuItem> = [
     {title: 'Главная', routerLink: '/', icon: 'web'},
     {title: 'Настройки', routerLink: '/profile/settings', icon: 'settings'},
@@ -32,11 +34,28 @@ export class ProfileComponent implements OnInit, Destroyable {
     private readonly bookingService: BookingService,
     private readonly accountService: AccountService,
     private readonly store: Store,
-  ) {}
+    private readonly router: Router,
+  ) {
+    this.router.events
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((event) => event instanceof NavigationEnd),
+      )
+      .subscribe((event) => {
+        // Forbid content header banners on certain pages
+        const contentHeaderUrlBlacklist = ['/profile/settings', '/profile/settings/profile'];
+
+        if (contentHeaderUrlBlacklist.includes((event as NavigationEnd).url)) {
+          this.showContentHeader = false;
+          return;
+        }
+
+        this.showContentHeader = true;
+      });
+  }
 
   public ngOnInit(): void {
     // this.bookingService.bookedServicesByUserId().subscribe();
-    this.loading$.next(true);
 
     this.accountService
       .getAccountVitals()
