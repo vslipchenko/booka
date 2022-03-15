@@ -36,6 +36,7 @@ import {NarrowContainerComponent} from '~app/shared/components/layout/narrow-con
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {TextareaComponent} from './components/textarea/textarea.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     SelectComponent,
     ProgressSpinnerComponent,
     DatepickerComponent,
+    TextareaComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -79,6 +81,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     IconButtonComponent,
     MenuComponent,
     DatepickerComponent,
+    TextareaComponent,
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,9 @@
-<mat-form-field [appearance]="appearance" [color]="color" [class]="extendClass">
+<mat-form-field [appearance]="appearance" [color]="color" [class]="extendClass" [floatLabel]="floatLabel">
   <mat-label>{{label}}</mat-label>
   <input matInput [type]="inputType" [formControl]="control" [placeholder]="placeholder">
-<!--  <ng-container *ngIf="prefixRef" matPrefix>-->
-<!--    <ng-container [ngTemplateOutlet]="prefixRef"></ng-container>-->
-<!--  </ng-container>-->
+  <ng-container *ngIf="prefix" matPrefix>
+    <ng-container [ngTemplateOutlet]="prefix"></ng-container>
+  </ng-container>
   <ng-container *ngIf="suffix" matSuffix>
     <ng-container [ngTemplateOutlet]="suffix"></ng-container>
   </ng-container>

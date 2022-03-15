@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, TemplateRef} from '@angular/core';
 import {FormControl, ValidationErrors} from '@angular/forms';
-import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
+import {FloatLabelType, MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {ThemePalette} from '@angular/material/core';
 import {InputType} from '~app/typings/input.types';
 import {FormField} from '~app/typings/form-field.interfaces';
@@ -24,8 +24,10 @@ export class InputComponent implements FormField {
   @Input() public placeholder = '';
   // @Input() public prefix?: TemplateRef<unknown>;
   @Input() public suffix?: TemplateRef<unknown>;
+  @Input() public prefix?: TemplateRef<unknown>;
   @Input() public hint?: TemplateRef<unknown>;
   @Input() public hintAlign: 'start' | 'end' = 'start';
+  @Input() public floatLabel: FloatLabelType = 'auto';
 
   public hide = true;
 

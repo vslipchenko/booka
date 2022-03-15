@@ -1,10 +1,20 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {filter, Subject, take, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AccountTariffs} from '~app/typings/account.enums';
+import {SelectItem} from '~app/typings/select.interfaces';
+import {Gender} from '~app/typings/user.enums';
+import {
+  FIRST_NAME_MAX_LENGTH,
+  LAST_NAME_MAX_LENGTH,
+  MIDDLE_NAME_MAX_LENGTH,
+  PHONE_NUMBER_REGEXP,
+  TELEGRAM_USERNAME_REGEXP,
+  WHATS_APP_NUMBER_REGEXP,
+} from '~app/constants/regexp';
 
 @Component({
   selector: 'app-profile-settings',
@@ -18,6 +28,11 @@ export class ProfileSettingsComponent implements Destroyable {
     filter((tariff) => tariff !== AccountTariffs.None),
     take(1),
   );
+  public readonly genderItems: Array<SelectItem> = [
+    {title: 'Мужчина', value: Gender.Male},
+    {title: 'Женщина', value: Gender.Female},
+    {title: 'Другой', value: Gender.Other},
+  ];
 
   private profileSettingsForm = new FormGroup({});
 
@@ -44,7 +59,41 @@ export class ProfileSettingsComponent implements Destroyable {
   }
 
   public addPhoneNumber(): void {
-    this.phoneNumbers.push(new FormControl(null));
+    this.phoneNumbers.push(new FormControl(null, Validators.pattern(PHONE_NUMBER_REGEXP)));
+  }
+
+  public errorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    return 'Обязательное поле';
+  }
+
+  public nameErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('maxlength' in errors) return `Максимум ${FIRST_NAME_MAX_LENGTH} знаков`;
+
+    return this.errorMessage(errors);
+  }
+
+  public telegramErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('pattern' in errors) return 'Неверный формат';
+  }
+
+  public whatsAppErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('pattern' in errors) return 'Неверный формат. Пример номера: 380123456789';
+  }
+
+  public phoneNumberErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('pattern' in errors) return 'Неверный формат. Пример номера: +380123456789';
+
+    return this.errorMessage(errors);
   }
 
   public isClientTariff(tariff: AccountTariffs): boolean {
@@ -61,12 +110,17 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get clientProfileSettingsFormGroup(): FormGroup {
     return new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      middleName: new FormControl(null),
-      lastName: new FormControl(null),
+      firstName: new FormControl(null, [Validators.required, Validators.maxLength(FIRST_NAME_MAX_LENGTH)]),
+      middleName: new FormControl(null, Validators.maxLength(MIDDLE_NAME_MAX_LENGTH)),
+      lastName: new FormControl(null, Validators.maxLength(LAST_NAME_MAX_LENGTH)),
       gender: new FormControl(null, Validators.required),
       birthDate: new FormControl(null, Validators.required),
-      phoneNumbers: new FormArray([new FormControl(null)]),
+      telegram: new FormControl(null, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
+      whatsApp: new FormControl(null, Validators.pattern(WHATS_APP_NUMBER_REGEXP)),
+      description: new FormControl(null, Validators.maxLength(500)),
+      phoneNumbers: new FormArray([
+        new FormControl(null, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
+      ]),
     });
   }
 
@@ -100,6 +154,18 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get birthDate(): FormControl {
     return this.profileSettingsForm.controls['birthDate'] as FormControl;
+  }
+
+  public get description(): FormControl {
+    return this.profileSettingsForm.controls['description'] as FormControl;
+  }
+
+  public get telegram(): FormControl {
+    return this.profileSettingsForm.controls['telegram'] as FormControl;
+  }
+
+  public get whatsApp(): FormControl {
+    return this.profileSettingsForm.controls['whatsApp'] as FormControl;
   }
 
   public get phoneNumbers(): FormArray {
