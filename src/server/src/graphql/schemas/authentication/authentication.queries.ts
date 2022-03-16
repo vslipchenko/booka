@@ -1,7 +1,7 @@
 import {SignIn} from '../../../typings/user.interfaces';
 import {signInValidator} from './authentication.validators';
 import {gql} from 'apollo-server-core';
-import {UserAccessKeyByUserId, UserSignIn} from '../../../data/queries/user';
+import {UserRefreshAccessToken, UserSignIn} from '../../../data/queries/user';
 import {db} from '../../../data';
 import {SignInFailReason} from '../../../typings/authentication.enums';
 import {compareSync} from 'bcrypt';
@@ -10,6 +10,7 @@ import {environment} from '../../../environments';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {ApolloError} from 'apollo-server-fastify';
 import {ApolloErrorCode} from '../../../typings/apollo.enums';
+import {AccountTariffs} from '../../../typings/account.enums';
 
 export const authenticationQueryTypeDefinitions = gql`
   type Query {
@@ -31,6 +32,7 @@ const signIn = async (
     access_key: string;
     confirmation_key: string;
     password: string;
+    tariff: AccountTariffs;
   }>(UserSignIn(input.email));
 
   if (!result.rowCount) return null;
@@ -45,7 +47,7 @@ const signIn = async (
 
   if (!correctPassword) return null;
 
-  const accessToken = sign({userId: row.id}, environment.ACCESS_TOKEN_SECRET, {
+  const accessToken = sign({userId: row.id, tariff: row.tariff}, environment.ACCESS_TOKEN_SECRET, {
     algorithm: JWT_ALGORITHM,
     expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
   });
@@ -69,7 +71,8 @@ const refreshAccessToken = async (
 
   const result = await db.query<{
     access_key: string;
-  }>(UserAccessKeyByUserId(userId));
+    tariff: AccountTariffs;
+  }>(UserRefreshAccessToken(userId));
   // Invalid refresh token data
   if (!result.rowCount) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
 
@@ -87,7 +90,7 @@ const refreshAccessToken = async (
   }
 
   // Token is valid; issue fresh access token
-  return sign({userId}, environment.ACCESS_TOKEN_SECRET, {
+  return sign({userId, tariff: row.tariff}, environment.ACCESS_TOKEN_SECRET, {
     algorithm: JWT_ALGORITHM,
     expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
   });

@@ -55,18 +55,22 @@ export const UserResetPassword = (email: string, password: string): QueryConfig 
 
 export const UserSignIn = (email: string): QueryConfig => ({
   text: `
-    SELECT id, password, access_key, confirmation_key
-    FROM users
-    WHERE email = $1
+    SELECT t1.id, t1.password, t1.access_key, t1.confirmation_key, t2.tariff
+    FROM users t1
+    INNER JOIN accounts t2
+    ON t1.id = t2.id
+    WHERE t1.email = $1
   `,
   values: [email],
 });
 
-export const UserAccessKeyByUserId = (userId: string): QueryConfig => ({
+export const UserRefreshAccessToken = (userId: string): QueryConfig => ({
   text: `
-    SELECT access_key
-    FROM users
-    WHERE id = $1
+    SELECT t1.access_key, t2.tariff
+    FROM users t1
+    INNER JOIN accounts t2
+    ON t1.id = t2.id
+    WHERE t1.id = $1
   `,
   values: [userId],
 });

@@ -1,27 +1,52 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {SettingsListModule} from '~app/modules/profile/modules/settings/modules/settings-list/settings-list.module';
-import {ProfileSettingsModule} from '~app/modules/profile/modules/settings/modules/profile-settings/profile-settings.module';
+import {LoadChildren, RouterModule, ROUTES, Routes} from '@angular/router';
+import {AuthenticationService} from '~app/services/authentication/authentication.service';
+import {AccountTariffs} from '~app/typings/account.enums';
+import {ClientSettingsModule} from '~app/modules/profile/modules/settings/modules/client-settings/client-settings.module';
+import {EntrepreneurSettingsModule} from '~app/modules/profile/modules/settings/modules/entrepreneur-settings/entrepreneur-settings.module';
+import {BusinessSettingsModule} from '~app/modules/profile/modules/settings/modules/business-settings/business-settings.module';
 
-const routes: Routes = [
-  {
-    path: '',
-    loadChildren: (): Promise<SettingsListModule> =>
-      import('~app/modules/profile/modules/settings/modules/settings-list/settings-list.module').then(
-        (m) => m.SettingsListModule,
-      ),
-  },
-  {
-    path: 'profile',
-    loadChildren: (): Promise<ProfileSettingsModule> =>
-      import('~app/modules/profile/modules/settings/modules/profile-settings/profile-settings.module').then(
-        (m) => m.ProfileSettingsModule,
-      ),
-  },
-];
+function routesFactory(authenticationService: AuthenticationService): Routes {
+  const {tariff} = authenticationService.getAccessTokenData();
+
+  let loadChildren: LoadChildren;
+
+  if (tariff === AccountTariffs.Client)
+    loadChildren = (): Promise<ClientSettingsModule> =>
+      import(`~app/modules/profile/modules/settings/modules/client-settings/client-settings.module`).then(
+        (m) => m.ClientSettingsModule,
+      );
+
+  if (tariff === AccountTariffs.Entrepreneur)
+    loadChildren = (): Promise<EntrepreneurSettingsModule> =>
+      import(`~app/modules/profile/modules/settings/modules/entrepreneur-settings/entrepreneur-settings.module`).then(
+        (m) => m.EntrepreneurSettingsModule,
+      );
+
+  if (tariff === AccountTariffs.Business)
+    loadChildren = (): Promise<BusinessSettingsModule> =>
+      import(`~app/modules/profile/modules/settings/modules/business-settings/business-settings.module`).then(
+        (m) => m.BusinessSettingsModule,
+      );
+
+  return [
+    {
+      path: '',
+      // @ts-expect-error
+      loadChildren,
+    },
+  ];
+}
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  providers: [
+    {
+      provide: ROUTES,
+      useFactory: routesFactory,
+      multi: true,
+      deps: [AuthenticationService],
+    },
+  ],
   exports: [RouterModule],
 })
 export class SettingsRoutingModule {}
