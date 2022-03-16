@@ -1,6 +1,6 @@
-<app-narrow-container *ngIf="accountTariff$ | async as tariff">
+<app-narrow-container>
   <app-info-section svgIcon="account-edit" title="Редактирование профиля" class="d-block pt-2-3">
-    <div *ngIf="isClientTariff(tariff)" class="px-2-3 pt-2-3">
+    <div class="px-2-3 pt-2-3">
       <span
         matTooltip="Данная информация будет видна только зарегистрированным предоставителям услуг. Это позволит повысить качество и эффективность оказываемых услуг."
         matTooltipPosition="left"
@@ -12,129 +12,119 @@
   </app-info-section>
 
   <div class="p-2-3">
-    <ng-container *ngIf="isClientTariff(tariff)">
-      <h3 class="mb-2">Основное</h3>
+    <h3 class="mb-2">Основное</h3>
 
-      <app-input
-        class="d-block"
-        extendClass="w-100"
-        appearance="outline"
-        label="Имя"
-        [errorMessage]="nameErrorMessage.bind(this)"
-        [control]="firstName"
-      ></app-input>
+    <app-input
+      class="d-block"
+      extendClass="w-100"
+      appearance="outline"
+      label="Имя"
+      [errorMessage]="nameErrorMessage.bind(this)"
+      [control]="firstName"
+    ></app-input>
 
-      <app-input
-        class="d-block"
-        extendClass="w-100"
-        appearance="outline"
-        label="Фамилия"
-        [control]="lastName"
-        [errorMessage]="nameErrorMessage.bind(this)"
-      ></app-input>
+    <app-input
+      class="d-block"
+      extendClass="w-100"
+      appearance="outline"
+      label="Фамилия"
+      [control]="lastName"
+      [errorMessage]="nameErrorMessage.bind(this)"
+    ></app-input>
 
-      <app-input
-        class="d-block"
-        extendClass="w-100"
-        appearance="outline"
-        label="Отчество"
-        [control]="middleName"
-        [errorMessage]="nameErrorMessage.bind(this)"
-      ></app-input>
+    <app-input
+      class="d-block"
+      extendClass="w-100"
+      appearance="outline"
+      label="Отчество"
+      [control]="middleName"
+      [errorMessage]="nameErrorMessage.bind(this)"
+    ></app-input>
 
-      <app-select
-        class="d-block"
-        extendClass="w-100"
-        label="Пол"
-        [items]="genderItems"
-        [control]="gender"
-        [errorMessage]="errorMessage"
-        appearance="outline"
-      ></app-select>
+    <app-select
+      class="d-block"
+      extendClass="w-100"
+      label="Пол"
+      [items]="genderItems"
+      [control]="gender"
+      [errorMessage]="errorMessage"
+      appearance="outline"
+    ></app-select>
 
-      <app-datepicker
-        class="d-block"
-        extendClass="w-100"
-        label="Дата рождения"
-        appearance="outline"
-        [control]="birthDate"
-        [maxDate]="maxDate"
-        [errorMessage]="errorMessage"
-      ></app-datepicker>
+    <app-datepicker
+      class="d-block"
+      extendClass="w-100"
+      label="Дата рождения"
+      appearance="outline"
+      [control]="birthDate"
+      [maxDate]="maxDate"
+      [errorMessage]="errorMessage"
+    ></app-datepicker>
 
-      <app-textarea
-        appearance="outline"
-        label="Дополнительно"
-        class="d-block w-100"
-        extendClass="w-100"
-        [control]="description"
-        [hint]="descriptionHint"
-        hintAlign="end"
-      >
-        <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 250 знаков</ng-template>
-      </app-textarea>
+    <app-textarea
+      appearance="outline"
+      label="Дополнительно"
+      class="d-block w-100"
+      extendClass="w-100"
+      [control]="description"
+      [hint]="descriptionHint"
+      hintAlign="end"
+    >
+      <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 250 знаков</ng-template>
+    </app-textarea>
 
-      <h3 class="mb-2">Контакты</h3>
+    <h3 class="mb-2">Контакты</h3>
 
-      <app-input
-        *ngFor="let phoneNumber of phoneNumbersControls; let isLast = last"
-        class="d-block prefix-offset-0"
-        extendClass="w-100"
-        type="tel"
-        appearance="outline"
-        label="Номер телефона"
-        [control]="phoneNumber"
-        [errorMessage]="phoneNumberErrorMessage.bind(this)"
-        [hint]="phoneNumberHint"
-        [prefix]="prefix"
-        floatLabel="always"
-        placeholder="000000000"
-        hintAlign="end"
-      >
-        <ng-template #prefix>+380</ng-template>
+    <app-input
+      *ngFor="let phoneNumber of phoneNumbersControls; let isLast = last"
+      class="d-block prefix-offset-0"
+      extendClass="w-100"
+      type="tel"
+      appearance="outline"
+      label="Номер телефона"
+      [control]="phoneNumber"
+      [errorMessage]="phoneNumberErrorMessage.bind(this)"
+      [hint]="phoneNumberHint"
+      [prefix]="prefix"
+      floatLabel="always"
+      placeholder="000000000"
+      hintAlign="end"
+    >
+      <ng-template #prefix>+380</ng-template>
 
-        <ng-template #phoneNumberHint>
-          <span *ngIf="isLast" class="d-flex ai-center pointer c-primary" tabindex="0" (click)="addPhoneNumber()">
-            <mat-icon class="mr-h">add</mat-icon> Добавить номер
-          </span>
-        </ng-template>
-      </app-input>
+      <ng-template #phoneNumberHint>
+        <span *ngIf="isLast" class="d-flex ai-center pointer c-primary" tabindex="0" (click)="addPhoneNumber()">
+          <mat-icon class="mr-h">add</mat-icon> Добавить номер
+        </span>
+      </ng-template>
+    </app-input>
 
-      <app-input
-        class="d-block"
-        extendClass="w-100"
-        type="tel"
-        appearance="outline"
-        label="Номер WhatsApp"
-        placeholder="380000000000"
-        [control]="whatsApp"
-        [errorMessage]="whatsAppErrorMessage"
-        [hint]="whatsAppHint"
-      >
-        <ng-template #whatsAppHint>
-          https://wa.me/{{whatsApp.value}}
-        </ng-template>
-      </app-input>
+    <app-input
+      class="d-block"
+      extendClass="w-100"
+      type="tel"
+      appearance="outline"
+      label="Номер WhatsApp"
+      placeholder="380000000000"
+      [control]="whatsApp"
+      [errorMessage]="whatsAppErrorMessage"
+      [hint]="whatsAppHint"
+    >
+      <ng-template #whatsAppHint> https://wa.me/{{ whatsApp.value }} </ng-template>
+    </app-input>
 
-      <app-input
-        class="d-block"
-        extendClass="w-100 mb-2"
-        appearance="outline"
-        label="Юзернейм Telegram"
-        [control]="telegram"
-        [errorMessage]="telegramErrorMessage"
-        [hint]="telegramHint"
-      >
-        <ng-template #telegramHint>
-          https://t.me/{{telegram.value}}
-        </ng-template>
-      </app-input>
+    <app-input
+      class="d-block"
+      extendClass="w-100 mb-2"
+      appearance="outline"
+      label="Юзернейм Telegram"
+      [control]="telegram"
+      [errorMessage]="telegramErrorMessage"
+      [hint]="telegramHint"
+    >
+      <ng-template #telegramHint> https://t.me/{{ telegram.value }} </ng-template>
+    </app-input>
 
-      <app-flat-button class="d-block w-100" extendClass="w-100" color="primary" text="Сохранить"></app-flat-button>
-    </ng-container>
-
-    <ng-container *ngIf="isEntrepreneurTariff(tariff)"> Entrepreneur </ng-container>
-
-    <ng-container *ngIf="isBusinessTariff(tariff)"> Business </ng-container>
+    <app-flat-button class="d-block w-100" extendClass="w-100" color="primary" text="Сохранить"></app-flat-button>
   </div>
 </app-narrow-container>

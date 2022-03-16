@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {Store} from '@ngxs/store';
-import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
-import {filter, Subject, take, takeUntil} from 'rxjs';
+import {Subject} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AccountTariffs} from '~app/typings/account.enums';
 import {SelectItem} from '~app/typings/select.interfaces';
@@ -25,34 +24,15 @@ import {
 })
 export class ProfileSettingsComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
-  public readonly accountTariff$ = this.store.select(ProfileSelectors.accountTariff).pipe(
-    filter((tariff) => tariff !== AccountTariffs.None),
-    take(1),
-  );
   public readonly genderItems: Array<SelectItem> = [
     {title: 'Мужчина', value: Gender.Male},
     {title: 'Женщина', value: Gender.Female},
     {title: 'Другой', value: Gender.Other},
   ];
 
-  private profileSettingsForm = new FormGroup({});
+  private readonly profileSettingsForm = this.profileSettingsFormGroup;
 
-  public constructor(private readonly store: Store) {
-    this.accountTariff$.pipe(takeUntil(this.destroy$)).subscribe((tariff) => {
-      if (tariff === AccountTariffs.Client) {
-        this.profileSettingsForm = this.clientProfileSettingsFormGroup;
-        return;
-      }
-
-      if (tariff === AccountTariffs.Entrepreneur) {
-        this.profileSettingsForm = this.entrepreneurProfileSettingsFormGroup;
-        return;
-      }
-
-      // Business
-      this.profileSettingsForm = this.businessProfileSettingsFormGroup;
-    });
-  }
+  public constructor(private readonly store: Store) {}
 
   public ngOnDestroy(): void {
     this.destroy$.next();
@@ -112,7 +92,7 @@ export class ProfileSettingsComponent implements Destroyable {
     return tariff === AccountTariffs.Business;
   }
 
-  public get clientProfileSettingsFormGroup(): FormGroup {
+  public get profileSettingsFormGroup(): FormGroup {
     return new FormGroup({
       firstName: new FormControl(null, [
         Validators.required,
@@ -133,18 +113,6 @@ export class ProfileSettingsComponent implements Destroyable {
         new FormControl(null, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
       ]),
     });
-  }
-
-  public get entrepreneurProfileSettingsFormGroup(): FormGroup {
-    return new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      middleName: new FormControl(null),
-      lastName: new FormControl(null),
-    });
-  }
-
-  public get businessProfileSettingsFormGroup(): FormGroup {
-    return new FormGroup({});
   }
 
   public get maxDate(): Date {
