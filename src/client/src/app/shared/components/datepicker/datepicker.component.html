@@ -1,6 +1,6 @@
 <mat-form-field [appearance]="appearance" [color]="color" [class]="extendClass">
   <mat-label>{{label}}</mat-label>
-  <input matInput [matDatepicker]="picker" [formControl]="control">
+  <input matInput [matDatepicker]="picker" [max]="maxDate" [formControl]="control">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
   <mat-error *ngIf="control.invalid && errorMessage">{{ errorMessage(control.errors) }}</mat-error>

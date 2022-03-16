@@ -147,6 +147,11 @@ export class ProfileSettingsComponent implements Destroyable {
     return new FormGroup({});
   }
 
+  public get maxDate(): Date {
+    const date = new Date();
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
   public get firstName(): FormControl {
     return this.profileSettingsForm.controls['firstName'] as FormControl;
   }
