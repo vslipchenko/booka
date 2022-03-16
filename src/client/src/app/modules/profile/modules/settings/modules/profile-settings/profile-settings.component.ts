@@ -11,6 +11,7 @@ import {
   FIRST_NAME_MAX_LENGTH,
   LAST_NAME_MAX_LENGTH,
   MIDDLE_NAME_MAX_LENGTH,
+  NAME_REGEXP,
   PHONE_NUMBER_REGEXP,
   TELEGRAM_USERNAME_REGEXP,
   WHATS_APP_NUMBER_REGEXP,
@@ -73,6 +74,9 @@ export class ProfileSettingsComponent implements Destroyable {
 
     if ('maxlength' in errors) return `Максимум ${FIRST_NAME_MAX_LENGTH} знаков`;
 
+    if ('pattern' in errors)
+      return 'Неверный формат. Разрешены символы российского, украинского и английского алфавита';
+
     return this.errorMessage(errors);
   }
 
@@ -110,9 +114,16 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get clientProfileSettingsFormGroup(): FormGroup {
     return new FormGroup({
-      firstName: new FormControl(null, [Validators.required, Validators.maxLength(FIRST_NAME_MAX_LENGTH)]),
-      middleName: new FormControl(null, Validators.maxLength(MIDDLE_NAME_MAX_LENGTH)),
-      lastName: new FormControl(null, Validators.maxLength(LAST_NAME_MAX_LENGTH)),
+      firstName: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(FIRST_NAME_MAX_LENGTH),
+      ]),
+      middleName: new FormControl(null, [
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
+      ]),
+      lastName: new FormControl(null, [Validators.pattern(NAME_REGEXP), Validators.maxLength(LAST_NAME_MAX_LENGTH)]),
       gender: new FormControl(null, Validators.required),
       birthDate: new FormControl(null, Validators.required),
       telegram: new FormControl(null, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),

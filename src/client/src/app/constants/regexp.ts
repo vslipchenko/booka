@@ -9,6 +9,7 @@ export const FIRST_NAME_MAX_LENGTH = 50;
 export const LAST_NAME_MAX_LENGTH = 50;
 export const MIDDLE_NAME_MAX_LENGTH = 50;
 
+export const NAME_REGEXP = /^[A-Za-zА-Яа-яҐЁЄІЇіёєїґ']*$/; // En, Ru, Uk, apostrophe
 export const PHONE_NUMBER_REGEXP = /^[0-9]{9}$/;
 export const TELEGRAM_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,32}$/;
 export const WHATS_APP_NUMBER_REGEXP = /^[0-9]{7,15}$/;

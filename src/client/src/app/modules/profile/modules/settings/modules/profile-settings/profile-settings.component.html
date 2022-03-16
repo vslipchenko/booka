@@ -2,7 +2,7 @@
   <app-info-section svgIcon="account-edit" title="Редактирование профиля" class="d-block pt-2-3">
     <div *ngIf="isClientTariff(tariff)" class="px-2-3 pt-2-3">
       <span
-        matTooltip="Данная информация будет видна только зарегистрированным предоставителям услуг. Это позволит повысить их качество."
+        matTooltip="Данная информация будет видна только зарегистрированным предоставителям услуг. Это позволит повысить качество и эффективность оказываемых услуг."
         matTooltipPosition="left"
         class="d-flex ai-center w-max"
       >
@@ -102,7 +102,7 @@
       <app-input
         class="d-block"
         extendClass="w-100"
-        type="url"
+        type="tel"
         appearance="outline"
         label="Номер WhatsApp"
         placeholder="380000000000"
@@ -118,7 +118,6 @@
       <app-input
         class="d-block"
         extendClass="w-100 mb-2"
-        type="url"
         appearance="outline"
         label="Юзернейм Telegram"
         [control]="telegram"
