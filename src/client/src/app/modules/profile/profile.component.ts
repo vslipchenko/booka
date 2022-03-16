@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BookingService} from '~app/services/booking/booking.service';
 import {MenuItem} from '~app/typings/menu.interfaces';
 import {BehaviorSubject, filter, finalize, Observable, Subject, takeUntil, tap} from 'rxjs';
@@ -15,7 +15,7 @@ import {NavigationEnd, Router} from '@angular/router';
   styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileComponent implements OnInit, Destroyable {
+export class ProfileComponent implements Destroyable {
   @Select(ProfileSelectors.needsToBePaid)
   public readonly needsToBePaid$!: Observable<boolean>;
 
@@ -52,10 +52,6 @@ export class ProfileComponent implements OnInit, Destroyable {
 
         this.showContentHeader = true;
       });
-  }
-
-  public ngOnInit(): void {
-    // this.bookingService.bookedServicesByUserId().subscribe();
 
     this.accountService
       .getAccountVitals()

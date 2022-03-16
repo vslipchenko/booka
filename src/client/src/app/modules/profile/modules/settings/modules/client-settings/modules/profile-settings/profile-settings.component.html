@@ -68,10 +68,10 @@
         class="d-block w-100"
         extendClass="w-100"
         [control]="description"
-        [hint]="hint"
+        [hint]="descriptionHint"
         hintAlign="end"
       >
-        <ng-template #hint>{{ description.value?.length || 0 }} / 250 знаков</ng-template>
+        <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 250 знаков</ng-template>
       </app-textarea>
 
       <h3 class="mb-2">Контакты</h3>
@@ -85,7 +85,7 @@
         label="Номер телефона"
         [control]="phoneNumber"
         [errorMessage]="phoneNumberErrorMessage.bind(this)"
-        [hint]="hint"
+        [hint]="phoneNumberHint"
         [prefix]="prefix"
         floatLabel="always"
         placeholder="000000000"
@@ -93,7 +93,7 @@
       >
         <ng-template #prefix>+380</ng-template>
 
-        <ng-template #hint>
+        <ng-template #phoneNumberHint>
           <span *ngIf="isLast" class="d-flex ai-center pointer c-primary" tabindex="0" (click)="addPhoneNumber()">
             <mat-icon class="mr-h">add</mat-icon> Добавить номер
           </span>

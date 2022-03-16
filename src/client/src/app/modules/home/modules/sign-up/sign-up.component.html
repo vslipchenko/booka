@@ -11,9 +11,9 @@
       [items]="accountTypes"
       appearance="outline"
       extendClass="w-100 mb-2"
-      [hint]="hint"
+      [hint]="accountHint"
     >
-      <ng-template #hint>
+      <ng-template #accountHint>
         <div class="pb-1"><a class="action-text" routerLink="/pricing">Подробнее</a></div>
       </ng-template>
     </app-select>
@@ -25,10 +25,10 @@
         type="email"
         appearance="outline"
         label="Email"
-        [hint]="hint"
+        [hint]="emailHint"
         extendClass="mb-2 w-100"
       >
-        <ng-template #hint>
+        <ng-template #emailHint>
           На этот email вам придет письмо с подтверждением
         </ng-template>
       </app-input>
@@ -40,10 +40,10 @@
         appearance="outline"
         label="Пароль"
         extendClass="w-100 mb-4"
-        [hint]="hint"
+        [hint]="passwordHint"
         [suffix]="suffix"
       >
-         <ng-template #hint>
+         <ng-template #passwordHint>
           Пароль должен содержать не менее восьми знаков, включать цифры, латинские буквы и символы
         </ng-template>
 
