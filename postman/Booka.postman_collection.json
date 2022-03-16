@@ -157,7 +157,8 @@
 							"script": {
 								"exec": [
 									"const responseData = JSON.parse(responseBody);\r",
-									"postman.setEnvironmentVariable('accessToken', responseData.data.signIn.accessToken);"
+									"postman.setEnvironmentVariable('accessToken', responseData.data.signIn.accessToken);\r",
+									"postman.setEnvironmentVariable('refreshToken', responseData.data.signIn.refreshToken);"
 								],
 								"type": "text/javascript"
 							}
@@ -171,6 +172,27 @@
 							"graphql": {
 								"query": "query ($input: SignIn!) {\r\n    signIn(input: $input) {\r\n      accessToken\r\n      refreshToken\r\n      reason\r\n    }\r\n}",
 								"variables": "{\r\n    \"input\": {\r\n        \"email\": \"{{email}}\",\r\n        \"password\": \"{{password}}\"\r\n    }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Access Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($refreshToken: String!) {\r\n    refreshAccessToken(refreshToken: $refreshToken)\r\n  }",
+								"variables": "{\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}"
 							}
 						},
 						"url": {
