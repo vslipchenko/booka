@@ -2,7 +2,7 @@
   <app-info-section icon="lock_reset" imageName="auth" title="Восстановление пароля"></app-info-section>
 
   <div class="p-2-3 relative">
-    <app-progress-spinner *ngIf="loading$ | async" class="overlay"></app-progress-spinner>
+    <app-progress-spinner *ngIf="loading$ | async" class="overlay bg-light-fog"></app-progress-spinner>
 
     <ng-container *ngIf="submitted; else recovery">
       <ng-container *ngIf="success; else error">

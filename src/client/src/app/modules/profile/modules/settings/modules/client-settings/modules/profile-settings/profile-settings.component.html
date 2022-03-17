@@ -76,7 +76,7 @@
     <h3 class="mb-2">Контакты</h3>
 
     <app-input
-      *ngFor="let phoneNumber of phoneNumbersControls; let isLast = last"
+      *ngFor="let phoneNumber of phoneNumbersControls; let index = index; let isLast = last"
       class="d-block prefix-offset-0"
       extendClass="w-100"
       type="tel"
@@ -93,7 +93,8 @@
       <ng-template #prefix>+380</ng-template>
 
       <ng-template #phoneNumberHint>
-        <span *ngIf="isLast" class="d-flex ai-center pointer c-primary" tabindex="0" (click)="addPhoneNumber()">
+        <!-- Up to 3 phone numbers at once -->
+        <span *ngIf="isLast && index !== 2" class="d-flex ai-center pointer c-primary" tabindex="0" (click)="addPhoneNumber()">
           <mat-icon class="mr-h">add</mat-icon> Добавить номер
         </span>
       </ng-template>

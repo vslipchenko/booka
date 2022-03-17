@@ -1,4 +1,4 @@
-<app-main [footer]="footer" [contentHeader]="contentHeader" [loading]="loading$ | async">
+<app-main [footer]="footer" [contentHeader]="contentHeader" [loading]="loading$ | async" class="profile">
   <ng-template #contentHeader>
     <div *ngIf="showContentHeader" class="p-2-3">
       <app-alert *ngIf="needsToBePaid$ | async" type="warn" class="d-block mb-2">
@@ -15,7 +15,7 @@
 
   <ng-template #footer>
     <div class="footer mx-auto w-100">
-      <div class="toolbar d-flex ai-center bg-light w-100">
+      <div class="toolbar d-flex ai-center bg-light w-100 fixed">
         <div class="buttons d-flex jc-evenly w-100 mx-auto">
           <app-icon-button icon="home" tooltipText="Домой" routerLink="/profile"></app-icon-button>
 

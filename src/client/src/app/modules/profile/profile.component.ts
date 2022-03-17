@@ -60,7 +60,9 @@ export class ProfileComponent implements Destroyable {
         tap(({data}) => {
           this.store.dispatch(new SetAccountVitals(data));
         }),
-        finalize(() => this.loading$.next(false)),
+        finalize(() => {
+          this.loading$.next(false);
+        }),
       )
       .subscribe();
   }

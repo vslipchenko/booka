@@ -265,6 +265,11 @@
   background-color: var.$color-light;
 }
 
+.bg-light-fog {
+  // stylelint-disable-next-line
+  background-color: rgba(var.$color-light, 0.75);
+}
+
 /* Color */
 .c-primary {
   color: var.$color-primary;
@@ -306,12 +311,12 @@
 }
 
 /* Position */
-.absolute {
-  position: absolute;
-}
-
 .relative {
   position: relative;
+}
+
+.fixed {
+  position: fixed;
 }
 
 /* Positioning */
