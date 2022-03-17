@@ -143,6 +143,52 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Profile Image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/VS/Pictures/too-large-image.jpg"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.imgbb.com/1/upload?key={{imgbbApiKey}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"imgbb",
+								"com"
+							],
+							"path": [
+								"1",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{imgbbApiKey}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
