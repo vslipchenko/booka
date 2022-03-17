@@ -120,10 +120,6 @@ export class SignUpComponent implements Destroyable {
 
   private validateForm(): void {
     this.signUpForm.markAllAsTouched();
-
-    this.account.updateValueAndValidity();
-    this.email.updateValueAndValidity();
-    this.password.updateValueAndValidity();
   }
 
   private setAccountValue(type: AccountTariff): void {

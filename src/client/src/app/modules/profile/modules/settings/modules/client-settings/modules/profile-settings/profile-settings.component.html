@@ -126,6 +126,6 @@
       <ng-template #telegramHint> https://t.me/{{ telegram.value }} </ng-template>
     </app-input>
 
-    <app-flat-button class="d-block w-100" extendClass="w-100" color="primary" text="Сохранить"></app-flat-button>
+    <app-flat-button class="d-block w-100" extendClass="w-100" color="primary" text="Сохранить" (clicked)="save()"></app-flat-button>
   </div>
 </app-narrow-container>

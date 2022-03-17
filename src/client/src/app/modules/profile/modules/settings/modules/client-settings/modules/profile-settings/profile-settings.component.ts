@@ -1,9 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {Store} from '@ngxs/store';
 import {Subject} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
-import {AccountTariffs} from '~app/typings/account.enums';
 import {SelectItem} from '~app/typings/select.interfaces';
 import {Gender} from '~app/typings/user.enums';
 import {
@@ -17,7 +15,6 @@ import {
 } from '~app/constants/regexp';
 
 @Component({
-  selector: 'app-profile-settings',
   templateUrl: './profile-settings.component.html',
   styleUrls: ['./profile-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,8 +29,6 @@ export class ProfileSettingsComponent implements Destroyable {
 
   private readonly profileSettingsForm = this.profileSettingsFormGroup;
 
-  public constructor(private readonly store: Store) {}
-
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -41,6 +36,17 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public addPhoneNumber(): void {
     this.phoneNumbers.push(new FormControl(null, Validators.pattern(PHONE_NUMBER_REGEXP)));
+  }
+
+  public save(): void {
+    console.log(this.profileSettingsForm, this.profileSettingsForm.value);
+    this.profileSettingsForm.markAllAsTouched();
+    // this.profileSettingsForm.updateValueAndValidity();
+    this.gender.updateValueAndValidity();
+    // this.profileSettingsForm.markAsDirty();
+    // this.cd.detectChanges();
+
+    if (!this.profileSettingsForm.valid) return;
   }
 
   public errorMessage(errors: ValidationErrors | null): string | void {
@@ -78,18 +84,6 @@ export class ProfileSettingsComponent implements Destroyable {
     if ('pattern' in errors) return 'Неверный формат. Пример номера: +380123456789';
 
     return this.errorMessage(errors);
-  }
-
-  public isClientTariff(tariff: AccountTariffs): boolean {
-    return tariff === AccountTariffs.Client;
-  }
-
-  public isEntrepreneurTariff(tariff: AccountTariffs): boolean {
-    return tariff === AccountTariffs.Entrepreneur;
-  }
-
-  public isBusinessTariff(tariff: AccountTariffs): boolean {
-    return tariff === AccountTariffs.Business;
   }
 
   public get profileSettingsFormGroup(): FormGroup {
