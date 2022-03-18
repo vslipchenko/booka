@@ -12,9 +12,11 @@ import {AuthenticationService} from '~app/services/authentication/authentication
 import {GraphQLError} from 'graphql';
 import {ApolloErrorCode} from '~app/typings/apollo.enums';
 import {Router} from '@angular/router';
+import {IMGBB_API} from '~app/constants/imgbb';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
+  private readonly externalApis = [IMGBB_API];
   private readonly freshAccessToken$ = new Subject<string>();
   private refreshingAccessToken = false;
 
@@ -28,7 +30,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     });
   }
 
-  public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+ public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const isExternalApiCall = this.externalApis.some((endpoint) => request.url.indexOf(endpoint) > -1);
+
+    if (isExternalApiCall) return next.handle(request); // Pass forward
+
     const token = this.authenticationService.accessToken;
 
     if (token) {

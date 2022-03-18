@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
 import {Apollo} from 'apollo-angular';
 import {HttpClient} from '@angular/common/http';
-import {IMGBB_API_KEY} from '~app/constants/authentication';
+import {IMGBB_API, IMGBB_API_KEY} from '~app/constants/imgbb';
+import {ImageBBResponse} from '~app/typings/imgbb.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,9 @@ export class ProfileService {
     const formData = new FormData();
     formData.append('image', file, file.name);
     // https://api.imgbb.com/
-    return this.http.post('https://api.imgbb.com/1/upload', formData, {
+    return this.http.post<ImageBBResponse>(IMGBB_API, formData, {
       params: {key: IMGBB_API_KEY},
     });
+    // .pipe(switchMap((result) => {}));
   }
 }
