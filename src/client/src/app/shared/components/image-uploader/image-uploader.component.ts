@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {DomSanitizer} from '@angular/platform-browser';
-import {Observable, startWith} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {DEFAULT_PROFILE_IMAGE} from '~app/constants/images';
 
 @Component({
   selector: 'app-image-uploader',
@@ -10,21 +10,17 @@ import {Observable, startWith} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageUploaderComponent implements OnInit, OnDestroy {
-  @Input() public readonly alt = '';
-  @Input() public readonly previewControl = new FormControl();
-  @Input() public readonly fileControl = new FormControl();
+  @Input() public alt = '';
+  @Input() public preview = '';
+  @Input() public control = new FormControl();
 
-  public previewChanges$?: Observable<string>;
+  public preview$ = new BehaviorSubject<string>(DEFAULT_PROFILE_IMAGE);
 
-  private readonly accept = 'image/jpeg, image/png'; // File type constraint
+  private readonly accept = ['image/jpeg', 'image/png']; // File type constraint
   private readonly fileInput = this.fileInputElement;
 
-  public constructor(private readonly domSanitizer: DomSanitizer) {}
-
   public ngOnInit(): void {
-    if (!this.previewControl.value) this.previewControl.setValue('./assets/images/avatar-placeholder.png');
-
-    this.previewChanges$ = this.previewControl.valueChanges.pipe(startWith(this.previewControl.value));
+    if (this.preview) this.preview$.next(this.preview);
   }
 
   public ngOnDestroy(): void {
@@ -39,20 +35,22 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     const fileInput = document.createElement('input');
 
     fileInput.type = 'file';
-    fileInput.accept = this.accept;
+    fileInput.accept = this.accept.join(',');
     fileInput.onchange = (): void => {
       // https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL#memory_management
-      URL.revokeObjectURL(this.previewControl.value);
+      URL.revokeObjectURL(this.preview$.getValue());
 
       const file = fileInput.files?.[0];
 
-      if (file) {
-        this.previewControl.setValue(this.domSanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file)));
-        return this.fileControl.setValue(file);
+      if (file && this.accept.includes(file.type)) {
+        this.preview$.next(URL.createObjectURL(file));
+
+        return this.control.setValue(file);
       }
 
-      this.previewControl.setValue('./assets/images/avatar-placeholder.png');
-      this.fileControl.setValue(null);
+      this.preview$.next(DEFAULT_PROFILE_IMAGE);
+
+      this.control.setValue(null);
     };
 
     return fileInput;

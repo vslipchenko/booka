@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {SelectItem} from '~app/typings/select.interfaces';
@@ -13,6 +13,7 @@ import {
   TELEGRAM_USERNAME_REGEXP,
   WHATS_APP_NUMBER_REGEXP,
 } from '~app/constants/regexp';
+import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -22,8 +23,8 @@ import {
 export class ProfileSettingsComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
   public readonly genderItems: Array<SelectItem> = [
-    {title: 'Мужчина', value: Gender.Male},
-    {title: 'Женщина', value: Gender.Female},
+    {title: 'Мужской', value: Gender.Male},
+    {title: 'Женский', value: Gender.Female},
     {title: 'Другой', value: Gender.Other},
   ];
 
@@ -88,6 +89,7 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get profileSettingsFormGroup(): FormGroup {
     return new FormGroup({
+      image: new FormControl(null, this.imageSizeValidator.bind(this)),
       firstName: new FormControl(null, [
         Validators.required,
         Validators.pattern(NAME_REGEXP),
@@ -109,9 +111,21 @@ export class ProfileSettingsComponent implements Destroyable {
     });
   }
 
+  public imageSizeValidator(control: FormControl | AbstractControl): ValidationErrors | null {
+    if (!(control.value instanceof File)) return null;
+    // Where 1024 ** 2 is amount of bytes compared to 1mb
+    if (control.value.size / 1024 ** 2 > PROFILE_IMAGE_SIZE_MB) return {size: true};
+
+    return null;
+  }
+
   public get maxDate(): Date {
     const date = new Date();
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  public get image(): FormControl {
+    return this.profileSettingsForm.controls['image'] as FormControl;
   }
 
   public get firstName(): FormControl {

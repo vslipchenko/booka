@@ -38,6 +38,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {TextareaComponent} from './components/textarea/textarea.component';
 import {ImageUploaderComponent} from './components/image-uploader/image-uploader.component';
+import {BypassSecurityPipe} from './pipes/bypass-security/bypass-security.pipe';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import {ImageUploaderComponent} from './components/image-uploader/image-uploader
     DatepickerComponent,
     TextareaComponent,
     ImageUploaderComponent,
+    BypassSecurityPipe,
   ],
   exports: [
     InfoSectionComponent,

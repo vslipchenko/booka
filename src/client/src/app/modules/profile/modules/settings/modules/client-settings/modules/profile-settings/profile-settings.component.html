@@ -16,12 +16,16 @@
 
     <span
       class="d-flex ai-center w-max mb-2"
-      matTooltip="Размер изображения не должен превышать 10МБ. Изображение не должно содержать запрещенные материалы или иметь оскорбительный характер."
+      matTooltip="Размер изображения не должен превышать 5МБ. Изображение не должно содержать запрещенные материалы или иметь оскорбительный характер."
       matTooltipPosition="left"
       ><mat-icon color="primary" class="mr-1">help</mat-icon> Изображение профиля:</span
     >
 
-    <app-image-uploader class="d-flex jc-center mb-2"></app-image-uploader>
+    <div class="mb-2">
+      <app-image-uploader class="d-flex jc-center mb-1" [control]="image" preview="https://i.ibb.co/GTBvvBq/Pelican.jpg"></app-image-uploader>
+
+      <mat-error *ngIf="image.invalid" class="mat-error-font-size">Превышен допустимый размер изображения</mat-error>
+    </div>
 
     <app-input
       class="d-block"

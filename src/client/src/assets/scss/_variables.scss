@@ -9,6 +9,7 @@ $font-size-medium: 1.25rem; // 14 - 17.5px, 18 - 22.5px
 $font-size-large: 1.5rem; // 14 - 21px, 18 - 27px
 $font-weight-medium: 500;
 $font-weight-bold: 700;
+$mat-error-font-size: 75%;
 
 /* color */
 $color-primary: map.get(mat.$mat-blue, 500); // #2196f3
