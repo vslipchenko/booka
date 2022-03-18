@@ -232,8 +232,18 @@
   border: 4px solid var.$color-primary-light;
 }
 
-.bd-rounded {
-  border-radius: 4px;
+.br-h {
+  border-radius: var.$unit-half;
+}
+
+.br-t-h {
+  border-top-left-radius: var.$unit-half;
+  border-top-right-radius: var.$unit-half;
+}
+
+.br-t-0 {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
 
 /* Background */

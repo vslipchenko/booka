@@ -37,6 +37,7 @@ import {DatepickerComponent} from './components/datepicker/datepicker.component'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {TextareaComponent} from './components/textarea/textarea.component';
+import {ImageUploaderComponent} from './components/image-uploader/image-uploader.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import {TextareaComponent} from './components/textarea/textarea.component';
     ProgressSpinnerComponent,
     DatepickerComponent,
     TextareaComponent,
+    ImageUploaderComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -82,6 +84,7 @@ import {TextareaComponent} from './components/textarea/textarea.component';
     MenuComponent,
     DatepickerComponent,
     TextareaComponent,
+    ImageUploaderComponent,
   ],
   imports: [
     CommonModule,

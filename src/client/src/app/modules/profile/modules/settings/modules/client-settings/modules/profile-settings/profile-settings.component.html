@@ -14,6 +14,15 @@
   <div class="p-2-3">
     <h3 class="mb-2">Основное</h3>
 
+    <span
+      class="d-flex ai-center w-max mb-2"
+      matTooltip="Размер изображения не должен превышать 10МБ. Изображение не должно содержать запрещенные материалы или иметь оскорбительный характер."
+      matTooltipPosition="left"
+      ><mat-icon color="primary" class="mr-1">help</mat-icon> Изображение профиля:</span
+    >
+
+    <app-image-uploader class="d-flex jc-center mb-2"></app-image-uploader>
+
     <app-input
       class="d-block"
       extendClass="w-100"
@@ -94,7 +103,12 @@
 
       <ng-template #phoneNumberHint>
         <!-- Up to 3 phone numbers at once -->
-        <span *ngIf="isLast && index !== 2" class="d-flex ai-center pointer c-primary" tabindex="0" (click)="addPhoneNumber()">
+        <span
+          *ngIf="isLast && index !== 2"
+          class="d-flex ai-center pointer c-primary"
+          tabindex="0"
+          (click)="addPhoneNumber()"
+        >
           <mat-icon class="mr-h">add</mat-icon> Добавить номер
         </span>
       </ng-template>
@@ -126,6 +140,12 @@
       <ng-template #telegramHint> https://t.me/{{ telegram.value }} </ng-template>
     </app-input>
 
-    <app-flat-button class="d-block w-100" extendClass="w-100" color="primary" text="Сохранить" (clicked)="save()"></app-flat-button>
+    <app-flat-button
+      class="d-block w-100"
+      extendClass="w-100"
+      color="primary"
+      text="Сохранить"
+      (clicked)="save()"
+    ></app-flat-button>
   </div>
 </app-narrow-container>

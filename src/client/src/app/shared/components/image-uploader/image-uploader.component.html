@@ -1,0 +1,4 @@
+<div class="d-flex f-column">
+  <img *ngIf="previewChanges$ | async as src" class="preview br-t-h" [src]="src" [alt]="alt">
+  <app-flat-button color="primary" text="Выбрать" extendClass="br-t-0 w-100" (clicked)="browse()"></app-flat-button>
+</div>

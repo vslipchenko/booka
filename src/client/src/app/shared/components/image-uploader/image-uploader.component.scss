@@ -1,0 +1,7 @@
+@use 'variables' as var;
+
+.preview {
+  height: var.$profile-image-size;
+  object-fit: cover;
+  width: var.$profile-image-size;
+}
