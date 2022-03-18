@@ -24,6 +24,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    URL.revokeObjectURL(this.preview$.getValue());
     this.fileInput.remove();
   }
 
