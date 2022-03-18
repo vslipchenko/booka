@@ -30,7 +30,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     });
   }
 
- public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const isExternalApiCall = this.externalApis.some((endpoint) => request.url.indexOf(endpoint) > -1);
 
     if (isExternalApiCall) return next.handle(request); // Pass forward
