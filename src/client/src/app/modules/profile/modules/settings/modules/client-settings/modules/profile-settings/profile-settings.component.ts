@@ -12,7 +12,7 @@ import {
   PHONE_NUMBER_REGEXP,
   TELEGRAM_USERNAME_REGEXP,
   WHATS_APP_NUMBER_REGEXP,
-} from '~app/constants/regexp';
+} from '~app/constants/validation';
 import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
 
 @Component({

@@ -287,6 +287,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete Thumbnail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($link: String) {\r\n    updateProfileThumbnail(link: $link) {\r\n      success\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
