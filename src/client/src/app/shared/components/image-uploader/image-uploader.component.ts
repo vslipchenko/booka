@@ -28,7 +28,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
     this.fileInput.remove();
   }
 
-  public browse(): void {
+  public open(): void {
     this.fileInput.click();
   }
 

@@ -1,4 +1,2 @@
-<div class="d-flex f-column">
-  <img *ngIf="preview$ | async as src" class="preview br-t-h" [src]="src | bypassSecurity: 'url'" [alt]="alt">
-  <app-flat-button color="primary" text="Загрузить" extendClass="br-t-0 w-100" (clicked)="browse()"></app-flat-button>
-</div>
+<img *ngIf="preview$ | async as src" class="preview br-h pointer" [src]="src | bypassSecurity: 'url'" [alt]="alt" (click)="open()">
+
