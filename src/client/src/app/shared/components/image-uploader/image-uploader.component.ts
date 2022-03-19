@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
 import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
 import {DEFAULT_PROFILE_IMAGE} from '~app/constants/images';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {ProfileService} from '~app/services/profile/profile.service';
+import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-image-uploader',
@@ -14,7 +14,6 @@ import {ProfileService} from '~app/services/profile/profile.service';
 export class ImageUploaderComponent implements OnInit, Destroyable {
   @Input() public alt = '';
   @Input() public preview = '';
-  // @Input() public control = new FormControl();
 
   public readonly destroy$ = new Subject<void>();
   public readonly loading$ = new BehaviorSubject(false);
@@ -24,14 +23,16 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
   private readonly accept = ['image/jpeg', 'image/png']; // File type constraint
   private readonly fileInput = this.fileInputElement;
 
-  public constructor(private readonly profileService: ProfileService) {}
+  public constructor(
+    private readonly profileService: ProfileService,
+    private readonly snackbarService: SnackbarService,
+  ) {}
 
   public ngOnInit(): void {
     if (this.preview) this.preview$.next(this.preview);
   }
 
   public ngOnDestroy(): void {
-    // URL.revokeObjectURL(this.preview$.getValue());
     this.destroy$.next();
     this.destroy$.complete();
 
@@ -39,7 +40,8 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
   }
 
   public open(): void {
-    this.fileInput.click();
+    if (this.preview$.getValue() === DEFAULT_PROFILE_IMAGE) return this.fileInput.click();
+    // Show dialog with Remove, Upload actions
   }
 
   private get fileInputElement(): HTMLInputElement {
@@ -48,9 +50,6 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
     fileInput.type = 'file';
     fileInput.accept = this.accept.join(',');
     fileInput.onchange = (): void => {
-      // // https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL#memory_management
-      // URL.revokeObjectURL(this.preview$.getValue());
-
       const file = fileInput.files?.[0];
 
       if (!(file && this.accept.includes(file.type))) return;
@@ -64,11 +63,11 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
           finalize(() => this.loading$.next(false)),
         )
         .subscribe(
-          () => {
-            // this.preview$.next(NEW IMAGE LINK);
+          (result) => {
+            this.preview$.next(result[0].data.thumb.url);
           },
           () => {
-            // show error snackbar
+            this.snackbarService.open('Что-то пошло не так. Пожалуйста, попробуйте позже.', 'OK');
           },
         );
     };

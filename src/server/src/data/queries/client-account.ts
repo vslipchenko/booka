@@ -8,3 +8,18 @@ export const ClientAccountVitals = (userId: string): QueryConfig => ({
   `,
   values: [userId],
 });
+
+export const ClientAccountUpdateThumbnail = ({
+  thumbnail,
+  userId,
+}: {
+  thumbnail: string;
+  userId: string;
+}): QueryConfig => ({
+  text: `
+    UPDATE client_accounts
+    SET thumbnail = $1
+    WHERE user_id = $2
+  `,
+  values: [thumbnail, userId],
+});

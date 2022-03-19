@@ -2,14 +2,20 @@ import {gql} from 'apollo-server-core';
 import {authenticationGuard} from '../../../utilities/guard';
 import {thumbnailLinkValidator} from './profile.validators';
 import {ApolloError} from 'apollo-server-fastify';
+import {AccountTariffs} from '../../../typings/account.enums';
+import {db} from '../../../data';
+import {ClientAccountUpdateThumbnail} from '../../../data/queries/client-account';
+import {QueryResult} from 'pg';
+import {EntrepreneurAccountUpdateThumbnail} from '../../../data/queries/entrepreneur-account';
+import {BusinessAccountUpdateThumbnail} from '../../../data/queries/business-account';
 
 export const profileMutationTypeDefinitions = gql`
   type Mutation {
-    updateThumbnail(link: String): Success
+    updateProfileThumbnail(link: String): Success
   }
 `;
 
-const updateThumbnail = async (
+const updateProfileThumbnail = async (
   _: unknown,
   {link}: {link: string},
   {accessToken}: {accessToken: string},
@@ -22,11 +28,21 @@ const updateThumbnail = async (
 
   if (error) return error;
 
-  return null;
+  let result: QueryResult;
+
+  if (tokenData.tariff === AccountTariffs.Client) {
+    result = await db.query(ClientAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
+  } else if (tokenData.tariff === AccountTariffs.Entrepreneur) {
+    result = await db.query(EntrepreneurAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
+  } else {
+    result = await db.query(BusinessAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
+  }
+
+  return {success: Boolean(result.rowCount)};
 };
 
 export const profileMutationResolvers = {
   Mutation: {
-    updateThumbnail,
+    updateProfileThumbnail,
   },
 };

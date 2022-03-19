@@ -1,8 +1,8 @@
 import {gql} from 'apollo-angular';
 
-export const UPDATE_PROFILE_IMAGE = gql`
+export const UPDATE_PROFILE_THUMBNAIL = gql`
   mutation ($link: String) {
-    updateProfileImage(link: $link) {
+    updateProfileThumbnail(link: $link) {
       success
     }
   }
