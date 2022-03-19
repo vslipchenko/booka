@@ -17,7 +17,7 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "mutation ($input: CreateUser!) {\r\n    createUser(input: $input) {\r\n        success\r\n    }\r\n}",
-								"variables": "{\r\n    \"input\": {\r\n        \"accountType\": 1,\r\n        \"email\": \"{{email}}\",\r\n        \"password\": \"{{password}}\",\r\n        \"locale\": \"uk\"\r\n    }\r\n}"
+								"variables": "{\r\n    \"input\": {\r\n        \"tariff\": 1,\r\n        \"email\": \"{{email}}\",\r\n        \"password\": \"{{password}}\",\r\n        \"locale\": \"uk\"\r\n    }\r\n}"
 							}
 						},
 						"url": {
@@ -131,7 +131,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\r\n    accountVitals {\r\n        account_type\r\n    }\r\n}",
+								"query": "query {\r\n    accountVitals {\r\n        tariff\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -145,7 +145,19 @@
 					"response": []
 				},
 				{
-					"name": "Profile Image",
+					"name": "Upload Profile Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable('profileThumbnail', responseData.data.thumb.url);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -239,6 +251,32 @@
 							"graphql": {
 								"query": "query ($refreshToken: String!) {\r\n    refreshAccessToken(refreshToken: $refreshToken)\r\n  }",
 								"variables": "{\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Update Thumbnail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($link: String) {\r\n    updateProfileThumbnail(link: $link) {\r\n      success\r\n    }\r\n}",
+								"variables": "{\r\n    \"link\": \"{{profileThumbnail}}\"\r\n}"
 							}
 						},
 						"url": {

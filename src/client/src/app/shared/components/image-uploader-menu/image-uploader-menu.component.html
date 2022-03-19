@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Изменить изображение</h2>
+<mat-dialog-content>
+  <div class="d-flex f-column">
+    <app-button mat-dialog-close extendClass="w-100 mb-1 t-left" color="primary" text="Загрузить новое" icon="file_upload" (clicked)="upload.emit()"></app-button>
+    <app-button mat-dialog-close extendClass="w-100 t-left" color="warn" text="Удалить текущее" icon="delete" (clicked)="delete.emit()"></app-button>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-button mat-dialog-close text="Отмена"></app-button>
+</mat-dialog-actions>

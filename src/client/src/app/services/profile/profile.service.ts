@@ -13,7 +13,7 @@ import {UpdateProfileThumbnailMutationResult} from '~app/typings/profile.interfa
 export class ProfileService {
   public constructor(private readonly apollo: Apollo, private readonly http: HttpClient) {}
 
-  public updateImage(link: string): Observable<MutationResult<UpdateProfileThumbnailMutationResult>> {
+  public updateImage(link?: string): Observable<MutationResult<UpdateProfileThumbnailMutationResult>> {
     return this.apollo.mutate<UpdateProfileThumbnailMutationResult>({
       mutation: UPDATE_PROFILE_THUMBNAIL,
       variables: {link},

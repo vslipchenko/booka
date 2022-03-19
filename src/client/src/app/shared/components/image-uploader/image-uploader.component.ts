@@ -4,6 +4,8 @@ import {DEFAULT_PROFILE_IMAGE} from '~app/constants/images';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {ProfileService} from '~app/services/profile/profile.service';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ImageUploaderMenuComponent} from '~app/shared/components/image-uploader-menu/image-uploader-menu.component';
 
 @Component({
   selector: 'app-image-uploader',
@@ -26,6 +28,7 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
   public constructor(
     private readonly profileService: ProfileService,
     private readonly snackbarService: SnackbarService,
+    private readonly dialog: MatDialog,
   ) {}
 
   public ngOnInit(): void {
@@ -40,8 +43,32 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
   }
 
   public open(): void {
+    // Show file browse window if no profile image
     if (this.preview$.getValue() === DEFAULT_PROFILE_IMAGE) return this.fileInput.click();
-    // Show dialog with Remove, Upload actions
+
+    const dialog = this.dialog.open(ImageUploaderMenuComponent, {autoFocus: 'dialog'});
+
+    dialog.componentInstance.upload.pipe(takeUntil(dialog.afterClosed())).subscribe(() => this.fileInput.click());
+    dialog.componentInstance.delete.pipe(takeUntil(dialog.afterClosed())).subscribe(() => this.deleteImage());
+  }
+
+  private deleteImage(): void {
+    this.loading$.next(true);
+
+    this.profileService
+      .updateImage()
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.loading$.next(false)),
+      )
+      .subscribe(
+        () => this.preview$.next(DEFAULT_PROFILE_IMAGE),
+        () => this.showSnackbar(),
+      );
+  }
+
+  private showSnackbar(): void {
+    this.snackbarService.open('Что-то пошло не так. Пожалуйста, попробуйте позже.', 'OK');
   }
 
   private get fileInputElement(): HTMLInputElement {
@@ -63,12 +90,8 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
           finalize(() => this.loading$.next(false)),
         )
         .subscribe(
-          (result) => {
-            this.preview$.next(result[0].data.thumb.url);
-          },
-          () => {
-            this.snackbarService.open('Что-то пошло не так. Пожалуйста, попробуйте позже.', 'OK');
-          },
+          (result) => this.preview$.next(result[0].data.thumb.url),
+          () => this.showSnackbar(),
         );
     };
 
