@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BehaviorSubject, finalize, Subject, take, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
-import {UUID_REGEXP} from '~app/constants/regexp';
+import {UUID_REGEXP} from '~app/constants/validation';
 import {UserService} from '~app/services/user/user.service';
 
 @Component({

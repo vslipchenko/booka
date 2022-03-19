@@ -1,5 +1,6 @@
 # Notes
 
+- Replace Gmail account with domain's own email account
 - Add captcha to critical public parts of the app
 - Implement "mail us" dialog
 - Update missing text contents

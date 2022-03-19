@@ -5,6 +5,7 @@ export const EntrepreneurAccountsTable: Table = {
   query: `
     CREATE TABLE IF NOT EXISTS entrepreneur_accounts (
       id BIGSERIAL PRIMARY KEY,
+      thumbnail VARCHAR (300),
       first_name VARCHAR (50),
       last_name VARCHAR (50),
       middle_name VARCHAR (50),

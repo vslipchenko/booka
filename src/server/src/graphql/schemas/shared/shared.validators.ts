@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import {EMAIL_REGEXP, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '../../../constants/regexp';
+import {EMAIL_REGEXP, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '../../../constants/validation';
 import {getStringEnumValues} from '../../../utilities/enum';
 import {Locale} from '../../../typings/i18n.enums';
 

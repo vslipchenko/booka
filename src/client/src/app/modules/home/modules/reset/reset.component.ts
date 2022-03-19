@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
-import {PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
+import {PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/validation';
 import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {UserService} from '~app/services/user/user.service';

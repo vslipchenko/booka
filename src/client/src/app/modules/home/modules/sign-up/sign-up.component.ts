@@ -7,7 +7,7 @@ import {AccountTariff} from '~app/typings/account.types';
 import {AccountTariffs} from '~app/typings/account.enums';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
-import {EMAIL_REGEXP, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/regexp';
+import {EMAIL_REGEXP, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEXP} from '~app/constants/validation';
 import {UserService} from '~app/services/user/user.service';
 import {TranslocoService} from '@ngneat/transloco';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';

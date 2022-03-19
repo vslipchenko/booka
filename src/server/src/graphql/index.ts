@@ -5,6 +5,7 @@ import {sharedTypeDefinitions} from './schemas/shared/shared.schema';
 import {authenticationResolvers, authenticationTypeDefinitions} from './schemas/authentication/authentication.schema';
 import {bookingResolvers, bookingTypeDefinitions} from './schemas/booking/booking.schema';
 import {accountResolvers, accountTypeDefinitions} from './schemas/account/account.schema';
+import {profileResolvers, profileTypeDefinitions} from './schemas/profile/profile.schema';
 
 export const schema = makeExecutableSchema({
   typeDefs: [
@@ -13,6 +14,14 @@ export const schema = makeExecutableSchema({
     authenticationTypeDefinitions,
     bookingTypeDefinitions,
     accountTypeDefinitions,
+    profileTypeDefinitions,
   ],
-  resolvers: merge({}, ...userResolvers, ...authenticationResolvers, ...bookingResolvers, ...accountResolvers),
+  resolvers: merge(
+    {},
+    ...userResolvers,
+    ...authenticationResolvers,
+    ...bookingResolvers,
+    ...accountResolvers,
+    ...profileResolvers,
+  ),
 });

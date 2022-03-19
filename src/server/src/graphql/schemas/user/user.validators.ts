@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import {getNumericEnumValues} from '../../../utilities/enum';
-import {UUID_REGEXP} from '../../../constants/regexp';
+import {UUID_REGEXP} from '../../../constants/validation';
 import {emailValidator, localeValidator, passwordValidator} from '../shared/shared.validators';
 import {AccountTariffs} from '../../../typings/account.enums';
 

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {UserService} from '~app/services/user/user.service';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
-import {EMAIL_REGEXP} from '~app/constants/regexp';
+import {EMAIL_REGEXP} from '~app/constants/validation';
 import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {TranslocoService} from '@ngneat/transloco';

@@ -4,7 +4,7 @@ import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
-import {EMAIL_REGEXP, PASSWORD_REGEXP} from '~app/constants/regexp';
+import {EMAIL_REGEXP, PASSWORD_REGEXP} from '~app/constants/validation';
 import {SignInFailReason} from '~app/typings/authentication.enums';
 import {Router} from '@angular/router';
 
