@@ -1,7 +1,9 @@
 import {Pool, QueryConfig, QueryResult} from 'pg';
 import {environment} from '../environments';
 import {UsersTable} from './tables/users';
-import {AccountsTable} from './tables/accounts';
+import {ClientAccountsTable} from './tables/client-accounts';
+import {EntrepreneurAccountsTable} from './tables/entrepreneur-accounts';
+import {BusinessAccountsTable} from './tables/business-accounts';
 
 // PostgreSQL v14
 
@@ -21,23 +23,26 @@ export const db = {
   sync: function (): Promise<void> {
     const tables = [
       UsersTable,
-      AccountsTable,
+      ClientAccountsTable,
+      EntrepreneurAccountsTable,
+      BusinessAccountsTable,
       // ... Append other tables to sync
     ];
     // Sync tables
     return new Promise((resolve, reject) => {
-      tables.forEach(async (table, index) => {
-        try {
-          await this.query(table.query);
-          console.log(`Table "${table.name}" synced successfully`);
-
-          const isLast = index === tables.length - 1;
-          if (isLast) resolve();
-        } catch (error) {
-          console.error(`Error happened during creation of "${table.name}": `, error);
-          reject();
-        }
+      tables.forEach((table, index) => {
+        setTimeout(async () => {
+          try {
+            console.log(`Syncing "${table.name}" table`);
+            return await this.query(table.query);
+          } catch (error) {
+            console.error(`Error happened during creation of "${table.name}": `, error);
+            reject();
+          }
+        }, index * 500); // Delay is needed in order to prevent relation error
       });
+
+      resolve();
     });
   },
 };

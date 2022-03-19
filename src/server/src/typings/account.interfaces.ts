@@ -1,6 +1,6 @@
 import {AccountTariffs} from './account.enums';
 
-export interface Account {
+export interface ClientAccount {
   tariff: AccountTariffs;
   first_name: string;
   middle_name: string;

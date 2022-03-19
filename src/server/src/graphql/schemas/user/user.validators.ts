@@ -5,7 +5,7 @@ import {emailValidator, localeValidator, passwordValidator} from '../shared/shar
 import {AccountTariffs} from '../../../typings/account.enums';
 
 export const createUserValidator = Joi.object({
-  accountType: Joi.number().valid(...getNumericEnumValues(AccountTariffs)),
+  tariff: Joi.number().valid(...getNumericEnumValues(AccountTariffs)),
   email: emailValidator,
   password: passwordValidator,
   locale: localeValidator,

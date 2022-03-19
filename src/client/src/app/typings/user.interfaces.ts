@@ -23,7 +23,7 @@ export interface ResetPasswordMutationResult {
 }
 
 export interface CreateUser {
-  accountType: AccountTariffs;
+  tariff: AccountTariffs;
   email: string;
   password: string;
   locale: Locale;

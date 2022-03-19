@@ -10,22 +10,19 @@ export const UserCheckExistenceByEmail = (email: string): QueryConfig => ({
   values: [email],
 });
 
-export const UserCreate = ({
-  accountType,
-  email,
-  password,
-  accessKey,
-  confirmationKey,
-}: CreateUser & {accessKey: string; confirmationKey: string}): QueryConfig => ({
+export const UserCreate = (
+  {tariff, email, password, accessKey, confirmationKey}: CreateUser & {accessKey: string; confirmationKey: string},
+  accountTableName: string,
+): QueryConfig => ({
   text: `
-    WITH inserted AS (
-      INSERT INTO users (email, password, access_key, confirmation_key)
-      VALUES ($1, $2, $3, $4)
+   WITH inserted AS (
+      INSERT INTO users (tariff, email, password, access_key, confirmation_key)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING id
     )
-    INSERT INTO accounts (user_id, tariff) VALUES ((SELECT id FROM inserted), $5);
+    INSERT INTO ${accountTableName} (user_id) VALUES ((SELECT id FROM inserted));
   `,
-  values: [email, password, accessKey, confirmationKey, accountType],
+  values: [tariff, email, password, accessKey, confirmationKey],
 });
 
 export const UserDeleteByEmail = (email: string): QueryConfig => ({
@@ -55,22 +52,16 @@ export const UserResetPassword = (email: string, password: string): QueryConfig 
 
 export const UserSignIn = (email: string): QueryConfig => ({
   text: `
-    SELECT t1.id, t1.password, t1.access_key, t1.confirmation_key, t2.tariff
-    FROM users t1
-    INNER JOIN accounts t2
-    ON t1.id = t2.id
-    WHERE t1.email = $1
+    SELECT id, password, access_key, confirmation_key, tariff
+    FROM users
   `,
   values: [email],
 });
 
 export const UserRefreshAccessToken = (userId: string): QueryConfig => ({
   text: `
-    SELECT t1.access_key, t2.tariff
-    FROM users t1
-    INNER JOIN accounts t2
-    ON t1.id = t2.id
-    WHERE t1.id = $1
+    SELECT access_key, tariff
+    FROM users
   `,
   values: [userId],
 });

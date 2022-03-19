@@ -1,2 +1,6 @@
-<img *ngIf="preview$ | async as src" class="preview br-h pointer" [src]="src | bypassSecurity: 'url'" [alt]="alt" (click)="open()">
+<div class="relative">
+  <app-progress-spinner *ngIf="loading$ | async" class="overlay bg-light-fog"></app-progress-spinner>
+
+  <img *ngIf="preview$ | async as src" class="preview br-h pointer" [src]="src | bypassSecurity: 'url'" [alt]="alt" (click)="open()">
+</div>
 

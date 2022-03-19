@@ -3,10 +3,11 @@ import {environment} from '../environments';
 import {ApolloError} from 'apollo-server-fastify';
 import {ApolloErrorCode} from '../typings/apollo.enums';
 import {JWT_ALGORITHM} from '../constants/jwt';
+import {AccountTariffs} from '../typings/account.enums';
 
 interface AuthenticationGuardResult {
   error: ApolloError;
-  tokenData: {userId: string};
+  tokenData: {userId: string; tariff: AccountTariffs};
 }
 
 export const authenticationGuard = (accessToken: string): AuthenticationGuardResult => {

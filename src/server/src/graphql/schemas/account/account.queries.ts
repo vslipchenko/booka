@@ -1,9 +1,9 @@
 import {gql} from 'apollo-server-core';
 import {authenticationGuard} from '../../../utilities/guard';
 import {ApolloError} from 'apollo-server-fastify';
-import {AccountVitals} from '../../../data/queries/account';
+import {ClientAccountVitals} from '../../../data/queries/client-account';
 import {db} from '../../../data';
-import {Account} from '../../../typings/account.interfaces';
+import {ClientAccount} from '../../../typings/account.interfaces';
 
 export const accountQueryTypeDefinitions = gql`
   type Query {
@@ -15,12 +15,12 @@ const accountVitals = async (
   _1: unknown,
   _2: unknown,
   {accessToken}: {accessToken: string},
-): Promise<Account | ApolloError | null> => {
+): Promise<ClientAccount | ApolloError | null> => {
   const {error, tokenData} = authenticationGuard(accessToken);
 
   if (error) return error;
 
-  const result = await db.query<Account>(AccountVitals(tokenData.userId));
+  const result = await db.query<ClientAccount>(ClientAccountVitals(tokenData.userId));
 
   if (!result.rowCount) return null;
 

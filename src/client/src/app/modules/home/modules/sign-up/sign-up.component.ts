@@ -19,7 +19,7 @@ import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent implements Destroyable {
-  public readonly accountTypes: Array<SelectItem> = [
+  public readonly accountTariffs: Array<SelectItem> = [
     {title: 'Клиент', value: AccountTariffs.Client},
     {title: 'Предприниматель', value: AccountTariffs.Entrepreneur},
     {title: 'Бизнес', value: AccountTariffs.Business},
@@ -125,20 +125,20 @@ export class SignUpComponent implements Destroyable {
   private setAccountValue(type: AccountTariff): void {
     switch (type) {
       case 'client':
-        this.account.setValue(AccountTariffs.Client);
+        this.tariff.setValue(AccountTariffs.Client);
         break;
       case 'entrepreneur':
-        this.account.setValue(AccountTariffs.Entrepreneur);
+        this.tariff.setValue(AccountTariffs.Entrepreneur);
         break;
       case 'business':
-        this.account.setValue(AccountTariffs.Business);
+        this.tariff.setValue(AccountTariffs.Business);
         break;
     }
   }
 
   public get signUpFormGroup(): FormGroup {
     return new FormGroup({
-      accountType: new FormControl(null, Validators.required),
+      tariff: new FormControl(null, Validators.required),
       email: new FormControl(null, {
         validators: [Validators.required, Validators.pattern(EMAIL_REGEXP)],
         asyncValidators: this.duplicateEmailValidator.bind(this),
@@ -153,8 +153,8 @@ export class SignUpComponent implements Destroyable {
     });
   }
 
-  public get account(): FormControl {
-    return this.signUpForm.controls['accountType'] as FormControl;
+  public get tariff(): FormControl {
+    return this.signUpForm.controls['tariff'] as FormControl;
   }
 
   public get email(): FormControl {

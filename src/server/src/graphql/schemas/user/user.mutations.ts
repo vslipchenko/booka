@@ -25,6 +25,7 @@ import {sign, verify} from 'jsonwebtoken';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {passwordValidator} from '../shared/shared.validators';
 import {randomBytes} from 'crypto';
+import {getAccountTableName} from '../../../utilities/table';
 
 export const userMutationTypeDefinitions = gql`
   type Mutation {
@@ -46,11 +47,14 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
   const accessKey = randomBytes(18).toString('base64'); // Produces string of 24 char length
 
   const result = await db.query(
-    UserCreate({
-      ...input,
-      confirmationKey,
-      accessKey,
-    }),
+    UserCreate(
+      {
+        ...input,
+        confirmationKey,
+        accessKey,
+      },
+      getAccountTableName(input.tariff),
+    ),
   );
 
   if (!result.rowCount) return {success: false};
