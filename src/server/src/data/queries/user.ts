@@ -54,6 +54,7 @@ export const UserSignIn = (email: string): QueryConfig => ({
   text: `
     SELECT id, password, access_key, confirmation_key, tariff
     FROM users
+    WHERE email = $1
   `,
   values: [email],
 });
@@ -62,6 +63,7 @@ export const UserRefreshAccessToken = (userId: string): QueryConfig => ({
   text: `
     SELECT access_key, tariff
     FROM users
+    WHERE id = $1
   `,
   values: [userId],
 });
