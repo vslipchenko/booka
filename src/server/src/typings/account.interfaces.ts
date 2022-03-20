@@ -1,8 +1,6 @@
-import {AccountTariffs} from './account.enums';
 import {Gender} from './user.enums';
 
 interface AccountDataBase {
-  tariff: AccountTariffs;
   thumbnail: string;
   description: string;
   phone_number_1: string;

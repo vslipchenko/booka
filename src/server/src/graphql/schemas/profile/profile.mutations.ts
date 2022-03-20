@@ -1,6 +1,11 @@
 import {gql} from 'apollo-server-core';
 import {authenticationGuard} from '../../../utilities/guard';
-import {accountDataValidator, thumbnailLinkValidator} from './profile.validators';
+import {
+  businessAccountDataValidator,
+  clientAccountDataValidator,
+  entrepreneurAccountDataValidator,
+  thumbnailLinkValidator,
+} from './profile.validators';
 import {ApolloError} from 'apollo-server-fastify';
 import {AccountTariffs} from '../../../typings/account.enums';
 import {db} from '../../../data';
@@ -28,7 +33,7 @@ const updateProfileThumbnail = async (
   {link}: {link: string},
   {accessToken}: {accessToken: string},
 ): Promise<{success: boolean} | ApolloError | null> => {
-  const {error: validationError} = thumbnailLinkValidator.validate(link);
+  const {error: validationError} = thumbnailLinkValidator.optional().validate(link);
 
   if (validationError) return null;
 
@@ -54,13 +59,23 @@ const editAccountData = async (
   {input}: {input: AccountData},
   {accessToken}: {accessToken: string},
 ): Promise<{success: boolean} | ApolloError | null> => {
-  const {error: validationError} = accountDataValidator.validate(input);
-
-  if (validationError) return null;
-
   const {error, tokenData} = authenticationGuard(accessToken);
 
   if (error) return error;
+
+  if (tokenData.tariff === AccountTariffs.Client) {
+    const {error} = clientAccountDataValidator.validate(input);
+
+    if (error) return null;
+  } else if (tokenData.tariff === AccountTariffs.Entrepreneur) {
+    const {error} = entrepreneurAccountDataValidator.validate(input);
+
+    if (error) return null;
+  } else {
+    const {error} = businessAccountDataValidator.validate(input);
+
+    if (error) return null;
+  }
 
   let result: QueryResult;
 
@@ -72,7 +87,7 @@ const editAccountData = async (
     result = await db.query(queryBusinessAccountEditData(input, tokenData.userId));
   }
 
-  return null;
+  return {success: Boolean(result.rowCount)};
 };
 
 export const profileMutationResolvers = {

@@ -320,6 +320,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Edit Profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($input: EditAccountData!) {\r\n    editAccountData(input: $input) {\r\n      success\r\n    }\r\n}",
+								"variables": "{\r\n    \"input\": {\r\n        \"first_name\": \"Test\",\r\n        \"phone_number_1\": \"665438834\",\r\n        \"gender\": 1,\r\n        \"birth_date\": \"2022-03-19T22:00:00.000Z\"\r\n    }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{graphqlUri}}",
+							"host": [
+								"{{graphqlUri}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

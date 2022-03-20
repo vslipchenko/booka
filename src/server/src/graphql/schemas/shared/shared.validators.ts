@@ -4,5 +4,7 @@ import {getStringEnumValues} from '../../../utilities/enum';
 import {Locale} from '../../../typings/i18n.enums';
 
 export const emailValidator = Joi.string().regex(EMAIL_REGEXP);
-export const localeValidator = Joi.string().valid(...getStringEnumValues(Locale));
+export const localeValidator = Joi.string()
+  .valid(...getStringEnumValues(Locale))
+  .required();
 export const passwordValidator = Joi.string().min(PASSWORD_MIN_LENGTH).max(PASSWORD_MAX_LENGTH).regex(PASSWORD_REGEXP);
