@@ -7,3 +7,11 @@ export const UPDATE_PROFILE_THUMBNAIL = gql`
     }
   }
 `;
+
+export const EDIT_PROFILE = gql`
+  mutation ($input: EditAccountData!) {
+    editAccountData(input: $input) {
+      success
+    }
+  }
+`;

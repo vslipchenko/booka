@@ -4,14 +4,22 @@ import {Apollo, MutationResult} from 'apollo-angular';
 import {HttpClient} from '@angular/common/http';
 import {IMGBB_API, IMGBB_API_KEY} from '~app/constants/imgbb';
 import {ImageBBResponse} from '~app/typings/imgbb.interfaces';
-import {UPDATE_PROFILE_THUMBNAIL} from '~app/graphql/profile/profile.mutations';
+import {EDIT_PROFILE, UPDATE_PROFILE_THUMBNAIL} from '~app/graphql/profile/profile.mutations';
 import {UpdateProfileThumbnailMutationResult} from '~app/typings/profile.interfaces';
+import {AccountData} from '~app/typings/account.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
   public constructor(private readonly apollo: Apollo, private readonly http: HttpClient) {}
+
+  public editProfile(input: AccountData): Observable<MutationResult<unknown>> {
+    return this.apollo.mutate<unknown>({
+      mutation: EDIT_PROFILE,
+      variables: {input},
+    });
+  }
 
   public updateImage(link?: string): Observable<MutationResult<UpdateProfileThumbnailMutationResult>> {
     return this.apollo.mutate<UpdateProfileThumbnailMutationResult>({

@@ -1,9 +1,11 @@
 import {Action, State, StateContext, StateToken} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {SetAccountData} from '~app/modules/profile/store/profile.actions';
+import {EditAccountData, SetAccountData} from '~app/modules/profile/store/profile.actions';
 import {AccountTariffs} from '~app/typings/account.enums';
 import {AccountData} from '~app/typings/account.types';
 import {Gender} from '~app/typings/user.enums';
+import {ProfileService} from '~app/services/profile/profile.service';
+import {Observable, tap} from 'rxjs';
 
 export interface ProfileStateModel {
   accountData: AccountData;
@@ -40,6 +42,8 @@ const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
 })
 @Injectable()
 export class ProfileState {
+  public constructor(private readonly profileService: ProfileService) {}
+
   @Action(SetAccountData) private setAccountData(
     context: StateContext<ProfileStateModel>,
     action: SetAccountData,
@@ -51,5 +55,22 @@ export class ProfileState {
         ...action.payload,
       },
     }));
+  }
+
+  @Action(EditAccountData) private editAccountData(
+    context: StateContext<ProfileStateModel>,
+    action: EditAccountData,
+  ): Observable<unknown> {
+    return this.profileService.editProfile(action.payload).pipe(
+      tap(() => {
+        context.setState((state) => ({
+          ...state,
+          accountData: {
+            ...state.accountData,
+            // TODO
+          },
+        }));
+      }),
+    );
   }
 }

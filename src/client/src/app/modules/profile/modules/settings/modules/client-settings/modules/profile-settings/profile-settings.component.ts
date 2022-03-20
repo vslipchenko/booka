@@ -17,6 +17,7 @@ import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
 import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {AccountData} from '~app/typings/account.types';
+import {EditAccountData} from '~app/modules/profile/store/profile.actions';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -54,6 +55,8 @@ export class ProfileSettingsComponent implements Destroyable {
     this.gender.updateValueAndValidity();
 
     if (!this.profileSettingsForm.valid) return;
+
+    this.store.dispatch(new EditAccountData(this.profileSettingsForm.value));
   }
 
   public errorMessage(errors: ValidationErrors | null): string | void {
