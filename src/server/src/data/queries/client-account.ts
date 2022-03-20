@@ -3,7 +3,7 @@ import {ClientAccountData} from '../../typings/account.interfaces';
 
 export const queryClientAccountData = (userId: string): QueryConfig => ({
   text: `
-    SELECT first_name, middle_name, last_name
+    SELECT thumbnail, first_name, middle_name, last_name, gender, birth_date, description, phone_number_1, phone_number_2, phone_number_3, whatsapp_number, telegram_username
     FROM client_accounts
     WHERE user_id = $1
   `,

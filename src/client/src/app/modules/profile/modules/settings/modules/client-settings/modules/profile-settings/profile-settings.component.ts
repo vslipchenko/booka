@@ -5,6 +5,7 @@ import {Destroyable} from '~app/typings/component.interfaces';
 import {SelectItem} from '~app/typings/select.interfaces';
 import {Gender} from '~app/typings/user.enums';
 import {
+  CLIENT_DESCRIPTION_MAX_LENGTH,
   FIRST_NAME_MAX_LENGTH,
   LAST_NAME_MAX_LENGTH,
   MIDDLE_NAME_MAX_LENGTH,
@@ -18,6 +19,8 @@ import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {AccountData} from '~app/typings/account.types';
 import {EditAccountData} from '~app/modules/profile/store/profile.actions';
+import {cloneDeep} from 'lodash-es';
+import {ClientAccountData} from '~app/typings/account.interfaces';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -56,7 +59,7 @@ export class ProfileSettingsComponent implements Destroyable {
 
     if (!this.profileSettingsForm.valid) return;
 
-    this.store.dispatch(new EditAccountData(this.profileSettingsForm.value));
+    this.store.dispatch(new EditAccountData(this.accountData));
   }
 
   public errorMessage(errors: ValidationErrors | null): string | void {
@@ -74,6 +77,12 @@ export class ProfileSettingsComponent implements Destroyable {
       return 'Неверный формат. Разрешены символы российского, украинского и английского алфавита';
 
     return this.errorMessage(errors);
+  }
+
+  public descriptionErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('maxlength' in errors) return `Максимум ${CLIENT_DESCRIPTION_MAX_LENGTH} знаков`;
   }
 
   public telegramErrorMessage(errors: ValidationErrors | null): string | void {
@@ -106,24 +115,24 @@ export class ProfileSettingsComponent implements Destroyable {
 
     return new FormGroup({
       thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
-      firstName: new FormControl(data.first_name, [
+      first_name: new FormControl(data.first_name, [
         Validators.required,
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(FIRST_NAME_MAX_LENGTH),
       ]),
-      middleName: new FormControl(data.middle_name, [
+      middle_name: new FormControl(data.middle_name, [
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
       ]),
-      lastName: new FormControl(data.last_name, [
+      last_name: new FormControl(data.last_name, [
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(LAST_NAME_MAX_LENGTH),
       ]),
       gender: new FormControl(data.gender, Validators.required),
-      birthDate: new FormControl(data.birth_date, Validators.required),
-      telegramUsername: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
-      whatsappNumber: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
-      description: new FormControl(data.description, Validators.maxLength(500)),
+      birth_date: new FormControl(data.birth_date, Validators.required),
+      telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
+      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
+      description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
       phoneNumbers: new FormArray(phoneNumbers),
     });
   }
@@ -146,15 +155,15 @@ export class ProfileSettingsComponent implements Destroyable {
   }
 
   public get firstName(): FormControl {
-    return this.profileSettingsForm.controls['firstName'] as FormControl;
+    return this.profileSettingsForm.controls['first_name'] as FormControl;
   }
 
   public get middleName(): FormControl {
-    return this.profileSettingsForm.controls['middleName'] as FormControl;
+    return this.profileSettingsForm.controls['middle_name'] as FormControl;
   }
 
   public get lastName(): FormControl {
-    return this.profileSettingsForm.controls['lastName'] as FormControl;
+    return this.profileSettingsForm.controls['last_name'] as FormControl;
   }
 
   public get gender(): FormControl {
@@ -162,7 +171,7 @@ export class ProfileSettingsComponent implements Destroyable {
   }
 
   public get birthDate(): FormControl {
-    return this.profileSettingsForm.controls['birthDate'] as FormControl;
+    return this.profileSettingsForm.controls['birth_date'] as FormControl;
   }
 
   public get description(): FormControl {
@@ -170,11 +179,11 @@ export class ProfileSettingsComponent implements Destroyable {
   }
 
   public get telegramUsername(): FormControl {
-    return this.profileSettingsForm.controls['telegramUsername'] as FormControl;
+    return this.profileSettingsForm.controls['telegram_username'] as FormControl;
   }
 
   public get whatsappNumber(): FormControl {
-    return this.profileSettingsForm.controls['whatsappNumber'] as FormControl;
+    return this.profileSettingsForm.controls['whatsapp_number'] as FormControl;
   }
 
   public get phoneNumbers(): FormArray {
@@ -187,5 +196,17 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get blankPhoneNumber(): FormControl {
     return new FormControl(null, Validators.pattern(PHONE_NUMBER_REGEXP));
+  }
+
+  private get accountData(): ClientAccountData {
+    const accountData = cloneDeep(this.profileSettingsForm.value);
+
+    accountData.phoneNumbers.forEach((phoneNumber: string, index: number) => {
+      accountData[`phone_number_${index + 1}`] = phoneNumber;
+    });
+
+    delete accountData.phoneNumbers;
+
+    return accountData;
   }
 }

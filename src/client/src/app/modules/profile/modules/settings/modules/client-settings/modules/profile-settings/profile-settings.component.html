@@ -82,6 +82,7 @@
       [control]="description"
       [hint]="descriptionHint"
       hintAlign="end"
+      [errorMessage]="descriptionErrorMessage"
     >
       <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 250 знаков</ng-template>
     </app-textarea>

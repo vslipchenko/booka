@@ -2,4 +2,4 @@ import {BusinessAccountData, ClientAccountData, EntrepreneurAccountData} from '~
 
 export type AccountTariff = 'client' | 'entrepreneur' | 'business';
 
-export type AccountData = ClientAccountData & EntrepreneurAccountData & BusinessAccountData;
+export type AccountData = Partial<ClientAccountData & EntrepreneurAccountData & BusinessAccountData>;

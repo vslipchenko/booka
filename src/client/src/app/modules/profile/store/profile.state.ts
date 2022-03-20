@@ -67,7 +67,7 @@ export class ProfileState {
           ...state,
           accountData: {
             ...state.accountData,
-            // TODO
+            ...action.payload,
           },
         }));
       }),
