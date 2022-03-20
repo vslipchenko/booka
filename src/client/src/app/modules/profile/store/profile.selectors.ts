@@ -3,7 +3,7 @@ import {createSelector} from '@ngxs/store';
 import {AccountTariffs} from '~app/typings/account.enums';
 
 export class ProfileSelectors {
-  public static getAccountData = createSelector([ProfileState], (state: ProfileStateModel) => {
+  public static accountData = createSelector([ProfileState], (state: ProfileStateModel) => {
     return state.accountData;
   });
 

@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BookingService} from '~app/services/booking/booking.service';
 import {MenuItem} from '~app/typings/menu.interfaces';
-import {BehaviorSubject, filter, finalize, Observable, Subject, takeUntil, tap} from 'rxjs';
+import {filter, Observable, Subject, takeUntil} from 'rxjs';
 import {AccountService} from '~app/services/account/account.service';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {Select, Store} from '@ngxs/store';
-import {SetAccountData} from '~app/modules/profile/store/profile.actions';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {NavigationEnd, Router} from '@angular/router';
 import {AuthenticationService} from '~app/services/authentication/authentication.service';
@@ -24,7 +23,6 @@ export class ProfileComponent implements Destroyable {
   public readonly requiresAdditionalInfo$!: Observable<boolean>;
 
   public readonly destroy$ = new Subject<void>();
-  public readonly loading$ = new BehaviorSubject(true);
   public showContentHeader = false;
   public readonly menuItems: Array<MenuItem> = [
     {title: 'Главная', routerLink: '/', icon: 'web'},
@@ -54,26 +52,10 @@ export class ProfileComponent implements Destroyable {
 
         this.showContentHeader = true;
       });
-
-    this.accountService
-      .getAccountData()
-      .pipe(
-        takeUntil(this.destroy$),
-        tap(({data}) => {
-          this.store.dispatch(
-            new SetAccountData({...data.accountData, tariff: this.authenticationService.getAccessTokenData().tariff}),
-          );
-        }),
-        finalize(() => {
-          this.loading$.next(false);
-        }),
-      )
-      .subscribe();
   }
 
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    this.loading$.complete();
   }
 }

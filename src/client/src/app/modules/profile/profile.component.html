@@ -1,4 +1,4 @@
-<app-main [footer]="footer" [contentHeader]="contentHeader" [loading]="loading$ | async" class="profile">
+<app-main [footer]="footer" [contentHeader]="contentHeader" class="profile">
   <ng-template #contentHeader>
     <div *ngIf="showContentHeader" class="p-2-3">
       <app-alert *ngIf="needsToBePaid$ | async" type="warn" class="d-block mb-2">

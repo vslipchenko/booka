@@ -5,6 +5,7 @@ import {PageNotFoundModule} from '~app/modules/page-not-found/page-not-found.mod
 import {ProfileModule} from '~app/modules/profile/profile.module';
 import {ProfileCanActivateGuard} from '~app/guards/profile/can-activate/profile.guard';
 import {ProfileCanLoadGuard} from '~app/guards/profile/can-load/profile.guard';
+import {ProfileResolver} from '~app/resolvers/profile/profile.resolver';
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
     path: 'profile',
     canActivate: [ProfileCanActivateGuard],
     canLoad: [ProfileCanLoadGuard],
+    resolve: {
+      data: ProfileResolver,
+    },
     loadChildren: (): Promise<string | typeof ProfileModule> =>
       import('~app/modules/profile/profile.module').then((m) => m.ProfileModule),
   },
