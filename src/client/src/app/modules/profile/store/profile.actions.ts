@@ -1,7 +1,7 @@
-import {AccountVitalsQueryResult} from '~app/typings/account.interfaces';
+import {AccountDataQueryResult} from '~app/typings/account.interfaces';
 
-export class SetAccountVitals {
-  public static readonly type = '[Profile] SetAccountVitals';
+export class SetAccountData {
+  public static readonly type = '[Profile] SetAccountData';
 
-  public constructor(public payload: AccountVitalsQueryResult) {}
+  public constructor(public payload: AccountDataQueryResult) {}
 }

@@ -11,7 +11,7 @@ import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileHomeComponent implements Destroyable {
-  @Select(ProfileSelectors.getAccountVitals)
+  @Select(ProfileSelectors.getAccountData)
   private readonly account$!: Observable<unknown>;
 
   public readonly destroy$ = new Subject<void>();

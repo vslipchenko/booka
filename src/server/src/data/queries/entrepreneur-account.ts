@@ -1,6 +1,6 @@
 import {QueryConfig} from 'pg';
 
-export const EntrepreneurAccountVitals = (userId: string): QueryConfig => ({
+export const EntrepreneurAccountData = (userId: string): QueryConfig => ({
   text: `
     SELECT first_name, middle_name, last_name, paid_at
     FROM entrepreneur_accounts

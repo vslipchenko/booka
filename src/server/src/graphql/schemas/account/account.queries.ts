@@ -1,17 +1,17 @@
 import {gql} from 'apollo-server-core';
 import {authenticationGuard} from '../../../utilities/guard';
 import {ApolloError} from 'apollo-server-fastify';
-import {ClientAccountVitals} from '../../../data/queries/client-account';
+import {ClientAccountData} from '../../../data/queries/client-account';
 import {db} from '../../../data';
 import {ClientAccount} from '../../../typings/account.interfaces';
 
 export const accountQueryTypeDefinitions = gql`
   type Query {
-    accountVitals: AccountVitals
+    accountData: AccountData
   }
 `;
 
-const accountVitals = async (
+const accountData = async (
   _1: unknown,
   _2: unknown,
   {accessToken}: {accessToken: string},
@@ -20,7 +20,7 @@ const accountVitals = async (
 
   if (error) return error;
 
-  const result = await db.query<ClientAccount>(ClientAccountVitals(tokenData.userId));
+  const result = await db.query<ClientAccount>(ClientAccountData(tokenData.userId));
 
   if (!result.rowCount) return null;
 
@@ -29,6 +29,6 @@ const accountVitals = async (
 
 export const accountQueryResolvers = {
   Query: {
-    accountVitals,
+    accountData,
   },
 };

@@ -5,7 +5,7 @@ import {BehaviorSubject, filter, finalize, Observable, Subject, takeUntil, tap} 
 import {AccountService} from '~app/services/account/account.service';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {Select, Store} from '@ngxs/store';
-import {SetAccountVitals} from '~app/modules/profile/store/profile.actions';
+import {SetAccountData} from '~app/modules/profile/store/profile.actions';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {NavigationEnd, Router} from '@angular/router';
 
@@ -54,11 +54,11 @@ export class ProfileComponent implements Destroyable {
       });
 
     this.accountService
-      .getAccountVitals()
+      .getAccountData()
       .pipe(
         takeUntil(this.destroy$),
         tap(({data}) => {
-          this.store.dispatch(new SetAccountVitals(data));
+          this.store.dispatch(new SetAccountData(data));
         }),
         finalize(() => {
           this.loading$.next(false);

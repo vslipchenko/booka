@@ -1,6 +1,6 @@
 import {QueryConfig} from 'pg';
 
-export const BusinessAccountVitals = (userId: string): QueryConfig => ({
+export const BusinessAccountData = (userId: string): QueryConfig => ({
   text: `
     SELECT paid_at
     FROM business_accounts

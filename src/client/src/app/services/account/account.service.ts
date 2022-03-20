@@ -3,7 +3,7 @@ import {Apollo} from 'apollo-angular';
 import {ACCOUNT_VITALS} from '~app/graphql/account/account.queries';
 import {Observable} from 'rxjs';
 import {ApolloQueryResult} from '@apollo/client/core';
-import {AccountVitalsQueryResult} from '~app/typings/account.interfaces';
+import {AccountDataQueryResult} from '~app/typings/account.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,8 @@ import {AccountVitalsQueryResult} from '~app/typings/account.interfaces';
 export class AccountService {
   public constructor(private readonly apollo: Apollo) {}
 
-  public getAccountVitals(): Observable<ApolloQueryResult<AccountVitalsQueryResult>> {
-    return this.apollo.query<AccountVitalsQueryResult>({
+  public getAccountData(): Observable<ApolloQueryResult<AccountDataQueryResult>> {
+    return this.apollo.query<AccountDataQueryResult>({
       query: ACCOUNT_VITALS,
     });
   }

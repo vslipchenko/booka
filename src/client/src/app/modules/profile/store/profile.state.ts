@@ -1,11 +1,11 @@
 import {Action, State, StateContext, StateToken} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {SetAccountVitals} from '~app/modules/profile/store/profile.actions';
-import {AccountVitals} from '~app/typings/account.interfaces';
+import {SetAccountData} from '~app/modules/profile/store/profile.actions';
+import {AccountData} from '~app/typings/account.interfaces';
 import {AccountTariffs} from '~app/typings/account.enums';
 
 export interface ProfileStateModel {
-  account: AccountVitals;
+  account: AccountData;
 }
 
 const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
@@ -24,15 +24,15 @@ const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
 })
 @Injectable()
 export class ProfileState {
-  @Action(SetAccountVitals) private setAccountVitals(
+  @Action(SetAccountData) private setAccountData(
     context: StateContext<ProfileStateModel>,
-    action: SetAccountVitals,
+    action: SetAccountData,
   ): void {
     context.setState((state) => ({
       ...state,
       account: {
         ...state.account,
-        ...action.payload.accountVitals,
+        ...action.payload.accountData,
       },
     }));
   }

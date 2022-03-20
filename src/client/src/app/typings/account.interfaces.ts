@@ -1,6 +1,6 @@
 import {AccountTariffs} from '~app/typings/account.enums';
 
-export interface AccountVitals {
+export interface AccountData {
   tariff: AccountTariffs;
   first_name: string;
   middle_name: string;
@@ -8,6 +8,6 @@ export interface AccountVitals {
   paid_at: string;
 }
 
-export interface AccountVitalsQueryResult {
-  accountVitals: AccountVitals;
+export interface AccountDataQueryResult {
+  accountData: AccountData;
 }

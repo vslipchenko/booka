@@ -124,14 +124,14 @@
 			"name": "Account",
 			"item": [
 				{
-					"name": "Account Vitals",
+					"name": "Account Data",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\r\n    accountVitals {\r\n        tariff\r\n    }\r\n}",
+								"query": "query {\r\n    accountData {\r\n        user_id\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
