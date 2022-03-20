@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {SelectItem} from '~app/typings/select.interfaces';
 import {Gender} from '~app/typings/user.enums';
@@ -21,6 +21,7 @@ import {AccountData} from '~app/typings/account.types';
 import {EditAccountData} from '~app/modules/profile/store/profile.actions';
 import {cloneDeep} from 'lodash-es';
 import {ClientAccountData} from '~app/typings/account.interfaces';
+import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -32,6 +33,8 @@ export class ProfileSettingsComponent implements Destroyable {
   // public readonly accountData$!: Observable<AccountData>;
 
   public readonly destroy$ = new Subject<void>();
+  public readonly loading$ = new BehaviorSubject(false);
+
   public readonly genderItems: Array<SelectItem> = [
     {title: 'Мужской', value: Gender.Male},
     {title: 'Женский', value: Gender.Female},
@@ -40,11 +43,13 @@ export class ProfileSettingsComponent implements Destroyable {
 
   private readonly profileSettingsForm: FormGroup;
 
-  public constructor(private readonly store: Store) {
+  public constructor(private readonly store: Store, private readonly snackbarService: SnackbarService) {
     this.profileSettingsForm = this.profileSettingsFormGroup(this.store.selectSnapshot(ProfileSelectors.accountData));
   }
 
   public ngOnDestroy(): void {
+    this.loading$.complete();
+
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -57,9 +62,20 @@ export class ProfileSettingsComponent implements Destroyable {
     this.profileSettingsForm.markAllAsTouched();
     this.gender.updateValueAndValidity();
 
-    if (!this.profileSettingsForm.valid) return;
+    if (!(this.profileSettingsForm.valid && this.profileSettingsForm.dirty)) return;
 
-    this.store.dispatch(new EditAccountData(this.accountData));
+    this.loading$.next(true);
+
+    this.store
+      .dispatch(new EditAccountData(this.accountData))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.loading$.next(false)),
+      )
+      .subscribe(
+        () => {},
+        () => this.snackbarService.open('Что-то пошло не так. Пожалуйста, повторите попытку позже.', 'OK'),
+      );
   }
 
   public errorMessage(errors: ValidationErrors | null): string | void {
@@ -129,7 +145,7 @@ export class ProfileSettingsComponent implements Destroyable {
         Validators.maxLength(LAST_NAME_MAX_LENGTH),
       ]),
       gender: new FormControl(data.gender, Validators.required),
-      birth_date: new FormControl(data.birth_date, Validators.required),
+      birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
       telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
       whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
       description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),

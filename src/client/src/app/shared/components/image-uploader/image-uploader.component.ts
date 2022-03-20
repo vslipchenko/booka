@@ -68,7 +68,7 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
   }
 
   private showSnackbar(): void {
-    this.snackbarService.open('Что-то пошло не так. Пожалуйста, попробуйте позже.', 'OK');
+    this.snackbarService.open('Что-то пошло не так. Пожалуйста, повторите попытку позже.', 'OK');
   }
 
   private get fileInputElement(): HTMLInputElement {
