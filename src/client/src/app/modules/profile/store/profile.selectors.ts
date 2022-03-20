@@ -13,7 +13,12 @@ export class ProfileSelectors {
 
   public static requiresAdditionalInfo = createSelector([ProfileState], (state: ProfileStateModel) => {
     if (state.accountData.tariff === AccountTariffs.Client) {
-      return !state.accountData.first_name; // TODO
+      return !(
+        state.accountData.first_name &&
+        state.accountData.gender &&
+        state.accountData.birth_date &&
+        state.accountData.phone_number_1
+      );
     }
 
     return false;

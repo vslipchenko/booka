@@ -7,6 +7,9 @@ export const ACCOUNT_DATA = gql`
       # Base
       thumbnail
       description
+      phone_number_1
+      phone_number_2
+      phone_number_3
 
       # Client & Entrepreneur
       first_name
@@ -20,10 +23,9 @@ export const ACCOUNT_DATA = gql`
       # Entrepreneur
       # ...
 
-      # Client & Entrepreneur & Business
-      phone_number_1
-      phone_number_2
-      phone_number_3
+      # Entrepreneur & Business
+      phone_number_4
+      phone_number_5
     }
   }
 `;
