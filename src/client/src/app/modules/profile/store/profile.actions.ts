@@ -1,4 +1,4 @@
-import {AccountData} from '~app/typings/account.interfaces';
+import {AccountData} from '~app/typings/account.types';
 
 export class SetAccountData {
   public static readonly type = '[Profile] SetAccountData';

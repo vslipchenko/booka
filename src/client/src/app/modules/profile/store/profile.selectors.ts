@@ -4,22 +4,18 @@ import {AccountTariffs} from '~app/typings/account.enums';
 
 export class ProfileSelectors {
   public static getAccountData = createSelector([ProfileState], (state: ProfileStateModel) => {
-    return state.account;
+    return state.accountData;
   });
 
   public static needsToBePaid = createSelector([ProfileState], (state: ProfileStateModel) => {
-    return state.account.tariff !== AccountTariffs.Client && !state.account.paid_at; // TODO: || paid_at date exceeds 28 days
+    return state.accountData.tariff !== AccountTariffs.Client && !state.accountData.paid_at; // TODO: || paid_at date exceeds 28 days
   });
 
   public static requiresAdditionalInfo = createSelector([ProfileState], (state: ProfileStateModel) => {
-    if (state.account.tariff === AccountTariffs.Client) {
-      return !state.account.first_name; // TODO
+    if (state.accountData.tariff === AccountTariffs.Client) {
+      return !state.accountData.first_name; // TODO
     }
 
     return false;
-  });
-
-  public static accountTariff = createSelector([ProfileState], (state: ProfileStateModel) => {
-    return state.account.tariff;
   });
 }
