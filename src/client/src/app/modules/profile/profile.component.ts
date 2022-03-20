@@ -8,6 +8,7 @@ import {Select, Store} from '@ngxs/store';
 import {SetAccountData} from '~app/modules/profile/store/profile.actions';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {NavigationEnd, Router} from '@angular/router';
+import {AuthenticationService} from '~app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,6 +32,7 @@ export class ProfileComponent implements Destroyable {
   ];
 
   public constructor(
+    private readonly authenticationService: AuthenticationService,
     private readonly bookingService: BookingService,
     private readonly accountService: AccountService,
     private readonly store: Store,
@@ -58,7 +60,9 @@ export class ProfileComponent implements Destroyable {
       .pipe(
         takeUntil(this.destroy$),
         tap(({data}) => {
-          this.store.dispatch(new SetAccountData(data));
+          this.store.dispatch(
+            new SetAccountData({...data.accountData, tariff: this.authenticationService.getAccessTokenData().tariff}),
+          );
         }),
         finalize(() => {
           this.loading$.next(false);

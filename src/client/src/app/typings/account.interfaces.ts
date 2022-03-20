@@ -9,5 +9,5 @@ export interface AccountData {
 }
 
 export interface AccountDataQueryResult {
-  accountData: AccountData;
+  accountData: Omit<AccountData, 'tariff'>;
 }

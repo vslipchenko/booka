@@ -24,7 +24,7 @@ const accountData = async (
 
   if (!result.rowCount) return null;
 
-  return {...result.rows[0], tariff: tokenData.tariff};
+  return result.rows[0];
 };
 
 export const accountQueryResolvers = {

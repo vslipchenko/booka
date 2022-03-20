@@ -32,7 +32,7 @@ export class ProfileState {
       ...state,
       account: {
         ...state.account,
-        ...action.payload.accountData,
+        ...action.payload,
       },
     }));
   }

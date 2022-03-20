@@ -1,9 +1,8 @@
 import {gql} from 'apollo-angular';
 
-export const ACCOUNT_VITALS = gql`
+export const ACCOUNT_DATA = gql`
   query {
     accountData {
-      tariff
       first_name
       middle_name
       last_name
