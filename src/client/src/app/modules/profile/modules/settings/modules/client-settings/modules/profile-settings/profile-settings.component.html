@@ -22,9 +22,9 @@
     >
 
     <div class="mb-2">
-      <app-image-uploader class="d-flex jc-center mb-1" preview="https://i.ibb.co/GTBvvBq/Pelican.jpg"></app-image-uploader>
+      <app-image-uploader class="d-flex jc-center mb-1" [preview]="thumbnail.value"></app-image-uploader>
 
-      <mat-error *ngIf="image.invalid" class="mat-error-font-size">Превышен допустимый размер изображения</mat-error>
+      <mat-error *ngIf="thumbnail.invalid" class="mat-error-font-size">Превышен допустимый размер изображения</mat-error>
     </div>
 
     <app-input
@@ -125,11 +125,11 @@
       appearance="outline"
       label="Номер WhatsApp"
       placeholder="380000000000"
-      [control]="whatsApp"
+      [control]="whatsappNumber"
       [errorMessage]="whatsAppErrorMessage"
       [hint]="whatsAppHint"
     >
-      <ng-template #whatsAppHint> https://wa.me/{{ whatsApp.value }} </ng-template>
+      <ng-template #whatsAppHint> https://wa.me/{{ whatsappNumber.value }} </ng-template>
     </app-input>
 
     <app-input
@@ -137,11 +137,11 @@
       extendClass="w-100 mb-2"
       appearance="outline"
       label="Юзернейм Telegram"
-      [control]="telegram"
+      [control]="telegramUsername"
       [errorMessage]="telegramErrorMessage"
       [hint]="telegramHint"
     >
-      <ng-template #telegramHint> https://t.me/{{ telegram.value }} </ng-template>
+      <ng-template #telegramHint> https://t.me/{{ telegramUsername.value }} </ng-template>
     </app-input>
 
     <app-flat-button

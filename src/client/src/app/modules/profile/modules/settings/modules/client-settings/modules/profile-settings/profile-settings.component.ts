@@ -14,6 +14,9 @@ import {
   WHATSAPP_NUMBER_REGEXP,
 } from '~app/constants/validation';
 import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
+import {Store} from '@ngxs/store';
+import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
+import {AccountData} from '~app/typings/account.types';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -21,6 +24,9 @@ import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileSettingsComponent implements Destroyable {
+  // @Select(ProfileSelectors.accountData)
+  // public readonly accountData$!: Observable<AccountData>;
+
   public readonly destroy$ = new Subject<void>();
   public readonly genderItems: Array<SelectItem> = [
     {title: 'Мужской', value: Gender.Male},
@@ -28,7 +34,11 @@ export class ProfileSettingsComponent implements Destroyable {
     {title: 'Другой', value: Gender.Other},
   ];
 
-  private readonly profileSettingsForm = this.profileSettingsFormGroup;
+  private readonly profileSettingsForm: FormGroup;
+
+  public constructor(private readonly store: Store) {
+    this.profileSettingsForm = this.profileSettingsFormGroup(this.store.selectSnapshot(ProfileSelectors.accountData));
+  }
 
   public ngOnDestroy(): void {
     this.destroy$.next();
@@ -36,16 +46,12 @@ export class ProfileSettingsComponent implements Destroyable {
   }
 
   public addPhoneNumber(): void {
-    this.phoneNumbers.push(new FormControl(null, Validators.pattern(PHONE_NUMBER_REGEXP)));
+    this.phoneNumbers.push(this.blankPhoneNumber);
   }
 
   public save(): void {
-    console.log(this.profileSettingsForm, this.profileSettingsForm.value);
     this.profileSettingsForm.markAllAsTouched();
-    // this.profileSettingsForm.updateValueAndValidity();
     this.gender.updateValueAndValidity();
-    // this.profileSettingsForm.markAsDirty();
-    // this.cd.detectChanges();
 
     if (!this.profileSettingsForm.valid) return;
   }
@@ -87,27 +93,35 @@ export class ProfileSettingsComponent implements Destroyable {
     return this.errorMessage(errors);
   }
 
-  public get profileSettingsFormGroup(): FormGroup {
+  public profileSettingsFormGroup(data: AccountData): FormGroup {
+    const phoneNumbers = [
+      new FormControl(data.phone_number_1, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
+    ];
+
+    if (data.phone_number_2) phoneNumbers.push(this.blankPhoneNumber);
+    if (data.phone_number_3) phoneNumbers.push(this.blankPhoneNumber);
+
     return new FormGroup({
-      image: new FormControl(null, this.imageSizeValidator.bind(this)),
-      firstName: new FormControl(null, [
+      thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
+      firstName: new FormControl(data.first_name, [
         Validators.required,
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(FIRST_NAME_MAX_LENGTH),
       ]),
-      middleName: new FormControl(null, [
+      middleName: new FormControl(data.middle_name, [
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
       ]),
-      lastName: new FormControl(null, [Validators.pattern(NAME_REGEXP), Validators.maxLength(LAST_NAME_MAX_LENGTH)]),
-      gender: new FormControl(null, Validators.required),
-      birthDate: new FormControl(null, Validators.required),
-      telegram: new FormControl(null, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
-      whatsApp: new FormControl(null, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
-      description: new FormControl(null, Validators.maxLength(500)),
-      phoneNumbers: new FormArray([
-        new FormControl(null, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
+      lastName: new FormControl(data.last_name, [
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(LAST_NAME_MAX_LENGTH),
       ]),
+      gender: new FormControl(data.gender, Validators.required),
+      birthDate: new FormControl(data.birth_date, Validators.required),
+      telegramUsername: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
+      whatsappNumber: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
+      description: new FormControl(data.description, Validators.maxLength(500)),
+      phoneNumbers: new FormArray(phoneNumbers),
     });
   }
 
@@ -124,8 +138,8 @@ export class ProfileSettingsComponent implements Destroyable {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
-  public get image(): FormControl {
-    return this.profileSettingsForm.controls['image'] as FormControl;
+  public get thumbnail(): FormControl {
+    return this.profileSettingsForm.controls['thumbnail'] as FormControl;
   }
 
   public get firstName(): FormControl {
@@ -152,12 +166,12 @@ export class ProfileSettingsComponent implements Destroyable {
     return this.profileSettingsForm.controls['description'] as FormControl;
   }
 
-  public get telegram(): FormControl {
-    return this.profileSettingsForm.controls['telegram'] as FormControl;
+  public get telegramUsername(): FormControl {
+    return this.profileSettingsForm.controls['telegramUsername'] as FormControl;
   }
 
-  public get whatsApp(): FormControl {
-    return this.profileSettingsForm.controls['whatsApp'] as FormControl;
+  public get whatsappNumber(): FormControl {
+    return this.profileSettingsForm.controls['whatsappNumber'] as FormControl;
   }
 
   public get phoneNumbers(): FormArray {
@@ -166,5 +180,9 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get phoneNumbersControls(): Array<FormControl> {
     return this.phoneNumbers.controls as Array<FormControl>;
+  }
+
+  public get blankPhoneNumber(): FormControl {
+    return new FormControl(null, Validators.pattern(PHONE_NUMBER_REGEXP));
   }
 }
