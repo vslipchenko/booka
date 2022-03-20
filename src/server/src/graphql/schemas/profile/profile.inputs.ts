@@ -19,7 +19,7 @@ export const profileInputs = gql`
     # ...
 
     # Client & Entrepreneur & Business
-    phone_number_1: String
+    phone_number_1: String!
     phone_number_2: String
     phone_number_3: String
 

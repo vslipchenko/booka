@@ -17,7 +17,7 @@ export const thumbnailLinkValidator = Joi.string().pattern(PROFILE_THUMBNAIL_ORI
 const phoneNumberValidator = Joi.string().pattern(PHONE_NUMBER_REGEXP);
 const baseAccountDataValidatorSchema: SchemaMap = {
   thumbnail: thumbnailLinkValidator,
-  phone_number_1: phoneNumberValidator.required(),
+  phone_number_1: phoneNumberValidator,
   phone_number_2: phoneNumberValidator,
   phone_number_3: phoneNumberValidator,
 };
