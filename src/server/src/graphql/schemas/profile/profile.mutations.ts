@@ -19,7 +19,7 @@ import {AccountData} from '../../../typings/account.types';
 export const profileMutationTypeDefinitions = gql`
   type Mutation {
     updateProfileThumbnail(link: String): Success
-    editAccountData(input: EditAccountData!) Success
+    editAccountData(input: EditAccountData!): Success
   }
 `;
 
