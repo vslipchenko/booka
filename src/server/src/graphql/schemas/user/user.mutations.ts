@@ -3,11 +3,11 @@ import {CreateUser, RecoverPassword, ResetPassword} from '../../../typings/user.
 import {confirmationKeyValidator, createUserValidator, recoverPasswordValidator} from './user.validators';
 import {db} from '../../../data';
 import {
-  UserCheckExistenceByEmail,
-  UserConfirmAccount,
-  UserCreate,
-  UserDeleteByEmail,
-  UserResetPassword,
+  queryUserCheckExistenceByEmail,
+  queryUserConfirmAccount,
+  queryUserCreate,
+  queryUserDeleteByEmail,
+  queryUserResetPassword,
 } from '../../../data/queries/user';
 import {hashSync} from 'bcrypt';
 import {v5 as uuidv5} from 'uuid';
@@ -47,7 +47,7 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
   const accessKey = randomBytes(18).toString('base64'); // Produces string of 24 char length
 
   const result = await db.query(
-    UserCreate(
+    queryUserCreate(
       {
         ...input,
         confirmationKey,
@@ -67,7 +67,7 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
       html: imprint(EMAIL_CONFIRMATION_HTML[input.locale], {confirmationKey, appOrigin: environment.APP_ORIGIN}),
     });
   } catch {
-    await db.query(UserDeleteByEmail(input.email));
+    await db.query(queryUserDeleteByEmail(input.email));
 
     return {success: false};
   }
@@ -80,7 +80,7 @@ const confirmAccount = async (_: unknown, {key}: {key: string}): Promise<{succes
 
   if (error) return null;
 
-  const result = await db.query(UserConfirmAccount(key));
+  const result = await db.query(queryUserConfirmAccount(key));
 
   return {success: Boolean(result.rowCount)};
 };
@@ -90,7 +90,7 @@ const recoverPassword = async (_: unknown, {input}: {input: RecoverPassword}): P
 
   if (error) return null;
 
-  const result = await db.query(UserCheckExistenceByEmail(input.email));
+  const result = await db.query(queryUserCheckExistenceByEmail(input.email));
 
   if (!result.rowCount) return {success: false};
 
@@ -124,7 +124,7 @@ const resetPassword = async (_: unknown, {input}: {input: ResetPassword}): Promi
 
     input.password = hashSync(input.password, 10);
 
-    const result = await db.query(UserResetPassword(data.email, input.password));
+    const result = await db.query(queryUserResetPassword(data.email, input.password));
 
     return {success: Boolean(result.rowCount)};
   } catch {

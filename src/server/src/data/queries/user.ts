@@ -1,7 +1,7 @@
 import {CreateUser} from '../../typings/user.interfaces';
 import {QueryConfig} from 'pg';
 
-export const UserCheckExistenceByEmail = (email: string): QueryConfig => ({
+export const queryUserCheckExistenceByEmail = (email: string): QueryConfig => ({
   text: `
     SELECT 1
     FROM users
@@ -10,7 +10,7 @@ export const UserCheckExistenceByEmail = (email: string): QueryConfig => ({
   values: [email],
 });
 
-export const UserCreate = (
+export const queryUserCreate = (
   {tariff, email, password, accessKey, confirmationKey}: CreateUser & {accessKey: string; confirmationKey: string},
   accountTableName: string,
 ): QueryConfig => ({
@@ -25,14 +25,14 @@ export const UserCreate = (
   values: [tariff, email, password, accessKey, confirmationKey],
 });
 
-export const UserDeleteByEmail = (email: string): QueryConfig => ({
+export const queryUserDeleteByEmail = (email: string): QueryConfig => ({
   text: `
     DELETE FROM users WHERE email = $1
   `,
   values: [email],
 });
 
-export const UserConfirmAccount = (key: string): QueryConfig => ({
+export const queryUserConfirmAccount = (key: string): QueryConfig => ({
   text: `
     UPDATE users
     SET confirmation_key = NULL
@@ -41,7 +41,7 @@ export const UserConfirmAccount = (key: string): QueryConfig => ({
   values: [key],
 });
 
-export const UserResetPassword = (email: string, password: string): QueryConfig => ({
+export const queryUserResetPassword = (email: string, password: string): QueryConfig => ({
   text: `
     UPDATE users
     SET password = $1
@@ -50,7 +50,7 @@ export const UserResetPassword = (email: string, password: string): QueryConfig 
   values: [password, email],
 });
 
-export const UserSignIn = (email: string): QueryConfig => ({
+export const queryUserSignIn = (email: string): QueryConfig => ({
   text: `
     SELECT id, password, access_key, confirmation_key, tariff
     FROM users
@@ -59,7 +59,7 @@ export const UserSignIn = (email: string): QueryConfig => ({
   values: [email],
 });
 
-export const UserRefreshAccessToken = (userId: string): QueryConfig => ({
+export const queryUserRefreshAccessToken = (userId: string): QueryConfig => ({
   text: `
     SELECT access_key, tariff
     FROM users

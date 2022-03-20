@@ -1,5 +1,5 @@
 import {gql} from 'apollo-server-core';
-import {UserCheckExistenceByEmail} from '../../../data/queries/user';
+import {queryUserCheckExistenceByEmail} from '../../../data/queries/user';
 import {db} from '../../../data';
 import {emailValidator} from '../shared/shared.validators';
 
@@ -14,7 +14,7 @@ const userWithEmailExists = async (_: unknown, {email}: {email: string}): Promis
 
   if (error) return null;
 
-  const result = await db.query(UserCheckExistenceByEmail(email));
+  const result = await db.query(queryUserCheckExistenceByEmail(email));
 
   return {exists: Boolean(result.rowCount)};
 };

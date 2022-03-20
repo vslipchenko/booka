@@ -4,10 +4,17 @@ import {accountDataValidator, thumbnailLinkValidator} from './profile.validators
 import {ApolloError} from 'apollo-server-fastify';
 import {AccountTariffs} from '../../../typings/account.enums';
 import {db} from '../../../data';
-import {ClientAccountUpdateThumbnail} from '../../../data/queries/client-account';
+import {queryClientAccountEditData, queryClientAccountUpdateThumbnail} from '../../../data/queries/client-account';
 import {QueryResult} from 'pg';
-import {EntrepreneurAccountUpdateThumbnail} from '../../../data/queries/entrepreneur-account';
-import {BusinessAccountUpdateThumbnail} from '../../../data/queries/business-account';
+import {
+  queryEntrepreneurAccountEditData,
+  queryEntrepreneurAccountUpdateThumbnail,
+} from '../../../data/queries/entrepreneur-account';
+import {
+  queryBusinessAccountEditData,
+  queryBusinessAccountUpdateThumbnail,
+} from '../../../data/queries/business-account';
+import {AccountData} from '../../../typings/account.types';
 
 export const profileMutationTypeDefinitions = gql`
   type Mutation {
@@ -32,11 +39,11 @@ const updateProfileThumbnail = async (
   let result: QueryResult;
 
   if (tokenData.tariff === AccountTariffs.Client) {
-    result = await db.query(ClientAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
+    result = await db.query(queryClientAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
   } else if (tokenData.tariff === AccountTariffs.Entrepreneur) {
-    result = await db.query(EntrepreneurAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
+    result = await db.query(queryEntrepreneurAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
   } else {
-    result = await db.query(BusinessAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
+    result = await db.query(queryBusinessAccountUpdateThumbnail({userId: tokenData.userId, thumbnail: link}));
   }
 
   return {success: Boolean(result.rowCount)};
@@ -44,7 +51,7 @@ const updateProfileThumbnail = async (
 
 const editAccountData = async (
   _: unknown,
-  {input}: {input: any},
+  {input}: {input: AccountData},
   {accessToken}: {accessToken: string},
 ): Promise<{success: boolean} | ApolloError | null> => {
   const {error: validationError} = accountDataValidator.validate(input);
@@ -57,12 +64,20 @@ const editAccountData = async (
 
   let result: QueryResult;
 
+  if (tokenData.tariff === AccountTariffs.Client) {
+    result = await db.query(queryClientAccountEditData(input, tokenData.userId));
+  } else if (tokenData.tariff === AccountTariffs.Entrepreneur) {
+    result = await db.query(queryEntrepreneurAccountEditData(input, tokenData.userId));
+  } else {
+    result = await db.query(queryBusinessAccountEditData(input, tokenData.userId));
+  }
+
   return null;
 };
 
 export const profileMutationResolvers = {
   Mutation: {
     updateProfileThumbnail,
-    editAccountData
+    editAccountData,
   },
 };

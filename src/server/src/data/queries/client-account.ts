@@ -1,6 +1,7 @@
 import {QueryConfig} from 'pg';
+import {ClientAccountData} from '../../typings/account.interfaces';
 
-export const ClientAccountData = (userId: string): QueryConfig => ({
+export const queryClientAccountData = (userId: string): QueryConfig => ({
   text: `
     SELECT first_name, middle_name, last_name
     FROM client_accounts
@@ -9,7 +10,7 @@ export const ClientAccountData = (userId: string): QueryConfig => ({
   values: [userId],
 });
 
-export const ClientAccountUpdateThumbnail = ({
+export const queryClientAccountUpdateThumbnail = ({
   thumbnail,
   userId,
 }: {
@@ -22,4 +23,41 @@ export const ClientAccountUpdateThumbnail = ({
     WHERE user_id = $2
   `,
   values: [thumbnail, userId],
+});
+
+export const queryClientAccountEditData = (
+  {
+    first_name,
+    last_name,
+    middle_name,
+    gender,
+    birth_date,
+    description,
+    phone_number_1,
+    phone_number_2,
+    phone_number_3,
+    whatsapp_number,
+    telegram_username,
+  }: ClientAccountData,
+  userId: string,
+): QueryConfig => ({
+  text: `
+    UPDATE client_accounts
+    SET first_name = $1, last_name = $2, middle_name = $3, gender = $4, birth_date = $5, description = $6, phone_number_1 = $7, phone_number_2 = $8, phone_number_3 = $9, whatsapp_number = $10, telegram_username = $11
+    WHERE user_id = $12
+  `,
+  values: [
+    first_name,
+    last_name,
+    middle_name,
+    gender,
+    birth_date,
+    description,
+    phone_number_1,
+    phone_number_2,
+    phone_number_3,
+    whatsapp_number,
+    telegram_username,
+    userId,
+  ],
 });

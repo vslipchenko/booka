@@ -1,7 +1,7 @@
 import {gql} from 'apollo-server-core';
 import {authenticationGuard} from '../../../utilities/guard';
 import {ApolloError} from 'apollo-server-fastify';
-import {ClientAccountData} from '../../../data/queries/client-account';
+import {queryClientAccountData} from '../../../data/queries/client-account';
 import {db} from '../../../data';
 import {AccountData} from '../../../typings/account.types';
 
@@ -20,7 +20,7 @@ const accountData = async (
 
   if (error) return error;
 
-  const result = await db.query<AccountData>(ClientAccountData(tokenData.userId));
+  const result = await db.query<AccountData>(queryClientAccountData(tokenData.userId));
 
   if (!result.rowCount) return null;
 

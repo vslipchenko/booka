@@ -1,7 +1,7 @@
 import {SignIn} from '../../../typings/user.interfaces';
 import {signInValidator} from './authentication.validators';
 import {gql} from 'apollo-server-core';
-import {UserRefreshAccessToken, UserSignIn} from '../../../data/queries/user';
+import {queryUserRefreshAccessToken, queryUserSignIn} from '../../../data/queries/user';
 import {db} from '../../../data';
 import {SignInFailReason} from '../../../typings/authentication.enums';
 import {compareSync} from 'bcrypt';
@@ -33,7 +33,7 @@ const signIn = async (
     confirmation_key: string;
     password: string;
     tariff: AccountTariffs;
-  }>(UserSignIn(input.email));
+  }>(queryUserSignIn(input.email));
 
   if (!result.rowCount) return null;
 
@@ -72,7 +72,7 @@ const refreshAccessToken = async (
   const result = await db.query<{
     access_key: string;
     tariff: AccountTariffs;
-  }>(UserRefreshAccessToken(userId));
+  }>(queryUserRefreshAccessToken(userId));
   // Invalid refresh token data
   if (!result.rowCount) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
 

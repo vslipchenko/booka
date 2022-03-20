@@ -1,6 +1,7 @@
 import {QueryConfig} from 'pg';
+import {BusinessAccountData} from '../../typings/account.interfaces';
 
-export const BusinessAccountData = (userId: string): QueryConfig => ({
+export const queryBusinessAccountData = (userId: string): QueryConfig => ({
   text: `
     SELECT paid_at
     FROM business_accounts
@@ -9,7 +10,7 @@ export const BusinessAccountData = (userId: string): QueryConfig => ({
   values: [userId],
 });
 
-export const BusinessAccountUpdateThumbnail = ({
+export const queryBusinessAccountUpdateThumbnail = ({
   thumbnail,
   userId,
 }: {
@@ -22,4 +23,17 @@ export const BusinessAccountUpdateThumbnail = ({
     WHERE user_id = $2
   `,
   values: [thumbnail, userId],
+});
+
+export const queryBusinessAccountEditData = (
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  {description, phone_number_1, phone_number_2, phone_number_3, paid_at}: BusinessAccountData,
+  userId: string,
+): QueryConfig => ({
+  text: `
+    UPDATE business_accounts
+    SET paid_at = $1
+    WHERE user_id = $2
+  `,
+  values: [paid_at, userId],
 });
