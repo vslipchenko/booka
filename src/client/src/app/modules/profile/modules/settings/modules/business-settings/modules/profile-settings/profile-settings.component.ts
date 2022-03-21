@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -6,7 +7,11 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileSettingsComponent implements OnInit {
+  public thumbnail = new FormControl();
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  public save(): void {}
 }
