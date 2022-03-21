@@ -23,6 +23,6 @@ export const accountTypes = gql`
     # ...
 
     # Entrepreneur & Business
-    paid_at
+    paid_at: String
   }
 `;
