@@ -9,8 +9,6 @@ interface AccountDataBase {
 }
 
 interface PaidAccountDataBase {
-  phone_number_4: string;
-  phone_number_5: string;
   paid_at: string;
 }
 

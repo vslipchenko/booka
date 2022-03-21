@@ -24,8 +24,7 @@ export const ACCOUNT_DATA = gql`
       # ...
 
       # Entrepreneur & Business
-      phone_number_4
-      phone_number_5
+      paid_at
     }
   }
 `;

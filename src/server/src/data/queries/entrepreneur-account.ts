@@ -3,7 +3,7 @@ import {EntrepreneurAccountData} from '../../typings/account.interfaces';
 
 export const queryEntrepreneurAccountData = (userId: string): QueryConfig => ({
   text: `
-    SELECT first_name, middle_name, last_name, paid_at
+    SELECT paid_at, thumbnail, first_name, middle_name, last_name, gender, birth_date, description, phone_number_1, phone_number_2, phone_number_3, whatsapp_number, telegram_username
     FROM entrepreneur_accounts
     WHERE user_id = $1
   `,

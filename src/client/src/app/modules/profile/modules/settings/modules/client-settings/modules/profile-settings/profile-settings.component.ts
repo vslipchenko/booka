@@ -218,6 +218,7 @@ export class ProfileSettingsComponent implements Destroyable {
       accountData[`phone_number_${index + 1}`] = phoneNumber;
     });
 
+    delete accountData.thumbnail;
     delete accountData.phoneNumbers;
 
     return accountData;

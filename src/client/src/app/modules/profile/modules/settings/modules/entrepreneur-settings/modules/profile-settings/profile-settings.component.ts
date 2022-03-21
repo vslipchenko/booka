@@ -83,8 +83,6 @@ export class ProfileSettingsComponent implements Destroyable {
 
     if (data.phone_number_2) phoneNumbers.push(this.blankPhoneNumber);
     if (data.phone_number_3) phoneNumbers.push(this.blankPhoneNumber);
-    if (data.phone_number_4) phoneNumbers.push(this.blankPhoneNumber);
-    if (data.phone_number_5) phoneNumbers.push(this.blankPhoneNumber);
 
     return new FormGroup({
       thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
@@ -94,10 +92,12 @@ export class ProfileSettingsComponent implements Destroyable {
         Validators.maxLength(FIRST_NAME_MAX_LENGTH),
       ]),
       middle_name: new FormControl(data.middle_name, [
+        Validators.required,
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
       ]),
       last_name: new FormControl(data.last_name, [
+        Validators.required,
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(LAST_NAME_MAX_LENGTH),
       ]),
@@ -221,6 +221,7 @@ export class ProfileSettingsComponent implements Destroyable {
       accountData[`phone_number_${index + 1}`] = phoneNumber;
     });
 
+    delete accountData.thumbnail;
     delete accountData.phoneNumbers;
 
     return accountData;

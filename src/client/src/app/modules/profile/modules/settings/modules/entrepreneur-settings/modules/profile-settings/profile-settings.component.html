@@ -80,9 +80,9 @@
     <ng-template #prefix>+380</ng-template>
 
     <ng-template #phoneNumberHint>
-      <!-- Up to 5 phone numbers at once -->
+      <!-- Up to 3 phone numbers at once -->
       <span
-        *ngIf="isLast && index !== 4"
+        *ngIf="isLast && index !== 2"
         class="d-flex ai-center pointer c-primary"
         tabindex="0"
         (click)="addPhoneNumber()"

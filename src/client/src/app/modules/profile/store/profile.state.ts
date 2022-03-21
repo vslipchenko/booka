@@ -35,8 +35,6 @@ const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
       whatsapp_number: '',
       telegram_username: '',
       // Entrepreneur & Business
-      phone_number_4: '',
-      phone_number_5: '',
       paid_at: '',
     },
     loading: false,

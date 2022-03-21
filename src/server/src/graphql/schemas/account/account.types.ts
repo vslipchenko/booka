@@ -6,6 +6,9 @@ export const accountTypes = gql`
     # Base
     thumbnail: String
     description: String
+    phone_number_1: String
+    phone_number_2: String
+    phone_number_3: String
 
     # Client & Entrepreneur
     first_name: String
@@ -19,13 +22,7 @@ export const accountTypes = gql`
     # Entrepreneur
     # ...
 
-    # Client & Entrepreneur & Business
-    phone_number_1: String
-    phone_number_2: String
-    phone_number_3: String
-
     # Entrepreneur & Business
-    phone_number_4: String
-    phone_number_5: String
+    paid_at
   }
 `;
