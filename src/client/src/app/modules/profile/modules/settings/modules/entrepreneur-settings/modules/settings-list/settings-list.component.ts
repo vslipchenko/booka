@@ -1,12 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   templateUrl: './settings-list.component.html',
   styleUrls: ['./settings-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsListComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class SettingsListComponent {}

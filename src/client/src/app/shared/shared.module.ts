@@ -39,6 +39,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {TextareaComponent} from './components/textarea/textarea.component';
 import {ImageUploaderComponent} from './components/image-uploader/image-uploader.component';
 import {ImageUploaderMenuComponent} from '~app/shared/components/image-uploader-menu/image-uploader-menu.component';
+import {SettingsListComponent} from './components/settings-list/settings-list.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {ImageUploaderMenuComponent} from '~app/shared/components/image-uploader-
     TextareaComponent,
     ImageUploaderComponent,
     ImageUploaderMenuComponent,
+    SettingsListComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -87,6 +89,7 @@ import {ImageUploaderMenuComponent} from '~app/shared/components/image-uploader-
     DatepickerComponent,
     TextareaComponent,
     ImageUploaderComponent,
+    SettingsListComponent,
   ],
   imports: [
     CommonModule,

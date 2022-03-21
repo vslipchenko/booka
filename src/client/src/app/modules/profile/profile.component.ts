@@ -30,6 +30,7 @@ export class ProfileComponent implements Destroyable {
   public readonly menuItems: Array<MenuItem> = [
     {title: 'Главная', routerLink: '/', icon: 'web'},
     {title: 'Настройки', routerLink: '/profile/settings', icon: 'settings'},
+    {title: 'Выйти', icon: 'logout', color: 'warn', click: (): void => this.authenticationService.logout()},
   ];
 
   public constructor(
