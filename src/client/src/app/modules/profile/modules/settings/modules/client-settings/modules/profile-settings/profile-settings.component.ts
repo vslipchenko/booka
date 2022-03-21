@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
+import {finalize, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {SelectItem} from '~app/typings/select.interfaces';
 import {Gender} from '~app/typings/user.enums';
@@ -18,7 +18,7 @@ import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
 import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {AccountData} from '~app/typings/account.types';
-import {EditAccountData} from '~app/modules/profile/store/profile.actions';
+import {EditAccountData, SetLoading} from '~app/modules/profile/store/profile.actions';
 import {cloneDeep} from 'lodash-es';
 import {ClientAccountData} from '~app/typings/account.interfaces';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
@@ -29,11 +29,7 @@ import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileSettingsComponent implements Destroyable {
-  // @Select(ProfileSelectors.accountData)
-  // public readonly accountData$!: Observable<AccountData>;
-
   public readonly destroy$ = new Subject<void>();
-  public readonly loading$ = new BehaviorSubject(false);
 
   public readonly genderItems: Array<SelectItem> = [
     {title: 'Мужской', value: Gender.Male},
@@ -48,8 +44,6 @@ export class ProfileSettingsComponent implements Destroyable {
   }
 
   public ngOnDestroy(): void {
-    this.loading$.complete();
-
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -64,13 +58,16 @@ export class ProfileSettingsComponent implements Destroyable {
 
     if (!(this.profileSettingsForm.valid && this.profileSettingsForm.dirty)) return;
 
-    this.loading$.next(true);
+    this.store.dispatch(new SetLoading(true));
 
     this.store
       .dispatch(new EditAccountData(this.accountData))
       .pipe(
         takeUntil(this.destroy$),
-        finalize(() => this.loading$.next(false)),
+        finalize(() => {
+          this.profileSettingsForm.markAsPristine();
+          this.store.dispatch(new SetLoading(false));
+        }),
       )
       .subscribe(
         () => {},

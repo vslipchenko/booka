@@ -1,5 +1,11 @@
 import {AccountData} from '~app/typings/account.types';
 
+export class SetLoading {
+  public static readonly type = '[Profile] SetLoading';
+
+  public constructor(public payload: boolean) {}
+}
+
 export class SetAccountData {
   public static readonly type = '[Profile] SetAccountData';
 

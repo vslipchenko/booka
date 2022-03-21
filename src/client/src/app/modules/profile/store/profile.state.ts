@@ -1,6 +1,6 @@
 import {Action, State, StateContext, StateToken} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {EditAccountData, SetAccountData} from '~app/modules/profile/store/profile.actions';
+import {EditAccountData, SetAccountData, SetLoading} from '~app/modules/profile/store/profile.actions';
 import {AccountTariffs} from '~app/typings/account.enums';
 import {AccountData} from '~app/typings/account.types';
 import {Gender} from '~app/typings/user.enums';
@@ -9,6 +9,7 @@ import {Observable, tap} from 'rxjs';
 
 export interface ProfileStateModel {
   accountData: AccountData;
+  loading: boolean;
 }
 
 const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
@@ -38,11 +39,19 @@ const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
       phone_number_5: '',
       paid_at: '',
     },
+    loading: false,
   },
 })
 @Injectable()
 export class ProfileState {
   public constructor(private readonly profileService: ProfileService) {}
+
+  @Action(SetLoading) private setLoading(context: StateContext<ProfileStateModel>, action: SetLoading): void {
+    context.setState((state) => ({
+      ...state,
+      loading: action.payload,
+    }));
+  }
 
   @Action(SetAccountData) private setAccountData(
     context: StateContext<ProfileStateModel>,

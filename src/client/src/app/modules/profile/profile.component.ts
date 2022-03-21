@@ -16,6 +16,9 @@ import {AuthenticationService} from '~app/services/authentication/authentication
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent implements Destroyable {
+  @Select(ProfileSelectors.loading)
+  public readonly loading$!: Observable<boolean>;
+
   @Select(ProfileSelectors.needsToBePaid)
   public readonly needsToBePaid$!: Observable<boolean>;
 
