@@ -25,6 +25,17 @@ export class ProfileSelectors {
       );
     }
 
+    if (state.accountData.tariff === AccountTariffs.Entrepreneur) {
+      return !(
+        state.accountData.first_name &&
+        state.accountData.middle_name &&
+        state.accountData.last_name &&
+        state.accountData.gender &&
+        state.accountData.birth_date &&
+        state.accountData.phone_number_1
+      );
+    }
+
     return false;
   });
 }

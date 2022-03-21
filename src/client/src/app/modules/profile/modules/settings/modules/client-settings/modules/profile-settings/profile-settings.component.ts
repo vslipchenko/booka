@@ -30,7 +30,6 @@ import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 })
 export class ProfileSettingsComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
-
   public readonly genderItems: Array<SelectItem> = [
     {title: 'Мужской', value: Gender.Male},
     {title: 'Женский', value: Gender.Female},
@@ -46,10 +45,6 @@ export class ProfileSettingsComponent implements Destroyable {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  public addPhoneNumber(): void {
-    this.phoneNumbers.push(this.blankPhoneNumber);
   }
 
   public save(): void {
@@ -73,6 +68,42 @@ export class ProfileSettingsComponent implements Destroyable {
         () => {},
         () => this.snackbarService.open('Что-то пошло не так. Пожалуйста, повторите попытку позже.', 'OK'),
       );
+  }
+
+  public addPhoneNumber(): void {
+    this.phoneNumbers.push(this.blankPhoneNumber);
+  }
+
+  public profileSettingsFormGroup(data: AccountData): FormGroup {
+    const phoneNumbers = [
+      new FormControl(data.phone_number_1, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
+    ];
+
+    if (data.phone_number_2) phoneNumbers.push(this.blankPhoneNumber);
+    if (data.phone_number_3) phoneNumbers.push(this.blankPhoneNumber);
+
+    return new FormGroup({
+      thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
+      first_name: new FormControl(data.first_name, [
+        Validators.required,
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(FIRST_NAME_MAX_LENGTH),
+      ]),
+      middle_name: new FormControl(data.middle_name, [
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
+      ]),
+      last_name: new FormControl(data.last_name, [
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(LAST_NAME_MAX_LENGTH),
+      ]),
+      gender: new FormControl(data.gender, Validators.required),
+      birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
+      telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
+      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
+      description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
+      phoneNumbers: new FormArray(phoneNumbers),
+    });
   }
 
   public errorMessage(errors: ValidationErrors | null): string | void {
@@ -116,38 +147,6 @@ export class ProfileSettingsComponent implements Destroyable {
     if ('pattern' in errors) return 'Неверный формат. Пример номера: +380123456789';
 
     return this.errorMessage(errors);
-  }
-
-  public profileSettingsFormGroup(data: AccountData): FormGroup {
-    const phoneNumbers = [
-      new FormControl(data.phone_number_1, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
-    ];
-
-    if (data.phone_number_2) phoneNumbers.push(this.blankPhoneNumber);
-    if (data.phone_number_3) phoneNumbers.push(this.blankPhoneNumber);
-
-    return new FormGroup({
-      thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
-      first_name: new FormControl(data.first_name, [
-        Validators.required,
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(FIRST_NAME_MAX_LENGTH),
-      ]),
-      middle_name: new FormControl(data.middle_name, [
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
-      ]),
-      last_name: new FormControl(data.last_name, [
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(LAST_NAME_MAX_LENGTH),
-      ]),
-      gender: new FormControl(data.gender, Validators.required),
-      birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
-      telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
-      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
-      description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
-      phoneNumbers: new FormArray(phoneNumbers),
-    });
   }
 
   public imageSizeValidator(control: FormControl | AbstractControl): ValidationErrors | null {

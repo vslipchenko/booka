@@ -4,8 +4,6 @@ import {ProfileSettingsComponent} from './profile-settings.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '~app/shared/shared.module';
 import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [ProfileSettingsComponent],
@@ -19,8 +17,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ]),
     SharedModule,
     MatIconModule,
-    MatTooltipModule,
-    MatFormFieldModule,
   ],
 })
 export class ProfileSettingsModule {}

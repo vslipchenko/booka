@@ -40,6 +40,7 @@ import {TextareaComponent} from './components/textarea/textarea.component';
 import {ImageUploaderComponent} from './components/image-uploader/image-uploader.component';
 import {ImageUploaderMenuComponent} from '~app/shared/components/image-uploader-menu/image-uploader-menu.component';
 import {SettingsListComponent} from './components/settings-list/settings-list.component';
+import {ProfileSettingsComponent} from './components/profile-settings/profile-settings.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import {SettingsListComponent} from './components/settings-list/settings-list.co
     ImageUploaderComponent,
     ImageUploaderMenuComponent,
     SettingsListComponent,
+    ProfileSettingsComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -90,6 +92,7 @@ import {SettingsListComponent} from './components/settings-list/settings-list.co
     TextareaComponent,
     ImageUploaderComponent,
     SettingsListComponent,
+    ProfileSettingsComponent,
   ],
   imports: [
     CommonModule,

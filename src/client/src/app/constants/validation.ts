@@ -9,6 +9,7 @@ export const FIRST_NAME_MAX_LENGTH = 50;
 export const LAST_NAME_MAX_LENGTH = 50;
 export const MIDDLE_NAME_MAX_LENGTH = 50;
 export const CLIENT_DESCRIPTION_MAX_LENGTH = 250;
+export const ENTREPRENEUR_DESCRIPTION_MAX_LENGTH = 500;
 
 export const NAME_REGEXP = /^[A-Za-zА-Яа-яҐЁЄІЇіёєїґ']*$/; // En, Ru, Uk, apostrophe
 export const PHONE_NUMBER_REGEXP = /^[0-9]{9}$/;

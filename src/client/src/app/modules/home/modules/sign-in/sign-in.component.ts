@@ -54,7 +54,7 @@ export class SignInComponent implements Destroyable {
 
         if (data.signIn.reason === SignInFailReason.Unconfirmed) {
           return this.snackbarService.open(
-            'Аккаунт не активирован. Пожалуйста, воспользуйтесь активационной ссылкой отправленной вам на почту при регистрации.',
+            'Аккаунт не активирован. Пожалуйста, воспользуйтесь активационной ссылкой отправленной вам на почту.',
             'OK',
           );
         }

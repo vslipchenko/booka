@@ -1,0 +1,42 @@
+<app-narrow-container>
+  <app-info-section svgIcon="account-edit" title="Редактирование профиля" class="d-block pt-2-3">
+    <div class="px-2-3 pt-2-3">
+      <span
+        [matTooltip]="tooltipText"
+        matTooltipPosition="left"
+        class="d-flex ai-center w-max"
+      >
+        <mat-icon color="primary" class="mr-1">help</mat-icon> Зачем это ?
+      </span>
+    </div>
+  </app-info-section>
+
+  <div class="p-2-3">
+    <h3 class="mb-2">Основное</h3>
+
+    <span
+      class="d-flex ai-center w-max mb-2"
+      matTooltip="Допустимые форматы: jpeg, png. Размер изображения не должен превышать 10МБ. Изображение не должно содержать запрещенные материалы или иметь оскорбительный характер."
+      matTooltipPosition="left"
+    ><mat-icon color="primary" class="mr-1">help</mat-icon> Изображение профиля:</span
+    >
+
+    <div class="mb-2">
+      <app-image-uploader class="d-flex jc-center mb-1" [preview]="thumbnail.value"></app-image-uploader>
+
+      <mat-error *ngIf="thumbnail.invalid" class="mat-error-font-size"
+      >Превышен допустимый размер изображения</mat-error
+      >
+    </div>
+
+    <ng-content></ng-content>
+
+    <app-flat-button
+      class="d-block w-100"
+      extendClass="w-100"
+      color="primary"
+      text="Сохранить"
+      (clicked)="save.emit()"
+    ></app-flat-button>
+  </div>
+</app-narrow-container>
