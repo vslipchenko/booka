@@ -22,6 +22,7 @@ import {EditAccountData, SetLoading} from '~app/modules/profile/store/profile.ac
 import {cloneDeep} from 'lodash-es';
 import {ClientAccountData} from '~app/typings/account.interfaces';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
+import {AccountTariffs} from '~app/typings/account.enums';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -97,7 +98,7 @@ export class ProfileSettingsComponent implements Destroyable {
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(LAST_NAME_MAX_LENGTH),
       ]),
-      gender: new FormControl(data.gender, Validators.required),
+      gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
       birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
       telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
       whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),

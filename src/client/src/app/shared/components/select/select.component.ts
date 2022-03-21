@@ -20,7 +20,6 @@ export class SelectComponent implements FormField {
   @Input() public items: Array<SelectItem> = [];
   @Input() public hint?: TemplateRef<unknown>;
   @Input() public errorMessage?: (errors: ValidationErrors | null) => string | void;
-
-  // @Input() public required = false;
+  @Input() public required = false;
   // @Input() public disabled = false;
 }

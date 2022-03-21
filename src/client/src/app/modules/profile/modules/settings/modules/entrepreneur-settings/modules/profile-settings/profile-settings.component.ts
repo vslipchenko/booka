@@ -23,6 +23,7 @@ import {SelectItem} from '~app/typings/select.interfaces';
 import {Gender} from '~app/typings/user.enums';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 import {EditAccountData, SetLoading} from '~app/modules/profile/store/profile.actions';
+import {AccountTariffs} from '~app/typings/account.enums';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -100,7 +101,7 @@ export class ProfileSettingsComponent implements Destroyable {
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(LAST_NAME_MAX_LENGTH),
       ]),
-      gender: new FormControl(data.gender, Validators.required),
+      gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
       birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
       telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
       whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
@@ -152,7 +153,7 @@ export class ProfileSettingsComponent implements Destroyable {
     return this.errorMessage(errors);
   }
 
-  public imageSizeValidator(control: FormControl | AbstractControl): ValidationErrors | null {
+  private imageSizeValidator(control: FormControl | AbstractControl): ValidationErrors | null {
     if (!(control.value instanceof File)) return null;
     // Where 1024 ** 2 is amount of bytes compared to 1mb
     if (control.value.size / 1024 ** 2 > PROFILE_IMAGE_SIZE_MB) return {size: true};
