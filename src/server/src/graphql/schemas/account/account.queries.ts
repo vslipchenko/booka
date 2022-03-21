@@ -4,6 +4,12 @@ import {ApolloError} from 'apollo-server-fastify';
 import {queryClientAccountData} from '../../../data/queries/client-account';
 import {db} from '../../../data';
 import {AccountData} from '../../../typings/account.types';
+import {AccountTariffs} from '../../../typings/account.enums';
+import {
+  queryEntrepreneurAccountData,
+} from '../../../data/queries/entrepreneur-account';
+import {queryBusinessAccountData} from '../../../data/queries/business-account';
+import {QueryResult} from 'pg';
 
 export const accountQueryTypeDefinitions = gql`
   type Query {
@@ -20,7 +26,15 @@ const accountData = async (
 
   if (error) return error;
 
-  const result = await db.query<AccountData>(queryClientAccountData(tokenData.userId));
+  let result: QueryResult;
+
+  if (tokenData.tariff === AccountTariffs.Client) {
+    result = await db.query(queryClientAccountData(tokenData.userId));
+  } else if (tokenData.tariff === AccountTariffs.Entrepreneur) {
+    result = await db.query(queryEntrepreneurAccountData(tokenData.userId));
+  } else {
+    result = await db.query(queryBusinessAccountData(tokenData.userId));
+  }
 
   if (!result.rowCount) return null;
 

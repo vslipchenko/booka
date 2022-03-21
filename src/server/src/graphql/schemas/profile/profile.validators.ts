@@ -48,6 +48,7 @@ export const clientAccountDataValidator = Joi.object({
 
 export const entrepreneurAccountDataValidator = Joi.object({
   ...baseAccountDataValidatorSchema,
+  ...clientAccountDataValidatorSchema,
   middle_name: clientAccountDataValidatorSchema.middle_name.required(),
   last_name: clientAccountDataValidatorSchema.last_name.required(),
   description: descriptionValidator.max(ENTREPRENEUR_DESCRIPTION_MAX_LENGTH),

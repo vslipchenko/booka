@@ -26,14 +26,38 @@ export const queryEntrepreneurAccountUpdateThumbnail = ({
 });
 
 export const queryEntrepreneurAccountEditData = (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  {description, phone_number_1, phone_number_2, phone_number_3, paid_at}: EntrepreneurAccountData,
+  {
+    first_name,
+    last_name,
+    middle_name,
+    gender,
+    birth_date,
+    description,
+    phone_number_1,
+    phone_number_2,
+    phone_number_3,
+    whatsapp_number,
+    telegram_username,
+  }: EntrepreneurAccountData,
   userId: string,
 ): QueryConfig => ({
   text: `
     UPDATE entrepreneur_accounts
-    SET paid_at = $1
-    WHERE user_id = $2
+    SET first_name = $1, last_name = $2, middle_name = $3, gender = $4, birth_date = $5, description = $6, phone_number_1 = $7, phone_number_2 = $8, phone_number_3 = $9, whatsapp_number = $10, telegram_username = $11
+    WHERE user_id = $12
   `,
-  values: [paid_at, userId],
+  values: [
+    first_name,
+    last_name,
+    middle_name,
+    gender,
+    birth_date,
+    description,
+    phone_number_1,
+    phone_number_2,
+    phone_number_3,
+    whatsapp_number,
+    telegram_username,
+    userId,
+  ],
 });
