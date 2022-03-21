@@ -52,7 +52,8 @@ export class AuthenticationService {
 
   public logout(): void {
     this.resetTokens();
-    void this.router.navigate(['/sign-in']);
+    // This will reset app's state & redirect to sign-in page if protected route is requested
+    window.location.reload();
   }
 
   public get authenticated(): boolean {
