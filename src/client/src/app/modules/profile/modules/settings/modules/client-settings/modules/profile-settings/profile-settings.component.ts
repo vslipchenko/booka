@@ -68,7 +68,7 @@ export class ProfileSettingsComponent implements Destroyable {
   }
 
   public addPhoneNumber(): void {
-    this.phoneNumbers.push(this.blankPhoneNumber);
+    this.phoneNumbers.push(this.phoneNumber());
   }
 
   public profileSettingsFormGroup(data: AccountData): FormGroup {
@@ -76,8 +76,8 @@ export class ProfileSettingsComponent implements Destroyable {
       new FormControl(data.phone_number_1, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
     ];
 
-    if (data.phone_number_2) phoneNumbers.push(this.blankPhoneNumber);
-    if (data.phone_number_3) phoneNumbers.push(this.blankPhoneNumber);
+    if (data.phone_number_2) phoneNumbers.push(this.phoneNumber(data.phone_number_2));
+    if (data.phone_number_3) phoneNumbers.push(this.phoneNumber(data.phone_number_3));
 
     return new FormGroup({
       thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
@@ -149,6 +149,10 @@ export class ProfileSettingsComponent implements Destroyable {
     return null;
   }
 
+  public phoneNumber(value?: string): FormControl {
+    return new FormControl(value, Validators.pattern(PHONE_NUMBER_REGEXP));
+  }
+
   public get maxDate(): Date {
     const date = new Date();
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -200,10 +204,6 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get phoneNumbersControls(): Array<FormControl> {
     return this.phoneNumbers.controls as Array<FormControl>;
-  }
-
-  public get blankPhoneNumber(): FormControl {
-    return new FormControl(null, Validators.pattern(PHONE_NUMBER_REGEXP));
   }
 
   private get accountData(): ClientAccountData {
