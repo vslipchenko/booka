@@ -64,9 +64,7 @@ export class ProfileSettingsComponent implements Destroyable {
       .dispatch(new EditAccountData(this.accountData))
       .pipe(
         takeUntil(this.destroy$),
-        finalize(() => {
-          this.store.dispatch(new SetLoading(false));
-        }),
+        finalize(() => this.store.dispatch(new SetLoading(false))),
       )
       .subscribe(
         () => this.profileSettingsForm.markAsPristine(),

@@ -138,7 +138,7 @@
       class="c-primary"
       rel="noreferrer noopener nofollow"
       target="_blank"
-    >https://wa.me/380{{ whatsappNumber.value }}</a
+    >https://wa.me/<ng-container *ngIf="whatsappNumber.value">380</ng-container>{{ whatsappNumber.value }}</a
     >
     </ng-template>
   </app-input>

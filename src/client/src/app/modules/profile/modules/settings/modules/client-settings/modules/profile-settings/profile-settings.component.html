@@ -76,6 +76,7 @@
     floatLabel="always"
     placeholder="000000000"
     hintAlign="end"
+    maxlength="9"
   >
     <ng-template #prefix>+380</ng-template>
 
@@ -93,17 +94,49 @@
   </app-input>
 
   <app-input
-    class="d-block"
+    class="d-block prefix-offset-0"
+    extendClass="w-100"
+    type="tel"
+    appearance="outline"
+    label="Номер Viber"
+    placeholder="000000000"
+    floatLabel="always"
+    [control]="viberNumber"
+    [errorMessage]="phoneNumberErrorMessage"
+    [prefix]="viberPrefix"
+    [hint]="viberHint"
+    maxlength="9"
+  >
+    <ng-template #viberPrefix>+380</ng-template>
+
+    <ng-template #viberHint>Должен быть доступен для поиска в Viber</ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block prefix-offset-0"
     extendClass="w-100"
     type="tel"
     appearance="outline"
     label="Номер WhatsApp"
-    placeholder="380000000000"
+    placeholder="000000000"
+    floatLabel="always"
     [control]="whatsappNumber"
-    [errorMessage]="whatsAppErrorMessage"
+    [errorMessage]="phoneNumberErrorMessage"
     [hint]="whatsAppHint"
+    [prefix]="whatsappPrefix"
+    maxlength="9"
   >
-    <ng-template #whatsAppHint> https://wa.me/{{ whatsappNumber.value }} </ng-template>
+    <ng-template #whatsappPrefix>+380</ng-template>
+
+    <ng-template #whatsAppHint
+    ><a
+      href="https://wa.me/380{{ whatsappNumber.value }}"
+      class="c-primary"
+      rel="noreferrer noopener nofollow"
+      target="_blank"
+    >https://wa.me/<ng-container *ngIf="whatsappNumber.value">380</ng-container>{{ whatsappNumber.value }}</a
+    >
+    </ng-template>
   </app-input>
 
   <app-input
@@ -114,7 +147,16 @@
     [control]="telegramUsername"
     [errorMessage]="telegramErrorMessage"
     [hint]="telegramHint"
+    hintClass="truncate"
   >
-    <ng-template #telegramHint> https://t.me/{{ telegramUsername.value }} </ng-template>
+    <ng-template #telegramHint>
+      <a
+        href="https://t.me/{{ telegramUsername.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+      >https://t.me/{{ telegramUsername.value }}</a
+      >
+    </ng-template>
   </app-input>
 </app-profile-settings>

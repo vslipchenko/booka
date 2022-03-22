@@ -59,13 +59,10 @@ export class ProfileSettingsComponent implements Destroyable {
       .dispatch(new EditAccountData(this.accountData))
       .pipe(
         takeUntil(this.destroy$),
-        finalize(() => {
-          this.profileSettingsForm.markAsPristine();
-          this.store.dispatch(new SetLoading(false));
-        }),
+        finalize(() => this.store.dispatch(new SetLoading(false))),
       )
       .subscribe(
-        () => {},
+        () => this.profileSettingsForm.markAsPristine(),
         () => this.snackbarService.open('Что-то пошло не так. Пожалуйста, повторите попытку позже.', 'OK'),
       );
   }
@@ -99,10 +96,11 @@ export class ProfileSettingsComponent implements Destroyable {
       ]),
       gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
       birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
-      telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
-      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
-      description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
       phoneNumbers: new FormArray(phoneNumbers),
+      description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
+      viber_number: new FormControl(data.viber_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
+      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
+      telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
     });
   }
 
@@ -135,16 +133,10 @@ export class ProfileSettingsComponent implements Destroyable {
     if ('pattern' in errors) return 'Неверный формат';
   }
 
-  public whatsAppErrorMessage(errors: ValidationErrors | null): string | void {
-    if (!errors) return;
-
-    if ('pattern' in errors) return 'Неверный формат. Пример номера: 380123456789';
-  }
-
   public phoneNumberErrorMessage(errors: ValidationErrors | null): string | void {
     if (!errors) return;
 
-    if ('pattern' in errors) return 'Неверный формат. Пример номера: +380123456789';
+    if ('pattern' in errors) return 'Неверный формат. Пример: +380123456789';
 
     return this.errorMessage(errors);
   }
@@ -200,6 +192,10 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get phoneNumbers(): FormArray {
     return this.profileSettingsForm.controls['phoneNumbers'] as FormArray;
+  }
+
+  public get viberNumber(): FormControl {
+    return this.profileSettingsForm.controls['viber_number'] as FormControl;
   }
 
   public get phoneNumbersControls(): Array<FormControl> {
