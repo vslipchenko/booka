@@ -22,7 +22,7 @@
     >
 
     <div class="mb-2">
-      <app-image-uploader class="d-flex jc-center mb-1" [preview]="thumbnail.value"></app-image-uploader>
+      <app-image-uploader class="d-flex jc-center mb-1" [preview]="thumbnail.value" [imagePlaceholder]="imagePlaceholder"></app-image-uploader>
 
       <mat-error *ngIf="thumbnail.invalid" class="mat-error-font-size"
       >Превышен допустимый размер изображения</mat-error

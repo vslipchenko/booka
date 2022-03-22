@@ -13,7 +13,7 @@ import {
   PHONE_NUMBER_REGEXP,
   TELEGRAM_USERNAME_REGEXP,
 } from '~app/constants/validation';
-import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
+import {INDIVIDUAL_PROFILE_IMAGE_PLACEHOLDER, PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
 import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {AccountData} from '~app/typings/account.types';
@@ -30,6 +30,7 @@ import {AccountTariffs} from '~app/typings/account.enums';
 })
 export class ProfileSettingsComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
+  public readonly imagePlaceholder = INDIVIDUAL_PROFILE_IMAGE_PLACEHOLDER;
   public readonly genderItems: Array<SelectItem> = [
     {title: 'Мужской', value: Gender.Male},
     {title: 'Женский', value: Gender.Female},

@@ -14,7 +14,7 @@ import {
   TWITTER_USERNAME_REGEXP,
   WEBSITE_MAX_LENGTH,
 } from '~app/constants/validation';
-import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
+import {INDIVIDUAL_PROFILE_IMAGE_PLACEHOLDER, PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {finalize, Subject, takeUntil} from 'rxjs';
 import {Store} from '@ngxs/store';
@@ -35,6 +35,7 @@ import {urlValidator} from '~app/shared/utilities/validators';
 })
 export class ProfileSettingsComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
+  public readonly imagePlaceholder = INDIVIDUAL_PROFILE_IMAGE_PLACEHOLDER;
   public readonly genderItems: Array<SelectItem> = [
     {title: 'Мужской', value: Gender.Male},
     {title: 'Женский', value: Gender.Female},

@@ -9,6 +9,7 @@ import {FormControl} from '@angular/forms';
 })
 export class ProfileSettingsComponent {
   @Input() public tooltipText = '';
+  @Input() public imagePlaceholder = '';
   @Input() public thumbnail = new FormControl();
   @Output() public readonly save = new EventEmitter();
 }

@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
-import {DEFAULT_PROFILE_IMAGE} from '~app/constants/images';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {ProfileService} from '~app/services/profile/profile.service';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
@@ -16,11 +15,12 @@ import {ImageUploaderMenuComponent} from '~app/shared/components/image-uploader-
 export class ImageUploaderComponent implements OnInit, Destroyable {
   @Input() public alt = '';
   @Input() public preview = '';
+  @Input() public imagePlaceholder = '';
 
   public readonly destroy$ = new Subject<void>();
   public readonly loading$ = new BehaviorSubject(false);
 
-  public preview$ = new BehaviorSubject<string>(DEFAULT_PROFILE_IMAGE);
+  public preview$ = new BehaviorSubject('');
 
   private readonly accept = ['image/jpeg', 'image/png']; // File type constraint
   private readonly fileInput = this.fileInputElement;
@@ -32,7 +32,8 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
   ) {}
 
   public ngOnInit(): void {
-    if (this.preview) this.preview$.next(this.preview);
+    if (this.preview) return this.preview$.next(this.preview);
+    this.preview$.next(this.imagePlaceholder);
   }
 
   public ngOnDestroy(): void {
@@ -44,7 +45,7 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
 
   public open(): void {
     // Show file browse window if no profile image
-    if (this.preview$.getValue() === DEFAULT_PROFILE_IMAGE) return this.fileInput.click();
+    if (this.preview$.getValue() === this.imagePlaceholder) return this.fileInput.click();
 
     const dialog = this.dialog.open(ImageUploaderMenuComponent, {autoFocus: 'dialog'});
 
@@ -65,7 +66,7 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
         ({data}) => {
           if (!data?.updateProfileThumbnail.success) return this.showSnackbar();
 
-          this.preview$.next(DEFAULT_PROFILE_IMAGE);
+          this.preview$.next(this.imagePlaceholder);
         },
         () => this.showSnackbar(),
       );

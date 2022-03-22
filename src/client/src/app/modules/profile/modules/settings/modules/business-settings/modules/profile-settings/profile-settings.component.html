@@ -1,6 +1,31 @@
 <app-profile-settings
   tooltipText="Данная информация будет видна только зарегистрированным предоставителям услуг. Это позволит повысить качество и эффективность оказываемых услуг."
+  [imagePlaceholder]="imagePlaceholder"
   [thumbnail]="thumbnail"
   (save)="save()"
 >
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Название бизнеса"
+  ></app-input>
+
+  <app-datepicker
+    class="d-block"
+    extendClass="w-100"
+    label="Дата основания"
+    appearance="outline"
+  ></app-datepicker>
+
+  <app-textarea
+    appearance="outline"
+    label="Дополнительно"
+    class="d-block w-100"
+    extendClass="w-100"
+    [hint]="descriptionHint"
+    hintAlign="end"
+  >
+    <ng-template #descriptionHint>{{ 'description.value?.length' || 0 }} / 500 знаков</ng-template>
+  </app-textarea>
 </app-profile-settings>
