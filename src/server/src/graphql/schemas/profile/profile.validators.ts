@@ -57,7 +57,7 @@ export const entrepreneurAccountDataValidator = Joi.object({
   middle_name: clientAccountDataValidatorSchema.middle_name.required(),
   last_name: clientAccountDataValidatorSchema.last_name.required(),
   description: descriptionValidator.max(ENTREPRENEUR_DESCRIPTION_MAX_LENGTH),
-  website: Joi.string().custom(urlValidator).max(WEBSITE_MAX_LENGTH).allow(null),
+  website: Joi.string().max(WEBSITE_MAX_LENGTH).custom(urlValidator).allow(null),
   instagram_username: Joi.string().pattern(INSTAGRAM_USERNAME_REGEXP).allow(null),
   facebook_username: Joi.string().pattern(FACEBOOK_USERNAME_REGEXP).allow(null),
   twitter_username: Joi.string().pattern(TWITTER_USERNAME_REGEXP).allow(null),
