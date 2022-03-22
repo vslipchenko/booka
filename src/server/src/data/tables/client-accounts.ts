@@ -16,7 +16,8 @@ export const ClientAccountsTable: Table = {
       phone_number_1 CHAR (9),
       phone_number_2 CHAR (9),
       phone_number_3 CHAR (9),
-      whatsapp_number VARCHAR (15),
+      viber_number CHAR (9),
+      whatsapp_number CHAR (9),
       telegram_username VARCHAR (32),
         FOREIGN KEY(user_id)
         REFERENCES users(id)

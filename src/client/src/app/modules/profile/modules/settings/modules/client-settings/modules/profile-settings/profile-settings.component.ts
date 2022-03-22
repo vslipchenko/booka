@@ -12,7 +12,6 @@ import {
   NAME_REGEXP,
   PHONE_NUMBER_REGEXP,
   TELEGRAM_USERNAME_REGEXP,
-  WHATSAPP_NUMBER_REGEXP,
 } from '~app/constants/validation';
 import {PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
 import {Store} from '@ngxs/store';
@@ -101,7 +100,7 @@ export class ProfileSettingsComponent implements Destroyable {
       gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
       birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
       telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
-      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(WHATSAPP_NUMBER_REGEXP)),
+      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
       description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
       phoneNumbers: new FormArray(phoneNumbers),
     });

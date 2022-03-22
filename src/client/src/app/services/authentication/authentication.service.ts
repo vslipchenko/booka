@@ -6,7 +6,6 @@ import {ApolloQueryResult} from '@apollo/client/core';
 import {AccessTokenByRefreshTokenQueryResult, SignIn, SignInQueryResult} from '~app/typings/authentication.interfaces';
 import jwt_decode from 'jwt-decode';
 import {AccountTariffs} from '~app/typings/account.enums';
-import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ import {Router} from '@angular/router';
 export class AuthenticationService {
   public accessToken = '';
 
-  public constructor(private readonly apollo: Apollo, private readonly router: Router) {}
+  public constructor(private readonly apollo: Apollo) {}
 
   public signIn(input: SignIn): Observable<ApolloQueryResult<SignInQueryResult>> {
     return this.apollo.query<SignInQueryResult>({

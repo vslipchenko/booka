@@ -14,11 +14,11 @@ export const ENTREPRENEUR_DESCRIPTION_MAX_LENGTH = 500;
 export const NAME_REGEXP = /^[A-Za-zА-Яа-яҐЁЄІЇіёєїґ']*$/; // En, Ru, Uk, apostrophe
 export const PHONE_NUMBER_REGEXP = /^[0-9]{9}$/;
 export const TELEGRAM_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,32}$/;
-export const WHATSAPP_NUMBER_REGEXP = /^[0-9]{7,15}$/;
 
-export const FACEBOOK_USERNAME = /^(?=.{5,50}$)[a-zA-Z0-9]+((\.)?[a-zA-Z0-9])+$/;
-export const TWITTER_USERNAME = /^[a-zA-Z0-9_]{5,15}$/;
-export const INSTAGRAM_USERNAME = /^(?![0-9]*$)(?!.*\.\.)(?!.*\.$)[^\W][\w.]{3,30}$/;
+export const FACEBOOK_USERNAME_REGEXP = /^(?=.{5,50}$)[a-zA-Z0-9]+((\.)?[a-zA-Z0-9])+$/;
+export const TWITTER_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,15}$/;
+export const INSTAGRAM_USERNAME_REGEXP = /^(?![0-9]*$)(?!.*\.\.)(?!.*\.$)[^\W][\w.]{3,30}$/;
+export const WEBSITE_MAX_LENGTH = 500;
 
 // At least 1 letter & 1 number; includes all special characters
 export const PASSWORD_REGEXP = RegExp(

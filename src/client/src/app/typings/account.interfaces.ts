@@ -9,9 +9,16 @@ interface AccountDataBase {
   phone_number_1: string;
   phone_number_2: string;
   phone_number_3: string;
+  viber_number: string;
+  whatsapp_number: string;
+  telegram_username: string;
 }
 
 interface PaidAccountDataBase {
+  website: string;
+  facebook_username: string;
+  twitter_username: string;
+  instagram_username: string;
   paid_at: string;
 }
 
@@ -21,9 +28,6 @@ export interface ClientAccountData extends AccountDataBase {
   last_name: string;
   gender: Gender;
   birth_date: string;
-  // TODO consider to move them part of AccountDataBase
-  whatsapp_number: string;
-  telegram_username: string;
 }
 
 export interface EntrepreneurAccountData extends ClientAccountData, PaidAccountDataBase {}

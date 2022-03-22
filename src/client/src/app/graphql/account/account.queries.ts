@@ -10,6 +10,9 @@ export const ACCOUNT_DATA = gql`
       phone_number_1
       phone_number_2
       phone_number_3
+      viber_number
+      whatsapp_number
+      telegram_username
 
       # Client & Entrepreneur
       first_name
@@ -17,13 +20,15 @@ export const ACCOUNT_DATA = gql`
       last_name
       gender
       birth_date
-      whatsapp_number
-      telegram_username
 
       # Entrepreneur
       # ...
 
       # Entrepreneur & Business
+      website
+      instagram_username
+      facebook_username
+      twitter_username
       paid_at
     }
   }

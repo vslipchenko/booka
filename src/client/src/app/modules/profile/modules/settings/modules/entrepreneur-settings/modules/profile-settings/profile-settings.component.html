@@ -1,4 +1,8 @@
-<app-profile-settings tooltipText="Данная информация будет видна только зарегистрированным предоставителям услуг. Это позволит повысить качество и эффективность оказываемых услуг." [thumbnail]="thumbnail" (save)="save()">
+<app-profile-settings
+  tooltipText="Данная информация будет видна только зарегистрированным предоставителям услуг. Это позволит повысить качество и эффективность оказываемых услуг."
+  [thumbnail]="thumbnail"
+  (save)="save()"
+>
   <app-input
     class="d-block"
     extendClass="w-100"
@@ -72,12 +76,13 @@
     [control]="phoneNumber"
     [errorMessage]="phoneNumberErrorMessage.bind(this)"
     [hint]="phoneNumberHint"
-    [prefix]="prefix"
+    [prefix]="phoneNumberPrefix"
     floatLabel="always"
     placeholder="000000000"
     hintAlign="end"
+    maxlength="9"
   >
-    <ng-template #prefix>+380</ng-template>
+    <ng-template #phoneNumberPrefix>+380</ng-template>
 
     <ng-template #phoneNumberHint>
       <!-- Up to 3 phone numbers at once -->
@@ -87,23 +92,55 @@
         tabindex="0"
         (click)="addPhoneNumber()"
       >
-          <mat-icon class="mr-h">add</mat-icon> Добавить номер
-        </span>
+        <mat-icon class="mr-h">add</mat-icon> Добавить номер
+      </span>
     </ng-template>
   </app-input>
 
   <app-input
-    class="d-block"
+    class="d-block prefix-offset-0"
+    extendClass="w-100"
+    type="tel"
+    appearance="outline"
+    label="Номер Viber"
+    placeholder="000000000"
+    floatLabel="always"
+    [control]="viberNumber"
+    [errorMessage]="phoneNumberErrorMessage"
+    [prefix]="viberPrefix"
+    [hint]="viberHint"
+    maxlength="9"
+  >
+    <ng-template #viberPrefix>+380</ng-template>
+
+    <ng-template #viberHint>Должен быть доступен для поиска в Viber</ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block prefix-offset-0"
     extendClass="w-100"
     type="tel"
     appearance="outline"
     label="Номер WhatsApp"
-    placeholder="380000000000"
+    placeholder="000000000"
+    floatLabel="always"
     [control]="whatsappNumber"
-    [errorMessage]="whatsAppErrorMessage"
+    [errorMessage]="phoneNumberErrorMessage"
     [hint]="whatsAppHint"
+    [prefix]="whatsappPrefix"
+    maxlength="9"
   >
-    <ng-template #whatsAppHint> https://wa.me/{{ whatsappNumber.value }} </ng-template>
+    <ng-template #whatsappPrefix>+380</ng-template>
+
+    <ng-template #whatsAppHint
+    ><a
+      href="https://wa.me/380{{ whatsappNumber.value }}"
+      class="c-primary"
+      rel="noreferrer noopener nofollow"
+      target="_blank"
+    >https://wa.me/380{{ whatsappNumber.value }}</a
+    >
+    </ng-template>
   </app-input>
 
   <app-input
@@ -112,9 +149,95 @@
     appearance="outline"
     label="Юзернейм Telegram"
     [control]="telegramUsername"
-    [errorMessage]="telegramErrorMessage"
+    [errorMessage]="patternErrorMessage"
     [hint]="telegramHint"
+    hintClass="truncate"
   >
-    <ng-template #telegramHint> https://t.me/{{ telegramUsername.value }} </ng-template>
+    <ng-template #telegramHint>
+      <a
+        href="https://t.me/{{ telegramUsername.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+        >https://t.me/{{ telegramUsername.value }}</a
+      >
+    </ng-template>
+  </app-input>
+
+  <h3 class="mb-2">Медиа</h3>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    type="url"
+    appearance="outline"
+    label="Личный сайт"
+    placeholder="https://example.com"
+    [control]="website"
+    [errorMessage]="websiteErrorMessage"
+  >
+  </app-input>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Юзернейм Instagram"
+    [hint]="instagramHint"
+    hintClass="truncate"
+    [control]="instagramUsername"
+    [errorMessage]="patternErrorMessage"
+  >
+    <ng-template #instagramHint>
+      <a
+        href="https://instagram.com/{{ instagramUsername.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+        >https://instagram.com/{{ instagramUsername.value }}</a
+      >
+    </ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Юзернейм Facebook"
+    [hint]="facebookHint"
+    hintClass="truncate"
+    [control]="facebookUsername"
+    [errorMessage]="patternErrorMessage"
+  >
+    <ng-template #facebookHint>
+      <a
+        href="https://facebook.com/{{ facebookUsername }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+        >https://facebook.com/{{ facebookUsername.value }}</a
+      >
+    </ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100 mb-2"
+    appearance="outline"
+    label="Юзернейм Twitter"
+    [hint]="twitterHint"
+    hintClass="truncate"
+    [control]="twitterUsername"
+    [errorMessage]="patternErrorMessage"
+  >
+    <ng-template #twitterHint>
+      <a
+        href="https://twitter.com/{{ twitterUsername.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+        >https://twitter.com/{{ twitterUsername.value }}</a
+      >
+    </ng-template>
   </app-input>
 </app-profile-settings>

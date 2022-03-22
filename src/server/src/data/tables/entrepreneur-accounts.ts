@@ -13,12 +13,17 @@ export const EntrepreneurAccountsTable: Table = {
       middle_name VARCHAR (50),
       gender SMALLINT,
       birth_date TIMESTAMP WITH TIME ZONE,
-      description VARCHAR (250),
+      description VARCHAR (500),
       phone_number_1 CHAR (9),
       phone_number_2 CHAR (9),
       phone_number_3 CHAR (9),
-      whatsapp_number VARCHAR (15),
+      viber_number CHAR (9),
+      whatsapp_number CHAR (9),
       telegram_username VARCHAR (32),
+      instagram_username VARCHAR (30),
+      facebook_username VARCHAR (50),
+      twitter_username VARCHAR (15),
+      website VARCHAR (500),
         FOREIGN KEY(user_id)
         REFERENCES users(id)
         ON DELETE CASCADE

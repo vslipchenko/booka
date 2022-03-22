@@ -310,6 +310,12 @@
   text-align: left !important;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Cursor */
 .pointer {
   cursor: pointer;

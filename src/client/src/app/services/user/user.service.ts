@@ -25,6 +25,7 @@ export class UserService {
     return this.apollo.mutate<CreateUserMutationResult>({
       mutation: CREATE_USER,
       variables: {input},
+      fetchPolicy: 'network-only',
     });
   }
 

@@ -27,7 +27,9 @@ export class InputComponent implements FormField {
   @Input() public prefix?: TemplateRef<unknown>;
   @Input() public hint?: TemplateRef<unknown>;
   @Input() public hintAlign: 'start' | 'end' = 'start';
+  @Input() public hintClass = '';
   @Input() public floatLabel: FloatLabelType = 'auto';
+  @Input() public maxlength?: string | number;
 
   public hide = true;
 

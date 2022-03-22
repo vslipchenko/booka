@@ -62,7 +62,11 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
         finalize(() => this.loading$.next(false)),
       )
       .subscribe(
-        () => this.preview$.next(DEFAULT_PROFILE_IMAGE),
+        ({data}) => {
+          if (!data?.updateProfileThumbnail.success) return this.showSnackbar();
+
+          this.preview$.next(DEFAULT_PROFILE_IMAGE);
+        },
         () => this.showSnackbar(),
       );
   }
