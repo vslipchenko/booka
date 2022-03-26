@@ -10,17 +10,17 @@ import {
 import {Injectable, NgModule} from '@angular/core';
 import {environment} from '~environments/environment';
 import {DEFAULT_LOCALE, LOCALES} from '~app/constants/i18n';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {TranslocoLoaderData} from '@ngneat/transloco/lib/transloco.loader';
 
 @Injectable({providedIn: 'root'})
 export class TranslocoHttpLoader implements TranslocoLoader {
   public constructor(private readonly http: HttpClient) {}
 
-  public getTranslation(lang: string, data: TranslocoLoaderData): Observable<Translation> {
-    if (!data?.scope) return of({}); // Ignore loading /assets/i18n/ root translations (scope is undefined in such case)
-
-    return this.http.get<Translation>(`../assets/i18n/${lang}.json`);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public getTranslation(langPath: string, data: TranslocoLoaderData): Observable<Translation> {
+    // if (!data?.scope) return of({}); // Ignore loading /assets/i18n/ root translations (scope is undefined in such case)
+    return this.http.get<Translation>(`../assets/i18n/${langPath}.json`);
   }
 }
 

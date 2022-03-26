@@ -41,6 +41,7 @@ import {ImageUploaderComponent} from './components/image-uploader/image-uploader
 import {ImageUploaderMenuComponent} from '~app/shared/components/image-uploader-menu/image-uploader-menu.component';
 import {SettingsListComponent} from './components/settings-list/settings-list.component';
 import {ProfileSettingsComponent} from './components/profile-settings/profile-settings.component';
+import {CitySelectComponent} from './components/city-select/city-select.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import {ProfileSettingsComponent} from './components/profile-settings/profile-se
     ImageUploaderMenuComponent,
     SettingsListComponent,
     ProfileSettingsComponent,
+    CitySelectComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -93,6 +95,7 @@ import {ProfileSettingsComponent} from './components/profile-settings/profile-se
     ImageUploaderComponent,
     SettingsListComponent,
     ProfileSettingsComponent,
+    CitySelectComponent,
   ],
   imports: [
     CommonModule,
