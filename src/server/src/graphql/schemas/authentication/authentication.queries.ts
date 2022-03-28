@@ -11,6 +11,8 @@ import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {ApolloError} from 'apollo-server-fastify';
 import {ApolloErrorCode} from '../../../typings/apollo.enums';
 import {AccountTariffs} from '../../../typings/account.enums';
+import {LanguageCode} from '../../../typings/i18n.enums';
+import {AccessTokenData} from '../../../typings/authentication.interfaces';
 
 export const authenticationQueryTypeDefinitions = gql`
   type Query {
@@ -33,6 +35,7 @@ const signIn = async (
     confirmation_key: string;
     password: string;
     tariff: AccountTariffs;
+    language: LanguageCode;
   }>(queryUserSignIn(input.email));
 
   if (!result.rowCount) return null;
@@ -47,10 +50,14 @@ const signIn = async (
 
   if (!correctPassword) return null;
 
-  const accessToken = sign({userId: row.id, tariff: row.tariff}, environment.ACCESS_TOKEN_SECRET, {
-    algorithm: JWT_ALGORITHM,
-    expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
-  });
+  const accessToken = sign(
+    {userId: row.id, tariff: row.tariff, language: row.language},
+    environment.ACCESS_TOKEN_SECRET,
+    {
+      algorithm: JWT_ALGORITHM,
+      expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
+    },
+  );
   const refreshToken = sign({userId: row.id}, `${environment.REFRESH_TOKEN_SECRET}${row.access_key}`, {
     algorithm: JWT_ALGORITHM,
     expiresIn: environment.REFRESH_TOKEN_EXPIRES_IN,
@@ -65,13 +72,14 @@ const refreshAccessToken = async (
 ): Promise<ApolloError | string> => {
   if (!refreshToken) return new ApolloError('', ApolloErrorCode.EmptyRefreshToken);
 
-  const userId = (decode(refreshToken) as {userId: string})?.userId;
+  const userId = (decode(refreshToken) as AccessTokenData)?.userId;
   // Invalid user id
   if (!userId) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
 
   const result = await db.query<{
     access_key: string;
     tariff: AccountTariffs;
+    language: LanguageCode;
   }>(queryUserRefreshAccessToken(userId));
   // Invalid refresh token data
   if (!result.rowCount) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
@@ -90,7 +98,7 @@ const refreshAccessToken = async (
   }
 
   // Token is valid; issue fresh access token
-  return sign({userId, tariff: row.tariff}, environment.ACCESS_TOKEN_SECRET, {
+  return sign({userId, tariff: row.tariff, language: row.language}, environment.ACCESS_TOKEN_SECRET, {
     algorithm: JWT_ALGORITHM,
     expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
   });

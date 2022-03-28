@@ -3,9 +3,13 @@ import {Apollo} from 'apollo-angular';
 import {REFRESH_ACCESS_TOKEN, SIGN_IN} from '~app/graphql/authentication/authentication.queries';
 import {Observable} from 'rxjs';
 import {ApolloQueryResult} from '@apollo/client/core';
-import {AccessTokenByRefreshTokenQueryResult, SignIn, SignInQueryResult} from '~app/typings/authentication.interfaces';
+import {
+  AccessTokenByRefreshTokenQueryResult,
+  AccessTokenData,
+  SignIn,
+  SignInQueryResult,
+} from '~app/typings/authentication.interfaces';
 import jwt_decode from 'jwt-decode';
-import {AccountTariffs} from '~app/typings/account.enums';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +34,7 @@ export class AuthenticationService {
     });
   }
 
-  public getAccessTokenData(): {userId: string; tariff: AccountTariffs} {
+  public getAccessTokenData(): AccessTokenData {
     return jwt_decode(this.accessToken);
   }
 

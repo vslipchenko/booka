@@ -52,7 +52,7 @@ export const queryUserResetPassword = (email: string, password: string): QueryCo
 
 export const queryUserSignIn = (email: string): QueryConfig => ({
   text: `
-    SELECT id, password, access_key, confirmation_key, tariff
+    SELECT id, password, access_key, confirmation_key, tariff, language
     FROM users
     WHERE email = $1
   `,
@@ -61,7 +61,7 @@ export const queryUserSignIn = (email: string): QueryConfig => ({
 
 export const queryUserRefreshAccessToken = (userId: string): QueryConfig => ({
   text: `
-    SELECT access_key, tariff
+    SELECT access_key, tariff, language
     FROM users
     WHERE id = $1
   `,
