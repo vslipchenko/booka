@@ -6,12 +6,15 @@ import {
   TRANSLOCO_CONFIG,
   translocoConfig,
   TranslocoModule,
+  TranslocoConfig,
 } from '@ngneat/transloco';
 import {Injectable, NgModule} from '@angular/core';
 import {environment} from '~environments/environment';
-import {DEFAULT_LOCALE, LOCALES} from '~app/constants/i18n';
+import {LANGUAGES} from '~app/constants/i18n';
 import {Observable} from 'rxjs';
 import {TranslocoLoaderData} from '@ngneat/transloco/lib/transloco.loader';
+import {AuthenticationService} from '~app/services/authentication/authentication.service';
+import {LanguageService} from '~app/services/language/language.service';
 
 @Injectable({providedIn: 'root'})
 export class TranslocoHttpLoader implements TranslocoLoader {
@@ -29,15 +32,23 @@ export class TranslocoHttpLoader implements TranslocoLoader {
   providers: [
     {
       provide: TRANSLOCO_CONFIG,
-      useValue: translocoConfig({
-        availableLangs: LOCALES,
-        defaultLang: DEFAULT_LOCALE,
-        // Remove this option if your application doesn't support changing language in runtime.
-        reRenderOnLangChange: true,
-        prodMode: environment.production,
-      }),
+      useFactory: translocoConfigFactory,
+      deps: [AuthenticationService, LanguageService],
     },
     {provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader},
   ],
 })
 export class TranslocoRootModule {}
+
+function translocoConfigFactory(
+  authenticationService: AuthenticationService,
+  languageService: LanguageService,
+): TranslocoConfig {
+  return translocoConfig({
+    availableLangs: LANGUAGES,
+    defaultLang: languageService.resolveLanguage(authenticationService.getAccessTokenData()?.language),
+    // Remove this option if your application doesn't support changing language in runtime.
+    reRenderOnLangChange: true,
+    prodMode: environment.production,
+  });
+}
