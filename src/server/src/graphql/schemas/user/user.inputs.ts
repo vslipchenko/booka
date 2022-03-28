@@ -5,12 +5,12 @@ export const userInputs = gql`
     tariff: Int!
     email: String!
     password: String!
-    locale: Locale!
+    language: Language!
   }
 
   input RecoverPassword {
     email: String!
-    locale: Locale!
+    language: Language!
   }
 
   input ResetPassword {

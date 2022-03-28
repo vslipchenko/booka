@@ -1,4 +1,4 @@
-import {Locale} from '~app/typings/i18n.types';
+import {Language} from '~app/typings/i18n.types';
 
-export const LOCALES: Array<Locale> = ['ru', 'uk'];
-export const DEFAULT_LOCALE: Locale = 'ru';
+export const LANGUAGES: Array<Language> = ['ru', 'uk'];
+export const DEFAULT_LANGUAGE: Language = 'ru';

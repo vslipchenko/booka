@@ -88,7 +88,7 @@ export class SignUpComponent implements Destroyable {
     this.loading$.next(true);
 
     this.userService
-      .create({...this.signUpForm.value, locale: this.translocoService.getActiveLang()})
+      .create({...this.signUpForm.value, language: this.translocoService.getActiveLang()})
       .pipe(
         takeUntil(this.destroy$),
         finalize(() => this.loading$.next(false)),

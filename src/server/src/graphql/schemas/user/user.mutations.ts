@@ -63,8 +63,8 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
     await mailer.sendMail({
       from: EMAIL_FROM,
       to: input.email,
-      subject: EMAIL_CONFIRMATION_SUBJECT[input.locale],
-      html: imprint(EMAIL_CONFIRMATION_HTML[input.locale], {confirmationKey, appOrigin: environment.APP_ORIGIN}),
+      subject: EMAIL_CONFIRMATION_SUBJECT[input.language],
+      html: imprint(EMAIL_CONFIRMATION_HTML[input.language], {confirmationKey, appOrigin: environment.APP_ORIGIN}),
     });
   } catch {
     await db.query(queryUserDeleteByEmail(input.email));
@@ -103,8 +103,8 @@ const recoverPassword = async (_: unknown, {input}: {input: RecoverPassword}): P
     await mailer.sendMail({
       from: EMAIL_FROM,
       to: input.email,
-      subject: PASSWORD_RECOVERY_SUBJECT[input.locale],
-      html: imprint(PASSWORD_RECOVERY_HTML[input.locale], {resetKey, appOrigin: environment.APP_ORIGIN}),
+      subject: PASSWORD_RECOVERY_SUBJECT[input.language],
+      html: imprint(PASSWORD_RECOVERY_HTML[input.language], {resetKey, appOrigin: environment.APP_ORIGIN}),
     });
 
     return {success: true};

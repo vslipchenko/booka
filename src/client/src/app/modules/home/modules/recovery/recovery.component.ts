@@ -5,7 +5,7 @@ import {EMAIL_REGEXP} from '~app/constants/validation';
 import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {TranslocoService} from '@ngneat/transloco';
-import {Locale} from '~app/typings/i18n.types';
+import {Language} from '~app/typings/i18n.types';
 
 @Component({
   selector: 'app-recovery',
@@ -37,7 +37,7 @@ export class RecoveryComponent implements Destroyable {
     this.loading$.next(true);
 
     this.userService
-      .recoverPassword({email: this.email.value, locale: this.translocoService.getActiveLang() as Locale})
+      .recoverPassword({email: this.email.value, language: this.translocoService.getActiveLang() as Language})
       .pipe(
         takeUntil(this.destroy$),
         finalize(() => {

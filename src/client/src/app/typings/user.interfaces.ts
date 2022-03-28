@@ -1,5 +1,5 @@
 import {AccountTariffs} from '~app/typings/account.enums';
-import {Locale} from '~app/typings/i18n.types';
+import {Language} from '~app/typings/i18n.types';
 import {ExistsResponse, SuccessResponse} from '~app/typings/response.interfaces';
 
 export interface UserWithEmailExistsQueryResult {
@@ -26,12 +26,12 @@ export interface CreateUser {
   tariff: AccountTariffs;
   email: string;
   password: string;
-  locale: Locale;
+  language: Language;
 }
 
 export interface RecoverPassword {
   email: string;
-  locale: Locale;
+  language: Language;
 }
 
 export interface ResetPassword {

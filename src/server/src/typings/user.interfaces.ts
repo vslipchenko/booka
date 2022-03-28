@@ -1,16 +1,16 @@
-import {Locale} from './i18n.types';
+import {Language} from './i18n.types';
 import {AccountTariffs} from './account.enums';
 
 export interface CreateUser {
   tariff: AccountTariffs;
   email: string;
   password: string;
-  locale: Locale;
+  language: Language;
 }
 
 export interface RecoverPassword {
   email: string;
-  locale: Locale;
+  language: Language;
 }
 
 export interface ResetPassword {

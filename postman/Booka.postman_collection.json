@@ -17,7 +17,7 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "mutation ($input: CreateUser!) {\r\n    createUser(input: $input) {\r\n        success\r\n    }\r\n}",
-								"variables": "{\r\n    \"input\": {\r\n        \"tariff\": 1,\r\n        \"email\": \"{{email}}\",\r\n        \"password\": \"{{password}}\",\r\n        \"locale\": \"uk\"\r\n    }\r\n}"
+								"variables": "{\r\n    \"input\": {\r\n        \"tariff\": 1,\r\n        \"email\": \"{{email}}\",\r\n        \"password\": \"{{password}}\",\r\n        \"language\": \"uk\"\r\n    }\r\n}"
 							}
 						},
 						"url": {
@@ -80,7 +80,7 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "mutation ($input: RecoverPassword!) {\r\n    recoverPassword(input: $input) {\r\n      success\r\n    }\r\n}",
-								"variables": "{\r\n    \"input\": {\r\n        \"email\": \"{{email}}\",\r\n        \"locale\": \"ru\"\r\n    }\r\n}"
+								"variables": "{\r\n    \"input\": {\r\n        \"email\": \"{{email}}\",\r\n        \"language\": \"ru\"\r\n    }\r\n}"
 							}
 						},
 						"url": {
