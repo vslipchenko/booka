@@ -5,8 +5,7 @@ import {DateAdapter, ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {TranslocoService} from '@ngneat/transloco';
 import {Destroyable} from '~app/typings/component.interfaces';
-import {Subject, takeUntil} from 'rxjs';
-import {Language} from '~app/typings/i18n.types';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-datepicker',
@@ -29,9 +28,7 @@ export class DatepickerComponent implements FormField, Destroyable {
 
   public constructor(private readonly translocoService: TranslocoService, private readonly _adapter: DateAdapter<any>) {
     // https://material.angular.io/components/datepicker/overview#internationalization
-    this.translocoService.langChanges$.pipe(takeUntil(this.destroy$)).subscribe((language) => {
-      this._adapter.setLocale(language as Language);
-    });
+    this._adapter.setLocale(this.translocoService.getActiveLang());
   }
 
   public ngOnDestroy(): void {
