@@ -7,10 +7,10 @@ import {DEFAULT_LANGUAGE, LANGUAGES} from '~app/constants/i18n';
   providedIn: 'root',
 })
 export class LanguageService {
-  public resolveLanguage(userLanguage: LanguageCode): Language {
-    if (userLanguage) {
-      if (userLanguage === LanguageCode.Ru) return 'ru';
-      if (userLanguage === LanguageCode.Uk) return 'uk';
+  public resolveLanguage(savedLanguage: LanguageCode): Language {
+    if (savedLanguage) {
+      if (savedLanguage === LanguageCode.Ru) return 'ru';
+      if (savedLanguage === LanguageCode.Uk) return 'uk';
     }
 
     const preservedLanguage = this.getStoredLanguage();

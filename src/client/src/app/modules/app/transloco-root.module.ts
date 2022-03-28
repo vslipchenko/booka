@@ -47,8 +47,6 @@ function translocoConfigFactory(
   return translocoConfig({
     availableLangs: LANGUAGES,
     defaultLang: languageService.resolveLanguage(authenticationService.getAccessTokenData()?.language),
-    // Remove this option if your application doesn't support changing language in runtime.
-    reRenderOnLangChange: true,
     prodMode: environment.production,
   });
 }
