@@ -16,7 +16,7 @@ import {invert, sortBy} from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CityAutocompleteComponent implements FormField, OnInit, Destroyable {
-  @Input() public control = new FormControl('13');
+  @Input() public control = new FormControl();
   @Input() public color: ThemePalette;
   @Input() public appearance: MatFormFieldAppearance = 'standard';
   @Input() public extendClass = '';

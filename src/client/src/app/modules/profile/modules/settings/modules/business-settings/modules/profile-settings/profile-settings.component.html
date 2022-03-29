@@ -25,7 +25,227 @@
     extendClass="w-100"
     [hint]="descriptionHint"
     hintAlign="end"
+    [control]="description"
   >
-    <ng-template #descriptionHint>{{ 'description.value?.length' || 0 }} / 500 знаков</ng-template>
+    <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 500 знаков</ng-template>
   </app-textarea>
+
+  <app-input
+    appearance="outline"
+    label="Сфера деательности"
+    class="d-block w-100"
+    extendClass="w-100"
+    hintAlign="end"
+    [control]="description"
+  >
+  </app-input>
+
+  <h3 class="mb-2">Контакты</h3>
+
+  <app-input
+    *ngFor="let phoneNumber of phoneNumbersControls; let index = index; let isLast = last"
+    class="d-block prefix-offset-0"
+    extendClass="w-100"
+    type="tel"
+    appearance="outline"
+    label="Номер телефона"
+    [control]="phoneNumber"
+    [errorMessage]="phoneNumberErrorMessage.bind(this)"
+    [hint]="phoneNumberHint"
+    [prefix]="phoneNumberPrefix"
+    floatLabel="always"
+    placeholder="000000000"
+    hintAlign="end"
+    maxlength="9"
+  >
+    <ng-template #phoneNumberPrefix>+380</ng-template>
+
+    <ng-template #phoneNumberHint>
+      <!-- Up to 3 phone numbers at once -->
+      <span
+        *ngIf="isLast && index !== 2"
+        class="d-flex ai-center pointer c-primary"
+        tabindex="0"
+        (click)="addPhoneNumber()"
+      >
+        <mat-icon class="mr-h">add</mat-icon> Добавить номер
+      </span>
+    </ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block prefix-offset-0"
+    extendClass="w-100"
+    type="tel"
+    appearance="outline"
+    label="Номер Viber"
+    placeholder="000000000"
+    floatLabel="always"
+    [control]="viberNumber"
+    [errorMessage]="phoneNumberErrorMessage"
+    [prefix]="viberPrefix"
+    [hint]="viberHint"
+    maxlength="9"
+  >
+    <ng-template #viberPrefix>+380</ng-template>
+
+    <ng-template #viberHint>Должен быть доступен для поиска в Viber</ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block prefix-offset-0"
+    extendClass="w-100"
+    type="tel"
+    appearance="outline"
+    label="Номер WhatsApp"
+    placeholder="000000000"
+    floatLabel="always"
+    [control]="whatsappNumber"
+    [errorMessage]="phoneNumberErrorMessage"
+    [hint]="whatsAppHint"
+    [prefix]="whatsappPrefix"
+    maxlength="9"
+  >
+    <ng-template #whatsappPrefix>+380</ng-template>
+
+    <ng-template #whatsAppHint
+    ><a
+      href="https://wa.me/380{{ whatsappNumber.value }}"
+      class="c-primary"
+      rel="noreferrer noopener nofollow"
+      target="_blank"
+    >https://wa.me/<ng-container *ngIf="whatsappNumber.value">380</ng-container>{{ whatsappNumber.value }}</a
+    >
+    </ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100 mb-2"
+    appearance="outline"
+    label="Юзернейм Telegram"
+    [control]="telegramUsername"
+    [errorMessage]="patternErrorMessage"
+    [hint]="telegramHint"
+    hintClass="truncate"
+  >
+    <ng-template #telegramHint>
+      <a
+        href="https://t.me/{{ telegramUsername.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+      >https://t.me/{{ telegramUsername.value }}</a
+      >
+    </ng-template>
+  </app-input>
+
+  <h3 class="mb-2">Медиа</h3>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    type="url"
+    appearance="outline"
+    label="Личный сайт"
+    placeholder="https://example.com"
+    [control]="website"
+    [errorMessage]="websiteErrorMessage"
+  >
+  </app-input>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Юзернейм Instagram"
+    [hint]="instagramHint"
+    hintClass="truncate"
+    [control]="instagramUsername"
+    [errorMessage]="patternErrorMessage"
+  >
+    <ng-template #instagramHint>
+      <a
+        href="https://instagram.com/{{ instagramUsername.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+      >https://instagram.com/{{ instagramUsername.value }}</a
+      >
+    </ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Юзернейм Facebook"
+    [hint]="facebookHint"
+    hintClass="truncate"
+    [control]="facebookUsername"
+    [errorMessage]="patternErrorMessage"
+  >
+    <ng-template #facebookHint>
+      <a
+        href="https://facebook.com/{{ facebookUsername }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+      >https://facebook.com/{{ facebookUsername.value }}</a
+      >
+    </ng-template>
+  </app-input>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100 mb-2"
+    appearance="outline"
+    label="Юзернейм Twitter"
+    [hint]="twitterHint"
+    hintClass="truncate"
+    [control]="twitterUsername"
+    [errorMessage]="patternErrorMessage"
+  >
+    <ng-template #twitterHint>
+      <a
+        href="https://twitter.com/{{ twitterUsername.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+      >https://twitter.com/{{ twitterUsername.value }}</a
+      >
+    </ng-template>
+  </app-input>
+
+  <h3 class="mb-2">Местонахождение</h3>
+
+  <app-alert type="info" class="d-block mb-2">
+    Если ваш бизнес насчитывает несколько точек (филиалов), рекомендуем завести отдельный аккаунт для каждой.
+  </app-alert>
+
+  <app-city-autocomplete
+        class="d-block"
+        extendClass="w-100"
+        label="Город"
+        appearance="outline"
+  ></app-city-autocomplete>
+
+  <app-input
+    class="d-block mb-2"
+    extendClass="w-100"
+    appearance="outline"
+    label="Ссылка Google Maps"
+    placeholder="https://goo.gl/maps/..."
+    [hint]="googleMapsHint"
+  >
+    <ng-template #googleMapsHint>
+      <a
+        href="https://support.google.com/maps/answer/144361?hl={{activeLanguage}}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+      >Подробнее</a
+      >
+    </ng-template>
+  </app-input>
 </app-profile-settings>
