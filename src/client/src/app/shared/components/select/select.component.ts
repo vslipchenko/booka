@@ -3,7 +3,7 @@ import {FormField} from '~app/typings/form-field.interfaces';
 import {FormControl, ValidationErrors} from '@angular/forms';
 import {ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
-import {SelectItem} from '~app/typings/select.interfaces';
+import {SelectItem, SelectItemGroup} from '~app/typings/select.interfaces';
 
 @Component({
   selector: 'app-select',
@@ -18,6 +18,7 @@ export class SelectComponent implements FormField {
   @Input() public extendClass = '';
   @Input() public label = '';
   @Input() public items: Array<SelectItem> = [];
+  @Input() public itemGroups: Array<SelectItemGroup> = [];
   @Input() public hint?: TemplateRef<unknown>;
   @Input() public errorMessage?: (errors: ValidationErrors | null) => string | void;
   @Input() public required = false;

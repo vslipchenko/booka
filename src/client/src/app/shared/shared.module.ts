@@ -43,6 +43,7 @@ import {SettingsListComponent} from './components/settings-list/settings-list.co
 import {ProfileSettingsComponent} from './components/profile-settings/profile-settings.component';
 import {CityAutocompleteComponent} from './components/city-autocomplete/city-autocomplete.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {RegionSelectComponent} from './components/region-select/region-select.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     SettingsListComponent,
     ProfileSettingsComponent,
     CityAutocompleteComponent,
+    RegionSelectComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -97,6 +99,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     SettingsListComponent,
     ProfileSettingsComponent,
     CityAutocompleteComponent,
+    RegionSelectComponent,
   ],
   imports: [
     CommonModule,

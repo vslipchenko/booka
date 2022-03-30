@@ -4,6 +4,12 @@
     <mat-option *ngFor="let item of items" [value]="item.value">
       {{ item.title }}
     </mat-option>
+
+    <mat-optgroup *ngFor="let group of itemGroups" [label]="group.name">
+      <mat-option *ngFor="let groupItem of group.value" [value]="groupItem.value">
+        {{groupItem.title}}
+      </mat-option>
+    </mat-optgroup>
   </mat-select>
   <mat-hint *ngIf="hint">
     <ng-container [ngTemplateOutlet]="hint"></ng-container>

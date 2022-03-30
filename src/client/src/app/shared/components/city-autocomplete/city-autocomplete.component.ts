@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {SelectItemGroup} from '~app/typings/select.interfaces';
 import {FormField} from '~app/typings/form-field.interfaces';
 import {FormControl} from '@angular/forms';
@@ -25,7 +25,7 @@ export class CityAutocompleteComponent implements FormField, OnInit, Destroyable
 
   public readonly destroy$ = new Subject<void>();
   public readonly cityGroups$ = new BehaviorSubject<Array<SelectItemGroup>>([]);
-  public readonly inputControl = new FormControl('');
+  public readonly valueControl = new FormControl('');
   public cityGroups: Array<SelectItemGroup> = [];
 
   private readonly scope = 'shared.cities';
@@ -36,23 +36,23 @@ export class CityAutocompleteComponent implements FormField, OnInit, Destroyable
 
   public async ngOnInit(): Promise<void> {
     // Load translation file
-    const value = await firstValueFrom(
+    const translation = await firstValueFrom(
       this.translocoService.selectTranslation(this.scope).pipe(takeUntil(this.destroy$)),
     );
 
     // Set initial value
     if (this.control.value) {
-      this.recentCity = value[this.control.value as string];
-      this.inputControl.setValue(value[this.control.value as string]);
+      this.recentCity = translation[this.control.value as string];
+      this.valueControl.setValue(translation[this.control.value as string]);
     }
 
     // Prepare & set data
-    this.cities = invert(value);
+    this.cities = invert(translation);
     this.cityGroups = this.formItemGroups(this.sort(this.cities));
     this.cityGroups$.next(this.cityGroups);
 
     // Update form control with a code value
-    this.inputControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value: string) => {
+    this.valueControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value: string) => {
       if (!value) {
         this.recentCity = '';
         return this.control.setValue(null);
@@ -77,7 +77,7 @@ export class CityAutocompleteComponent implements FormField, OnInit, Destroyable
   }
 
   public recoverValue(): void {
-    if (this.recentCity !== this.inputControl.value) this.inputControl.setValue(this.recentCity);
+    if (this.recentCity !== this.valueControl.value) this.valueControl.setValue(this.recentCity);
   }
 
   private sort(value: {[key: number]: string}): Array<string> {

@@ -7,7 +7,7 @@
          (input)="filter($event)"
          (blur)="recoverValue()"
          (focus)="cityGroups$.next(cityGroups)"
-         [formControl]="inputControl"
+         [formControl]="valueControl"
          [matAutocomplete]="autoGroup">
   <mat-autocomplete #autoGroup="matAutocomplete">
     <mat-optgroup *ngFor="let group of cityGroups$ | async" [label]="group.name">
