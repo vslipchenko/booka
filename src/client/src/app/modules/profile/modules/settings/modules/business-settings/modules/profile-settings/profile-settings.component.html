@@ -211,7 +211,15 @@
     </ng-template>
   </app-input>
 
-  <h3 class="mb-2">Местонахождение</h3>
+  <div class="d-flex mb-2">
+     <span
+       matTooltip="Позволит клиентам находить вас при поиске по указанной области и / или городу. В противном случае, только при общем поиске - без указания области и города."
+       matTooltipPosition="left"
+       class="d-flex ai-center w-max"
+     >
+        <mat-icon color="primary" class="mr-1">help</mat-icon> <h3>Местонахождение</h3>
+     </span>
+  </div>
 
   <app-alert type="info" class="d-block mb-2">
     Если ваш бизнес насчитывает несколько точек (филиалов), рекомендуем завести отдельный аккаунт для каждой.

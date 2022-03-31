@@ -4,6 +4,7 @@ import {ProfileSettingsComponent} from './profile-settings.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '~app/shared/shared.module';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ProfileSettingsComponent],
@@ -17,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
     ]),
     SharedModule,
     MatIconModule,
+    MatTooltipModule,
   ],
 })
 export class ProfileSettingsModule {}
