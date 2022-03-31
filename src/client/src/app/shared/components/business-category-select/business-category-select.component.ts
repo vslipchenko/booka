@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {FormField} from '~app/typings/form-field.interfaces';
 import {first, Subject, takeUntil} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import {FormControl, ValidationErrors} from '@angular/forms';
 import {ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {Translation, TranslocoService} from '@ngneat/transloco';
@@ -20,6 +20,8 @@ export class BusinessCategorySelectComponent implements FormField, OnInit, Destr
   @Input() public appearance: MatFormFieldAppearance = 'standard';
   @Input() public extendClass = '';
   @Input() public label = '';
+  @Input() public required?: boolean;
+  @Input() public errorMessage?: (errors: ValidationErrors | null) => string | void;
 
   public businessCategories: Array<SelectItem> = [];
 

@@ -8,7 +8,7 @@ export const BusinessAccountsTable: Table = {
       user_id BIGINT UNIQUE,
       paid_at TIMESTAMP WITH TIME ZONE,
       thumbnail VARCHAR (300),
-      name VARCHAR (100),
+      name VARCHAR (80),
       business_category SMALLINT,
       description VARCHAR (500),
       phone_number_1 CHAR (9),

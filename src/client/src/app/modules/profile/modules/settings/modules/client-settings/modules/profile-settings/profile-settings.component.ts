@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {finalize, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {SelectItem} from '~app/typings/select.interfaces';
@@ -13,7 +13,7 @@ import {
   PHONE_NUMBER_REGEXP,
   TELEGRAM_USERNAME_REGEXP,
 } from '~app/constants/validation';
-import {INDIVIDUAL_PROFILE_IMAGE_PLACEHOLDER, PROFILE_IMAGE_SIZE_MB} from '~app/constants/images';
+import {INDIVIDUAL_PROFILE_IMAGE_PLACEHOLDER} from '~app/constants/images';
 import {Store} from '@ngxs/store';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {AccountData} from '~app/typings/account.types';
@@ -22,6 +22,7 @@ import {cloneDeep} from 'lodash-es';
 import {ClientAccountData} from '~app/typings/account.interfaces';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 import {AccountTariffs} from '~app/typings/account.enums';
+import {imageSizeValidator} from '~app/shared/utilities/validators';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -41,117 +42,6 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public constructor(private readonly store: Store, private readonly snackbarService: SnackbarService) {
     this.profileSettingsForm = this.profileSettingsFormGroup(this.store.selectSnapshot(ProfileSelectors.accountData));
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  public save(): void {
-    this.profileSettingsForm.markAllAsTouched();
-    this.gender.updateValueAndValidity();
-
-    if (!(this.profileSettingsForm.valid && this.profileSettingsForm.dirty)) return;
-
-    this.store.dispatch(new SetLoading(true));
-
-    this.store
-      .dispatch(new EditAccountData(this.accountData))
-      .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => this.store.dispatch(new SetLoading(false))),
-      )
-      .subscribe(
-        () => this.profileSettingsForm.markAsPristine(),
-        () => this.snackbarService.open('Что-то пошло не так. Пожалуйста, повторите попытку позже.', 'OK'),
-      );
-  }
-
-  public addPhoneNumber(): void {
-    this.phoneNumbers.push(this.phoneNumber());
-  }
-
-  public profileSettingsFormGroup(data: AccountData): FormGroup {
-    const phoneNumbers = [
-      new FormControl(data.phone_number_1, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
-    ];
-
-    if (data.phone_number_2) phoneNumbers.push(this.phoneNumber(data.phone_number_2));
-    if (data.phone_number_3) phoneNumbers.push(this.phoneNumber(data.phone_number_3));
-
-    return new FormGroup({
-      thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
-      first_name: new FormControl(data.first_name, [
-        Validators.required,
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(FIRST_NAME_MAX_LENGTH),
-      ]),
-      middle_name: new FormControl(data.middle_name, [
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
-      ]),
-      last_name: new FormControl(data.last_name, [
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(LAST_NAME_MAX_LENGTH),
-      ]),
-      gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
-      birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
-      phoneNumbers: new FormArray(phoneNumbers),
-      description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
-      viber_number: new FormControl(data.viber_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
-      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
-      telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
-    });
-  }
-
-  public errorMessage(errors: ValidationErrors | null): string | void {
-    if (!errors) return;
-
-    return 'Обязательное поле';
-  }
-
-  public nameErrorMessage(errors: ValidationErrors | null): string | void {
-    if (!errors) return;
-
-    if ('maxlength' in errors) return `Максимум ${FIRST_NAME_MAX_LENGTH} знаков`;
-
-    if ('pattern' in errors)
-      return 'Неверный формат. Разрешены символы российского, украинского и английского алфавита';
-
-    return this.errorMessage(errors);
-  }
-
-  public descriptionErrorMessage(errors: ValidationErrors | null): string | void {
-    if (!errors) return;
-
-    if ('maxlength' in errors) return `Максимум ${CLIENT_DESCRIPTION_MAX_LENGTH} знаков`;
-  }
-
-  public telegramErrorMessage(errors: ValidationErrors | null): string | void {
-    if (!errors) return;
-
-    if ('pattern' in errors) return 'Неверный формат';
-  }
-
-  public phoneNumberErrorMessage(errors: ValidationErrors | null): string | void {
-    if (!errors) return;
-
-    if ('pattern' in errors) return 'Неверный формат. Пример: +380123456789';
-
-    return this.errorMessage(errors);
-  }
-
-  public imageSizeValidator(control: FormControl | AbstractControl): ValidationErrors | null {
-    if (!(control.value instanceof File)) return null;
-    // Where 1024 ** 2 is amount of bytes compared to 1mb
-    if (control.value.size / 1024 ** 2 > PROFILE_IMAGE_SIZE_MB) return {size: true};
-
-    return null;
-  }
-
-  public phoneNumber(value?: string): FormControl {
-    return new FormControl(value, Validators.pattern(PHONE_NUMBER_REGEXP));
   }
 
   public get maxDate(): Date {
@@ -218,5 +108,108 @@ export class ProfileSettingsComponent implements Destroyable {
     delete accountData.phoneNumbers;
 
     return accountData;
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public save(): void {
+    this.profileSettingsForm.markAllAsTouched();
+    this.gender.updateValueAndValidity();
+
+    if (!(this.profileSettingsForm.valid && this.profileSettingsForm.dirty)) return;
+
+    this.store.dispatch(new SetLoading(true));
+
+    this.store
+      .dispatch(new EditAccountData(this.accountData))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.store.dispatch(new SetLoading(false))),
+      )
+      .subscribe(
+        () => this.profileSettingsForm.markAsPristine(),
+        () => this.snackbarService.open('Что-то пошло не так. Пожалуйста, повторите попытку позже.', 'OK'),
+      );
+  }
+
+  public addPhoneNumber(): void {
+    this.phoneNumbers.push(this.phoneNumber());
+  }
+
+  public profileSettingsFormGroup(data: AccountData): FormGroup {
+    const phoneNumbers = [
+      new FormControl(data.phone_number_1, [Validators.required, Validators.pattern(PHONE_NUMBER_REGEXP)]),
+    ];
+
+    if (data.phone_number_2) phoneNumbers.push(this.phoneNumber(data.phone_number_2));
+    if (data.phone_number_3) phoneNumbers.push(this.phoneNumber(data.phone_number_3));
+
+    return new FormGroup({
+      thumbnail: new FormControl(data.thumbnail, imageSizeValidator),
+      first_name: new FormControl(data.first_name, [
+        Validators.required,
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(FIRST_NAME_MAX_LENGTH),
+      ]),
+      middle_name: new FormControl(data.middle_name, [
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
+      ]),
+      last_name: new FormControl(data.last_name, [
+        Validators.pattern(NAME_REGEXP),
+        Validators.maxLength(LAST_NAME_MAX_LENGTH),
+      ]),
+      gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
+      birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
+      phoneNumbers: new FormArray(phoneNumbers),
+      description: new FormControl(data.description, Validators.maxLength(CLIENT_DESCRIPTION_MAX_LENGTH)),
+      viber_number: new FormControl(data.viber_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
+      whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
+      telegram_username: new FormControl(data.telegram_username, Validators.pattern(TELEGRAM_USERNAME_REGEXP)),
+    });
+  }
+
+  public errorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    return 'Обязательное поле';
+  }
+
+  public nameErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('maxlength' in errors) return `Максимум ${FIRST_NAME_MAX_LENGTH} знаков`;
+
+    if ('pattern' in errors)
+      return 'Неверный формат. Разрешены символы российского, украинского и английского алфавита';
+
+    return this.errorMessage(errors);
+  }
+
+  public descriptionErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('maxlength' in errors) return `Максимум ${CLIENT_DESCRIPTION_MAX_LENGTH} знаков`;
+  }
+
+  public telegramErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('pattern' in errors) return 'Неверный формат';
+  }
+
+  public phoneNumberErrorMessage(errors: ValidationErrors | null): string | void {
+    if (!errors) return;
+
+    if ('pattern' in errors) return 'Неверный формат. Пример: +380123456789';
+
+    return this.errorMessage(errors);
+  }
+
+  public phoneNumber(value?: string): FormControl {
+    return new FormControl(value, Validators.pattern(PHONE_NUMBER_REGEXP));
   }
 }

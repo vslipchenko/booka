@@ -10,10 +10,13 @@
     appearance="outline"
     label="Название бизнеса"
     [control]="name"
+    [errorMessage]="nameErrorMessage.bind(this)"
   ></app-input>
 
   <app-business-category-select
     [control]="businessCategory"
+    [errorMessage]="errorMessage"
+    [required]="true"
     appearance="outline"
     extendClass="w-100"
     label="Сфера деятельности"
@@ -234,6 +237,7 @@
     placeholder="https://goo.gl/maps/..."
     [hint]="googleMapsHint"
     [control]="googleMaps"
+    [errorMessage]="patternErrorMessage"
   >
     <ng-template #googleMapsHint>
       <a

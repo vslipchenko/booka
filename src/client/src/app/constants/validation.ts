@@ -10,6 +10,7 @@ export const LAST_NAME_MAX_LENGTH = 50;
 export const MIDDLE_NAME_MAX_LENGTH = 50;
 export const CLIENT_DESCRIPTION_MAX_LENGTH = 250;
 export const PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH = 500;
+export const BUSINESS_NAME_MAX_LENGTH = 80;
 
 export const NAME_REGEXP = /^[A-Za-zА-Яа-яҐЁЄІЇіёєїґ']*$/; // En, Ru, Uk, apostrophe
 export const PHONE_NUMBER_REGEXP = /^[0-9]{9}$/;
@@ -18,6 +19,7 @@ export const TELEGRAM_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,32}$/;
 export const FACEBOOK_USERNAME_REGEXP = /^(?=.{5,50}$)[a-zA-Z0-9]+((\.)?[a-zA-Z0-9])+$/;
 export const TWITTER_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,15}$/;
 export const INSTAGRAM_USERNAME_REGEXP = /^(?![0-9]*$)(?!.*\.\.)(?!.*\.$)[^\W][\w.]{3,30}$/;
+export const GOOGLE_MAPS_LINK_REGEXP = /^https:\/\/goo\.gl\/maps\/[A-Za-z0-9]{10,30}$/;
 export const WEBSITE_MAX_LENGTH = 500;
 
 // At least 1 letter & 1 number; includes all special characters
