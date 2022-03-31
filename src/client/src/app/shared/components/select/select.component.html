@@ -1,6 +1,6 @@
 <mat-form-field [appearance]="appearance" [color]="color" [class]="extendClass">
   <mat-label>{{ label }}</mat-label>
-  <mat-select [formControl]="control" [required]="required">
+  <mat-select [formControl]="control" [required]="isRequired">
     <mat-option *ngFor="let item of items" [value]="item.value">
       {{ item.title }}
     </mat-option>

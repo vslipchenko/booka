@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, TemplateRef} from '@angular/core';
 import {FormField} from '~app/typings/form-field.interfaces';
-import {FormControl, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
 import {ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {SelectItem, SelectItemGroup} from '~app/typings/select.interfaces';
@@ -21,6 +21,11 @@ export class SelectComponent implements FormField {
   @Input() public itemGroups: Array<SelectItemGroup> = [];
   @Input() public hint?: TemplateRef<unknown>;
   @Input() public errorMessage?: (errors: ValidationErrors | null) => string | void;
-  @Input() public required = false;
-  // @Input() public disabled = false;
+  @Input() public required?: boolean;
+
+  public get isRequired(): boolean {
+    return (
+      this.required ?? Boolean(this.control.validator && this.control.validator({} as AbstractControl)?.['required'])
+    );
+  }
 }

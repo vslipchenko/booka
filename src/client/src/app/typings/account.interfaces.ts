@@ -1,6 +1,8 @@
 import {AccountTariffs} from '~app/typings/account.enums';
 import {AccountData} from '~app/typings/account.types';
 import {Gender} from '~app/typings/user.enums';
+import {BusinessCategory} from '~app/typings/business-category.enums';
+import {City, Region} from '~app/typings/toponymy.enums';
 
 interface AccountDataBase {
   tariff: AccountTariffs;
@@ -15,6 +17,11 @@ interface AccountDataBase {
 }
 
 interface PaidAccountDataBase {
+  business_category: BusinessCategory;
+  offsite_work: boolean;
+  region: Region;
+  city: City;
+  google_maps: string;
   website: string;
   facebook_username: string;
   twitter_username: string;
@@ -32,7 +39,9 @@ export interface ClientAccountData extends AccountDataBase {
 
 export interface EntrepreneurAccountData extends ClientAccountData, PaidAccountDataBase {}
 
-export interface BusinessAccountData extends AccountDataBase, PaidAccountDataBase {}
+export interface BusinessAccountData extends AccountDataBase, PaidAccountDataBase {
+  name: string;
+}
 
 export interface AccountDataQueryResult {
   accountData: Omit<AccountData, 'tariff'>;

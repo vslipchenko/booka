@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {TranslocoService} from '@ngneat/transloco';
-import {Subject, takeUntil} from 'rxjs';
+import {first, Subject, takeUntil} from 'rxjs';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {FormField} from '~app/typings/form-field.interfaces';
 import {FormControl} from '@angular/forms';
@@ -34,7 +34,7 @@ export class RegionSelectComponent implements FormField, OnInit, Destroyable {
   public ngOnInit(): void {
     this.translocoService
       .selectTranslation(this.scope)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$), first())
       .subscribe((translation) => (this.regionGroups = this.formItemGroups(this.sort(translation))));
   }
 
@@ -72,14 +72,14 @@ export class RegionSelectComponent implements FormField, OnInit, Destroyable {
         return;
       }
 
-      result.push(group); // Omit pushing empty group object
+      result.push(group);
 
       group = {
         name,
         value: [item],
       };
     });
-
+    // Push last group
     result.push(group);
 
     return result;

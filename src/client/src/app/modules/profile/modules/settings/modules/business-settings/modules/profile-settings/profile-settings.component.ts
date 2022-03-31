@@ -8,19 +8,14 @@ import {Destroyable} from '~app/typings/component.interfaces';
 import {Subject} from 'rxjs';
 import {AccountData} from '~app/typings/account.types';
 import {
-  ENTREPRENEUR_DESCRIPTION_MAX_LENGTH,
   FACEBOOK_USERNAME_REGEXP,
-  FIRST_NAME_MAX_LENGTH,
   INSTAGRAM_USERNAME_REGEXP,
-  LAST_NAME_MAX_LENGTH,
-  MIDDLE_NAME_MAX_LENGTH,
-  NAME_REGEXP,
+  PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH,
   PHONE_NUMBER_REGEXP,
   TELEGRAM_USERNAME_REGEXP,
   TWITTER_USERNAME_REGEXP,
   WEBSITE_MAX_LENGTH,
 } from '~app/constants/validation';
-import {AccountTariffs} from '~app/typings/account.enums';
 import {urlValidator} from '~app/shared/utilities/validators';
 import {TranslocoService} from '@ngneat/transloco';
 import {Language} from '~app/typings/i18n.types';
@@ -33,7 +28,6 @@ import {Language} from '~app/typings/i18n.types';
 export class ProfileSettingsComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
   public readonly imagePlaceholder = BUSINESS_PROFILE_IMAGE_PLACEHOLDER;
-  public thumbnail = new FormControl();
 
   private readonly profileSettingsForm: FormGroup;
 
@@ -66,24 +60,9 @@ export class ProfileSettingsComponent implements Destroyable {
 
     return new FormGroup({
       thumbnail: new FormControl(data.thumbnail, this.imageSizeValidator.bind(this)),
-      first_name: new FormControl(data.first_name, [
-        Validators.required,
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(FIRST_NAME_MAX_LENGTH),
-      ]),
-      middle_name: new FormControl(data.middle_name, [
-        Validators.required,
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
-      ]),
-      last_name: new FormControl(data.last_name, [
-        Validators.required,
-        Validators.pattern(NAME_REGEXP),
-        Validators.maxLength(LAST_NAME_MAX_LENGTH),
-      ]),
-      gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
-      birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
-      description: new FormControl(data.description, Validators.maxLength(ENTREPRENEUR_DESCRIPTION_MAX_LENGTH)),
+      name: new FormControl(data.name, Validators.required),
+      business_category: new FormControl(data.business_category, Validators.required),
+      description: new FormControl(data.description, Validators.maxLength(PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH)),
       phoneNumbers: new FormArray(phoneNumbers),
       whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
       viber_number: new FormControl(data.viber_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
@@ -92,6 +71,10 @@ export class ProfileSettingsComponent implements Destroyable {
       instagram_username: new FormControl(data.instagram_username, Validators.pattern(INSTAGRAM_USERNAME_REGEXP)),
       facebook_username: new FormControl(data.facebook_username, Validators.pattern(FACEBOOK_USERNAME_REGEXP)),
       twitter_username: new FormControl(data.twitter_username, Validators.pattern(TWITTER_USERNAME_REGEXP)),
+      offsite_work: new FormControl(data.offsite_work),
+      region: new FormControl(data.region),
+      city: new FormControl(data.city),
+      google_maps: new FormControl(data.google_maps),
     });
   }
 
@@ -136,8 +119,16 @@ export class ProfileSettingsComponent implements Destroyable {
     return null;
   }
 
-  public get birthDate(): FormControl {
-    return this.profileSettingsForm.controls['birth_date'] as FormControl;
+  public get thumbnail(): FormControl {
+    return this.profileSettingsForm.controls['thumbnail'] as FormControl;
+  }
+
+  public get name(): FormControl {
+    return this.profileSettingsForm.controls['name'] as FormControl;
+  }
+
+  public get businessCategory(): FormControl {
+    return this.profileSettingsForm.controls['business_category'] as FormControl;
   }
 
   public get description(): FormControl {
@@ -174,6 +165,22 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get twitterUsername(): FormControl {
     return this.profileSettingsForm.controls['twitter_username'] as FormControl;
+  }
+
+  public get offsiteWork(): FormControl {
+    return this.profileSettingsForm.controls['offsite_work'] as FormControl;
+  }
+
+  public get region(): FormControl {
+    return this.profileSettingsForm.controls['region'] as FormControl;
+  }
+
+  public get city(): FormControl {
+    return this.profileSettingsForm.controls['city'] as FormControl;
+  }
+
+  public get googleMaps(): FormControl {
+    return this.profileSettingsForm.controls['google_maps'] as FormControl;
   }
 
   public get phoneNumbersControls(): Array<FormControl> {

@@ -9,14 +9,15 @@
     extendClass="w-100"
     appearance="outline"
     label="Название бизнеса"
+    [control]="name"
   ></app-input>
 
-  <app-datepicker
-    class="d-block"
-    extendClass="w-100"
-    label="Дата основания"
+  <app-business-category-select
+    [control]="businessCategory"
     appearance="outline"
-  ></app-datepicker>
+    extendClass="w-100"
+    label="Сфера деятельности"
+  ></app-business-category-select>
 
   <app-textarea
     appearance="outline"
@@ -29,16 +30,6 @@
   >
     <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 500 знаков</ng-template>
   </app-textarea>
-
-  <app-input
-    appearance="outline"
-    label="Сфера деательности"
-    class="d-block w-100"
-    extendClass="w-100"
-    hintAlign="end"
-    [control]="description"
-  >
-  </app-input>
 
   <h3 class="mb-2">Контакты</h3>
 
@@ -109,13 +100,13 @@
     <ng-template #whatsappPrefix>+380</ng-template>
 
     <ng-template #whatsAppHint
-    ><a
-      href="https://wa.me/380{{ whatsappNumber.value }}"
-      class="c-primary"
-      rel="noreferrer noopener nofollow"
-      target="_blank"
-    >https://wa.me/<ng-container *ngIf="whatsappNumber.value">380</ng-container>{{ whatsappNumber.value }}</a
-    >
+      ><a
+        href="https://wa.me/380{{ whatsappNumber.value }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+        >https://wa.me/<ng-container *ngIf="whatsappNumber.value">380</ng-container>{{ whatsappNumber.value }}</a
+      >
     </ng-template>
   </app-input>
 
@@ -135,7 +126,7 @@
         class="c-primary"
         rel="noreferrer noopener nofollow"
         target="_blank"
-      >https://t.me/{{ telegramUsername.value }}</a
+        >https://t.me/{{ telegramUsername.value }}</a
       >
     </ng-template>
   </app-input>
@@ -170,7 +161,7 @@
         class="c-primary"
         rel="noreferrer noopener nofollow"
         target="_blank"
-      >https://instagram.com/{{ instagramUsername.value }}</a
+        >https://instagram.com/{{ instagramUsername.value }}</a
       >
     </ng-template>
   </app-input>
@@ -191,7 +182,7 @@
         class="c-primary"
         rel="noreferrer noopener nofollow"
         target="_blank"
-      >https://facebook.com/{{ facebookUsername.value }}</a
+        >https://facebook.com/{{ facebookUsername.value }}</a
       >
     </ng-template>
   </app-input>
@@ -212,7 +203,7 @@
         class="c-primary"
         rel="noreferrer noopener nofollow"
         target="_blank"
-      >https://twitter.com/{{ twitterUsername.value }}</a
+        >https://twitter.com/{{ twitterUsername.value }}</a
       >
     </ng-template>
   </app-input>
@@ -223,11 +214,16 @@
     Если ваш бизнес насчитывает несколько точек (филиалов), рекомендуем завести отдельный аккаунт для каждой.
   </app-alert>
 
+  <app-checkbox [control]="offsiteWork" class="d-block mb-2" label="Работаем на выезде"></app-checkbox>
+
+  <app-region-select [control]="region" extendClass="w-100" appearance="outline" label="Область"> </app-region-select>
+
   <app-city-autocomplete
-        class="d-block"
-        extendClass="w-100"
-        label="Город"
-        appearance="outline"
+    [control]="city"
+    class="d-block"
+    extendClass="w-100"
+    label="Город"
+    appearance="outline"
   ></app-city-autocomplete>
 
   <app-input
@@ -237,14 +233,15 @@
     label="Ссылка Google Maps"
     placeholder="https://goo.gl/maps/..."
     [hint]="googleMapsHint"
+    [control]="googleMaps"
   >
     <ng-template #googleMapsHint>
       <a
-        href="https://support.google.com/maps/answer/144361?hl={{activeLanguage}}"
+        href="https://support.google.com/maps/answer/144361?hl={{ activeLanguage }}"
         class="c-primary"
         rel="noreferrer noopener nofollow"
         target="_blank"
-      >Подробнее</a
+        >Подробнее</a
       >
     </ng-template>
   </app-input>

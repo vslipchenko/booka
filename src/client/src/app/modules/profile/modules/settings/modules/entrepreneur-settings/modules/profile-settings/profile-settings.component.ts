@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {AccountData} from '~app/typings/account.types';
 import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {
-  ENTREPRENEUR_DESCRIPTION_MAX_LENGTH,
+  PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH,
   FACEBOOK_USERNAME_REGEXP,
   FIRST_NAME_MAX_LENGTH,
   INSTAGRAM_USERNAME_REGEXP,
@@ -104,7 +104,7 @@ export class ProfileSettingsComponent implements Destroyable {
       ]),
       gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
       birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
-      description: new FormControl(data.description, Validators.maxLength(ENTREPRENEUR_DESCRIPTION_MAX_LENGTH)),
+      description: new FormControl(data.description, Validators.maxLength(PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH)),
       phoneNumbers: new FormArray(phoneNumbers),
       whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
       viber_number: new FormControl(data.viber_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
@@ -136,7 +136,7 @@ export class ProfileSettingsComponent implements Destroyable {
   public descriptionErrorMessage(errors: ValidationErrors | null): string | void {
     if (!errors) return;
 
-    if ('maxlength' in errors) return `Максимум ${ENTREPRENEUR_DESCRIPTION_MAX_LENGTH} знаков`;
+    if ('maxlength' in errors) return `Максимум ${PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH} знаков`;
   }
 
   public patternErrorMessage(errors: ValidationErrors | null): string | void {
