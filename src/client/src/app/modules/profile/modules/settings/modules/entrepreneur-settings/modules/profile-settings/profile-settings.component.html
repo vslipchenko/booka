@@ -250,4 +250,51 @@
       >
     </ng-template>
   </app-input>
+
+  <div class="d-flex mb-2">
+     <span
+       matTooltip="Позволит клиентам находить вас при поиске по указанной области и / или городу. В противном случае, только при общем поиске - без указания области и города."
+       matTooltipPosition="left"
+       class="d-flex ai-center w-max"
+     >
+        <mat-icon color="primary" class="mr-1">help</mat-icon> <h3>Местонахождение</h3>
+     </span>
+  </div>
+
+  <app-alert type="info" class="d-block mb-2">
+    Если ваш бизнес насчитывает несколько точек (филиалов), рекомендуем завести отдельный аккаунт для каждой.
+  </app-alert>
+
+  <app-checkbox [control]="offsiteWork" class="d-block mb-2" label="Работаю на выезде"></app-checkbox>
+
+  <app-region-select [control]="region" extendClass="w-100" appearance="outline" label="Область"> </app-region-select>
+
+  <app-city-autocomplete
+    [control]="city"
+    class="d-block"
+    extendClass="w-100"
+    label="Город"
+    appearance="outline"
+  ></app-city-autocomplete>
+
+  <app-input
+    class="d-block mb-2"
+    extendClass="w-100"
+    appearance="outline"
+    label="Ссылка Google Maps"
+    placeholder="https://goo.gl/maps/..."
+    [hint]="googleMapsHint"
+    [control]="googleMaps"
+    [errorMessage]="patternErrorMessage"
+  >
+    <ng-template #googleMapsHint>
+      <a
+        href="https://support.google.com/maps/answer/144361?hl={{ activeLanguage }}"
+        class="c-primary"
+        rel="noreferrer noopener nofollow"
+        target="_blank"
+      >Подробнее</a
+      >
+    </ng-template>
+  </app-input>
 </app-profile-settings>

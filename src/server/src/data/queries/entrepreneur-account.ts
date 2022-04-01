@@ -21,7 +21,11 @@ export const queryEntrepreneurAccountData = (userId: string): QueryConfig => ({
         website, 
         instagram_username, 
         facebook_username, 
-        twitter_username
+        twitter_username,
+        offsite_work,
+        region,
+        city,
+        google_maps
     FROM entrepreneur_accounts
     WHERE user_id = $1
   `,

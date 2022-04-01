@@ -4,6 +4,7 @@ import {FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@
 import {
   FACEBOOK_USERNAME_REGEXP,
   FIRST_NAME_MAX_LENGTH,
+  GOOGLE_MAPS_LINK_REGEXP,
   INSTAGRAM_USERNAME_REGEXP,
   LAST_NAME_MAX_LENGTH,
   MIDDLE_NAME_MAX_LENGTH,
@@ -28,6 +29,8 @@ import {EditAccountData, SetLoading} from '~app/modules/profile/store/profile.ac
 import {AccountTariffs} from '~app/typings/account.enums';
 import {imageSizeValidator, urlValidator} from '~app/shared/utilities/validators';
 import {BusinessCategory} from '~app/typings/business-category.enums';
+import {Language} from '~app/typings/i18n.types';
+import {TranslocoService} from '@ngneat/transloco';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -45,7 +48,11 @@ export class ProfileSettingsComponent implements Destroyable {
 
   private readonly profileSettingsForm: FormGroup;
 
-  public constructor(private readonly store: Store, private readonly snackbarService: SnackbarService) {
+  public constructor(
+    private readonly store: Store,
+    private readonly snackbarService: SnackbarService,
+    private readonly translocoService: TranslocoService,
+  ) {
     this.profileSettingsForm = this.profileSettingsFormGroup(this.store.selectSnapshot(ProfileSelectors.accountData));
   }
 
@@ -94,7 +101,6 @@ export class ProfileSettingsComponent implements Destroyable {
         Validators.maxLength(FIRST_NAME_MAX_LENGTH),
       ]),
       middle_name: new FormControl(data.middle_name, [
-        Validators.required,
         Validators.pattern(NAME_REGEXP),
         Validators.maxLength(MIDDLE_NAME_MAX_LENGTH),
       ]),
@@ -115,6 +121,10 @@ export class ProfileSettingsComponent implements Destroyable {
       instagram_username: new FormControl(data.instagram_username, Validators.pattern(INSTAGRAM_USERNAME_REGEXP)),
       facebook_username: new FormControl(data.facebook_username, Validators.pattern(FACEBOOK_USERNAME_REGEXP)),
       twitter_username: new FormControl(data.twitter_username, Validators.pattern(TWITTER_USERNAME_REGEXP)),
+      offsite_work: new FormControl(data.offsite_work),
+      region: new FormControl(data.region),
+      city: new FormControl(data.city),
+      google_maps: new FormControl(data.google_maps, Validators.pattern(GOOGLE_MAPS_LINK_REGEXP)),
     });
   }
 
@@ -237,8 +247,28 @@ export class ProfileSettingsComponent implements Destroyable {
     return this.profileSettingsForm.controls['twitter_username'] as FormControl;
   }
 
+  public get offsiteWork(): FormControl {
+    return this.profileSettingsForm.controls['offsite_work'] as FormControl;
+  }
+
+  public get region(): FormControl {
+    return this.profileSettingsForm.controls['region'] as FormControl;
+  }
+
+  public get city(): FormControl {
+    return this.profileSettingsForm.controls['city'] as FormControl;
+  }
+
+  public get googleMaps(): FormControl {
+    return this.profileSettingsForm.controls['google_maps'] as FormControl;
+  }
+
   public get phoneNumbersControls(): Array<FormControl> {
     return this.phoneNumbers.controls as Array<FormControl>;
+  }
+
+  public get activeLanguage(): Language {
+    return this.translocoService.getActiveLang() as Language;
   }
 
   private get accountData(): ClientAccountData {
