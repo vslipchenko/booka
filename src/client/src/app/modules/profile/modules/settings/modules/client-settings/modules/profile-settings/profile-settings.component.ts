@@ -44,72 +44,6 @@ export class ProfileSettingsComponent implements Destroyable {
     this.profileSettingsForm = this.profileSettingsFormGroup(this.store.selectSnapshot(ProfileSelectors.accountData));
   }
 
-  public get maxDate(): Date {
-    const date = new Date();
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  }
-
-  public get thumbnail(): FormControl {
-    return this.profileSettingsForm.controls['thumbnail'] as FormControl;
-  }
-
-  public get firstName(): FormControl {
-    return this.profileSettingsForm.controls['first_name'] as FormControl;
-  }
-
-  public get middleName(): FormControl {
-    return this.profileSettingsForm.controls['middle_name'] as FormControl;
-  }
-
-  public get lastName(): FormControl {
-    return this.profileSettingsForm.controls['last_name'] as FormControl;
-  }
-
-  public get gender(): FormControl {
-    return this.profileSettingsForm.controls['gender'] as FormControl;
-  }
-
-  public get birthDate(): FormControl {
-    return this.profileSettingsForm.controls['birth_date'] as FormControl;
-  }
-
-  public get description(): FormControl {
-    return this.profileSettingsForm.controls['description'] as FormControl;
-  }
-
-  public get telegramUsername(): FormControl {
-    return this.profileSettingsForm.controls['telegram_username'] as FormControl;
-  }
-
-  public get whatsappNumber(): FormControl {
-    return this.profileSettingsForm.controls['whatsapp_number'] as FormControl;
-  }
-
-  public get phoneNumbers(): FormArray {
-    return this.profileSettingsForm.controls['phoneNumbers'] as FormArray;
-  }
-
-  public get viberNumber(): FormControl {
-    return this.profileSettingsForm.controls['viber_number'] as FormControl;
-  }
-
-  public get phoneNumbersControls(): Array<FormControl> {
-    return this.phoneNumbers.controls as Array<FormControl>;
-  }
-
-  private get accountData(): ClientAccountData {
-    const accountData = cloneDeep(this.profileSettingsForm.value);
-
-    accountData.phoneNumbers.forEach((phoneNumber: string, index: number) => {
-      accountData[`phone_number_${index + 1}`] = phoneNumber;
-    });
-
-    delete accountData.thumbnail;
-    delete accountData.phoneNumbers;
-
-    return accountData;
-  }
-
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -211,5 +145,74 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public phoneNumber(value?: string): FormControl {
     return new FormControl(value, Validators.pattern(PHONE_NUMBER_REGEXP));
+  }
+
+  public get maxDate(): Date {
+    const date = new Date();
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  public get thumbnail(): FormControl {
+    return this.profileSettingsForm.controls['thumbnail'] as FormControl;
+  }
+
+  public get firstName(): FormControl {
+    return this.profileSettingsForm.controls['first_name'] as FormControl;
+  }
+
+  public get middleName(): FormControl {
+    return this.profileSettingsForm.controls['middle_name'] as FormControl;
+  }
+
+  public get lastName(): FormControl {
+    return this.profileSettingsForm.controls['last_name'] as FormControl;
+  }
+
+  public get gender(): FormControl {
+    return this.profileSettingsForm.controls['gender'] as FormControl;
+  }
+
+  public get birthDate(): FormControl {
+    return this.profileSettingsForm.controls['birth_date'] as FormControl;
+  }
+
+  public get description(): FormControl {
+    return this.profileSettingsForm.controls['description'] as FormControl;
+  }
+
+  public get telegramUsername(): FormControl {
+    return this.profileSettingsForm.controls['telegram_username'] as FormControl;
+  }
+
+  public get whatsappNumber(): FormControl {
+    return this.profileSettingsForm.controls['whatsapp_number'] as FormControl;
+  }
+
+  public get phoneNumbers(): FormArray {
+    return this.profileSettingsForm.controls['phoneNumbers'] as FormArray;
+  }
+
+  public get viberNumber(): FormControl {
+    return this.profileSettingsForm.controls['viber_number'] as FormControl;
+  }
+
+  public get phoneNumbersControls(): Array<FormControl> {
+    return this.phoneNumbers.controls as Array<FormControl>;
+  }
+
+  private get accountData(): ClientAccountData {
+    const accountData = cloneDeep(this.profileSettingsForm.value);
+
+    accountData.phoneNumbers.forEach((phoneNumber: string, index: number) => {
+      accountData[`phone_number_${index + 1}`] = phoneNumber || null;
+    });
+
+    if (!accountData.viber_number) accountData.viber_number = null;
+    if (!accountData.whatsapp_number) accountData.whatsapp_number = null;
+
+    delete accountData.thumbnail;
+    delete accountData.phoneNumbers;
+
+    return accountData;
   }
 }

@@ -275,8 +275,11 @@ export class ProfileSettingsComponent implements Destroyable {
     const accountData = cloneDeep(this.profileSettingsForm.value);
 
     accountData.phoneNumbers.forEach((phoneNumber: string, index: number) => {
-      accountData[`phone_number_${index + 1}`] = phoneNumber;
+      accountData[`phone_number_${index + 1}`] = phoneNumber || null;
     });
+
+    if (!accountData.viber_number) accountData.viber_number = null;
+    if (!accountData.whatsapp_number) accountData.whatsapp_number = null;
 
     delete accountData.thumbnail;
     delete accountData.phoneNumbers;

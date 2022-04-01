@@ -29,10 +29,10 @@ const descriptionValidator = Joi.string().allow(null).allow('');
 
 const baseAccountDataValidatorSchema = {
   phone_number_1: phoneNumberValidator,
-  phone_number_2: phoneNumberValidator.allow(null).allow(''),
-  phone_number_3: phoneNumberValidator.allow(null).allow(''),
-  viber_number: Joi.string().pattern(PHONE_NUMBER_REGEXP).allow(null).allow(''),
-  whatsapp_number: Joi.string().pattern(PHONE_NUMBER_REGEXP).allow(null).allow(''),
+  phone_number_2: phoneNumberValidator.allow(null),
+  phone_number_3: phoneNumberValidator.allow(null),
+  viber_number: Joi.string().pattern(PHONE_NUMBER_REGEXP).allow(null),
+  whatsapp_number: Joi.string().pattern(PHONE_NUMBER_REGEXP).allow(null),
   telegram_username: Joi.string().pattern(TELEGRAM_USERNAME_REGEXP).allow(null).allow(''),
 };
 
