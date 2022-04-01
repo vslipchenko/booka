@@ -22,9 +22,17 @@ export const profileInputs = gql`
     # ...
 
     # Entrepreneur & Business
+    business_category: Int
     website: String
     instagram_username: String
     facebook_username: String
     twitter_username: String
+    offsite_work: Boolean
+    region: String
+    city: String
+    google_maps: String
+
+    # Business
+    name: String
   }
 `;

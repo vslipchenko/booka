@@ -34,7 +34,11 @@ export class BusinessCategorySelectComponent implements FormField, OnInit, Destr
     this.translocoService
       .selectTranslation(this.scope)
       .pipe(takeUntil(this.destroy$), first())
-      .subscribe((translation) => (this.businessCategories = this.formItems(translation)));
+      .subscribe((translation) => {
+        this.businessCategories = this.formItems(translation);
+        // Trigger control value reflection
+        this.control.updateValueAndValidity();
+      });
   }
 
   public ngOnDestroy(): void {
