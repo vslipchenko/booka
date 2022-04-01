@@ -52,6 +52,15 @@
     [errorMessage]="errorMessage"
   ></app-datepicker>
 
+  <app-business-category-select
+    [control]="businessCategory"
+    [errorMessage]="errorMessage"
+    [required]="true"
+    appearance="outline"
+    extendClass="w-100"
+    label="Сфера деятельности"
+  ></app-business-category-select>
+
   <app-textarea
     appearance="outline"
     label="Дополнительно"

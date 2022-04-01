@@ -27,6 +27,7 @@ import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 import {EditAccountData, SetLoading} from '~app/modules/profile/store/profile.actions';
 import {AccountTariffs} from '~app/typings/account.enums';
 import {imageSizeValidator, urlValidator} from '~app/shared/utilities/validators';
+import {BusinessCategory} from '~app/typings/business-category.enums';
 
 @Component({
   templateUrl: './profile-settings.component.html',
@@ -104,6 +105,7 @@ export class ProfileSettingsComponent implements Destroyable {
       ]),
       gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
       birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
+      business_category: new FormControl(data.business_category, Validators.min(BusinessCategory.Other)),
       description: new FormControl(data.description, Validators.maxLength(PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH)),
       phoneNumbers: new FormArray(phoneNumbers),
       whatsapp_number: new FormControl(data.whatsapp_number, Validators.pattern(PHONE_NUMBER_REGEXP)),
@@ -193,6 +195,10 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get birthDate(): FormControl {
     return this.profileSettingsForm.controls['birth_date'] as FormControl;
+  }
+
+  public get businessCategory(): FormControl {
+    return this.profileSettingsForm.controls['business_category'] as FormControl;
   }
 
   public get description(): FormControl {

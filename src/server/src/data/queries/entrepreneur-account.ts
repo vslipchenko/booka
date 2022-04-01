@@ -10,6 +10,7 @@ export const queryEntrepreneurAccountData = (userId: string): QueryConfig => ({
         last_name, 
         gender, 
         birth_date, 
+        business_category,
         description, 
         phone_number_1, 
         phone_number_2, 
