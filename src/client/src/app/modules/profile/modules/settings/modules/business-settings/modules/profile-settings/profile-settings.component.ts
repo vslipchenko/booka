@@ -5,7 +5,7 @@ import {Store} from '@ngxs/store';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 import {ProfileSelectors} from '~app/modules/profile/store/profile.selectors';
 import {Destroyable} from '~app/typings/component.interfaces';
-import {finalize, startWith, Subject, takeUntil} from 'rxjs';
+import {finalize, Subject, takeUntil} from 'rxjs';
 import {AccountData} from '~app/typings/account.types';
 import {
   BUSINESS_NAME_MAX_LENGTH,
@@ -213,10 +213,6 @@ export class ProfileSettingsComponent implements Destroyable {
 
   public get activeLanguage(): Language {
     return this.translocoService.getActiveLang() as Language;
-  }
-
-  public get test(): any {
-    return this.businessCategory.valueChanges.pipe(startWith(this.businessCategory.value));
   }
 
   private get accountData(): ClientAccountData {
