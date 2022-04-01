@@ -1,4 +1,6 @@
 import {Gender} from './user.enums';
+import {BusinessCategory} from './business-category.enums';
+import {City, Region} from './toponymy.enums';
 
 interface AccountDataBase {
   thumbnail: string;
@@ -12,6 +14,11 @@ interface AccountDataBase {
 }
 
 interface PaidAccountDataBase {
+  business_category: BusinessCategory;
+  offsite_work: boolean;
+  region: Region;
+  city: City;
+  google_maps: string;
   website: string;
   instagram_username: string;
   facebook_username: string;
@@ -29,4 +36,6 @@ export interface ClientAccountData extends AccountDataBase {
 
 export interface EntrepreneurAccountData extends ClientAccountData, PaidAccountDataBase {}
 
-export interface BusinessAccountData extends AccountDataBase, PaidAccountDataBase {}
+export interface BusinessAccountData extends AccountDataBase, PaidAccountDataBase {
+  name: string;
+}

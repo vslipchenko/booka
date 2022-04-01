@@ -19,7 +19,7 @@ export const TELEGRAM_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,32}$/;
 export const FACEBOOK_USERNAME_REGEXP = /^(?=.{5,50}$)[a-zA-Z0-9]+((\.)?[a-zA-Z0-9])+$/;
 export const TWITTER_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,15}$/;
 export const INSTAGRAM_USERNAME_REGEXP = /^(?![0-9]*$)(?!.*\.\.)(?!.*\.$)[^\W][\w.]{3,30}$/;
-export const GOOGLE_MAPS_LINK_REGEXP = /^https:\/\/goo\.gl\/maps\/[A-Za-z0-9]{10,30}$/;
+export const GOOGLE_MAPS_LINK_REGEXP = /^https:\/\/goo\.gl\/maps\/[A-Za-z0-9]{4,30}$/;
 export const WEBSITE_MAX_LENGTH = 500;
 
 // At least 1 letter & 1 number; includes all special characters

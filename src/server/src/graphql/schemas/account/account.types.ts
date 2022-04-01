@@ -24,10 +24,18 @@ export const accountTypes = gql`
     # ...
 
     # Entrepreneur & Business
+    business_category: Int
     website: String
     instagram_username: String
     facebook_username: String
     twitter_username: String
+    offsite_work: Boolean
+    region: Int
+    city: Int
+    google_maps: String
     paid_at: String
+
+    # Business
+    name: String
   }
 `;

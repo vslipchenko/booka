@@ -25,11 +25,19 @@ export const ACCOUNT_DATA = gql`
       # ...
 
       # Entrepreneur & Business
+      business_category
       website
       instagram_username
       facebook_username
       twitter_username
+      offsite_work
+      region
+      city
+      google_maps
       paid_at
+
+      # Business
+      name
     }
   }
 `;

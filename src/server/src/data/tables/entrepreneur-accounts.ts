@@ -25,6 +25,10 @@ export const EntrepreneurAccountsTable: Table = {
       facebook_username VARCHAR (50),
       twitter_username VARCHAR (15),
       website VARCHAR (500),
+      offsite_work BOOLEAN,
+      region SMALLINT,
+      city SMALLINT,
+      google_maps VARCHAR (50),
         FOREIGN KEY(user_id)
         REFERENCES users(id)
         ON DELETE CASCADE

@@ -6,6 +6,7 @@ import {AccountData} from '~app/typings/account.types';
 import {Gender} from '~app/typings/user.enums';
 import {ProfileService} from '~app/services/profile/profile.service';
 import {Observable, tap} from 'rxjs';
+import {City, Region} from '~app/typings/toponymy.enums';
 
 export interface ProfileStateModel {
   accountData: AccountData;
@@ -40,7 +41,13 @@ const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
       facebook_username: '',
       twitter_username: '',
       instagram_username: '',
+      offsite_work: false,
+      region: Region.None,
+      city: City.None,
+      google_maps: '',
       paid_at: '',
+      // Business
+      name: '',
     },
     loading: false,
   },
