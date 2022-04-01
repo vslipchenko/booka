@@ -49,7 +49,7 @@ export class BusinessCategorySelectComponent implements FormField, OnInit, Destr
   private formItems(translation: Translation): Array<SelectItem> {
     // Array items have to be reversed as 'Other' option goes first, but has to appear at the end of select list
     return Object.entries(translation)
-      .map(([key, value]) => ({title: value, value: key}))
+      .map(([key, value]) => ({title: value, value: Number(key)}))
       .reverse();
   }
 }

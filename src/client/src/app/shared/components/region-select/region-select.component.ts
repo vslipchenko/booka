@@ -35,7 +35,11 @@ export class RegionSelectComponent implements FormField, OnInit, Destroyable {
     this.translocoService
       .selectTranslation(this.scope)
       .pipe(takeUntil(this.destroy$), first())
-      .subscribe((translation) => (this.regionGroups = this.formItemGroups(this.sort(translation))));
+      .subscribe((translation) => {
+        this.regionGroups = this.formItemGroups(this.sort(translation));
+        // Trigger control value reflection
+        this.control.updateValueAndValidity();
+      });
   }
 
   public ngOnDestroy(): void {
@@ -63,7 +67,7 @@ export class RegionSelectComponent implements FormField, OnInit, Destroyable {
       const name = value[0]; // Name group by the first letter
       const item = {
         title: value,
-        value: key,
+        value: Number(key),
       };
 
       if (group.name === name) {

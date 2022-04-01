@@ -55,12 +55,14 @@ export class CityAutocompleteComponent implements FormField, OnInit, Destroyable
     this.valueControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value: string) => {
       if (!value) {
         this.recentCity = '';
-        return this.control.setValue(null);
+        this.control.setValue(null);
+        this.control.markAsDirty();
       }
 
       if (this.cities[value]) {
         this.recentCity = value;
-        this.control.setValue(this.cities[value]);
+        this.control.setValue(Number(this.cities[value]));
+        this.control.markAsDirty();
       }
     });
   }

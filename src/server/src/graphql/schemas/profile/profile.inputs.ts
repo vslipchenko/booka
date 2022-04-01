@@ -28,8 +28,8 @@ export const profileInputs = gql`
     facebook_username: String
     twitter_username: String
     offsite_work: Boolean
-    region: String
-    city: String
+    region: Int
+    city: Int
     google_maps: String
 
     # Business
