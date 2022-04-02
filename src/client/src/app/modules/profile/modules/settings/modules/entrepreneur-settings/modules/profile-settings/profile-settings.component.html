@@ -1,5 +1,5 @@
 <app-profile-settings
-  tooltipText="Данная информация будет видна только зарегистрированным предоставителям услуг. Это позволит повысить качество и эффективность оказываемых услуг."
+  tooltipText="Данная информация позволит клиентам познакомиться с вашей деятельностью и повысит их доверие."
   [imagePlaceholder]="imagePlaceholder"
   [thumbnail]="thumbnail"
   (save)="save()"
@@ -260,10 +260,6 @@
         <mat-icon color="primary" class="mr-1">help</mat-icon> <h3>Местонахождение</h3>
      </span>
   </div>
-
-  <app-alert type="info" class="d-block mb-2">
-    Если ваш бизнес насчитывает несколько точек (филиалов), рекомендуем завести отдельный аккаунт для каждой.
-  </app-alert>
 
   <app-checkbox [control]="offsiteWork" class="d-block mb-2" label="Работаю на выезде"></app-checkbox>
 
