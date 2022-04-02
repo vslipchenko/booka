@@ -13,4 +13,5 @@ export class PlanCardComponent {
   @Input() public services: Array<string> = [];
   @Input() public price = '';
   @Input() public queryParams: Params = {};
+  @Input() public buttonText = '';
 }
