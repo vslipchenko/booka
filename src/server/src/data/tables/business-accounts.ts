@@ -6,7 +6,7 @@ export const BusinessAccountsTable: Table = {
     CREATE TABLE IF NOT EXISTS business_accounts (
       id BIGSERIAL PRIMARY KEY,
       user_id BIGINT UNIQUE,
-      paid_at TIMESTAMP WITH TIME ZONE,
+      paid_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
       thumbnail VARCHAR (300),
       name VARCHAR (80),
       business_category SMALLINT,
