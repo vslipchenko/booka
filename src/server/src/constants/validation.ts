@@ -30,3 +30,5 @@ export const TWITTER_USERNAME_REGEXP = /^[a-zA-Z0-9_]{5,15}$/;
 export const INSTAGRAM_USERNAME_REGEXP = /^(?![0-9]*$)(?!.*\.\.)(?!.*\.$)[^\W][\w.]{3,30}$/;
 export const GOOGLE_MAPS_LINK_REGEXP = /^https:\/\/goo\.gl\/maps\/[A-Za-z0-9]{4,30}$/;
 export const WEBSITE_MAX_LENGTH = 500;
+
+export const ISO_DATE_REGEXP = /^((?:(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z|[+-]\d{2}:\d{2})?)$/;

@@ -16,7 +16,7 @@ export const profileInputs = gql`
     middle_name: String
     last_name: String
     gender: Int
-    birth_date: String
+    birth_date: Date
 
     # Entrepreneur
     # ...

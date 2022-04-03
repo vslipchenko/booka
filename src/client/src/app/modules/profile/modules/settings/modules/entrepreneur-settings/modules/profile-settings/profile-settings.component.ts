@@ -110,7 +110,7 @@ export class ProfileSettingsComponent implements Destroyable {
         Validators.maxLength(LAST_NAME_MAX_LENGTH),
       ]),
       gender: new FormControl(data.gender, Validators.min(AccountTariffs.Client)),
-      birth_date: new FormControl(data.birth_date && new Date(Number(data.birth_date)), Validators.required),
+      birth_date: new FormControl(data.birth_date, Validators.required),
       business_category: new FormControl(data.business_category, Validators.min(BusinessCategory.Other)),
       description: new FormControl(data.description, Validators.maxLength(PAID_ACCOUNT_DESCRIPTION_MAX_LENGTH)),
       phoneNumbers: new FormArray(phoneNumbers),

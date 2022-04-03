@@ -52,7 +52,7 @@ const signIn = async (
   if (!correctPassword) return null;
 
   const accessToken = sign(
-    {userId: row.id, tariff: row.tariff, language: row.language, paidAt: row.paid_at},
+    {userId: row.id, tariff: row.tariff, language: row.language, paidAt: row.paid_at.toISOString()},
     environment.ACCESS_TOKEN_SECRET,
     {
       algorithm: JWT_ALGORITHM,
@@ -101,7 +101,7 @@ const refreshAccessToken = async (
 
   // Token is valid; issue fresh access token
   return sign(
-    {userId, tariff: row.tariff, language: row.language, paidAt: row.paid_at},
+    {userId, tariff: row.tariff, language: row.language, paidAt: row.paid_at.toISOString()},
     environment.ACCESS_TOKEN_SECRET,
     {
       algorithm: JWT_ALGORITHM,

@@ -2,7 +2,7 @@ import {Table} from '../../typings/data';
 
 export const UsersTable: Table = {
   name: 'users',
-  // access_key is used in order to bring diversity to tokens being used;
+  // access_key is used in order to bring diversity to tokens being used; that helps to revoke someone's specific token
   query: `
     CREATE TABLE IF NOT EXISTS users (
       id BIGSERIAL PRIMARY KEY,

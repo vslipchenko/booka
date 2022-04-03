@@ -16,7 +16,8 @@ export class ProfileSelectors {
   public static needsToBePaid = createSelector([ProfileState], (state: ProfileStateModel) => {
     if (state.accountData.tariff === AccountTariffs.Client) return false;
 
-    return dayDifference(new Date(Number(state.accountData.paid_at)), new Date()) > PAID_PLAN_DAY_DURATION;
+    // @ts-expect-error
+    return dayDifference(new Date(state.accountData.paid_at), new Date()) > PAID_PLAN_DAY_DURATION;
   });
 
   public static requiresAdditionalInfo = createSelector([ProfileState], (state: ProfileStateModel) => {
