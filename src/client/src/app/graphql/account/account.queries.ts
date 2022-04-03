@@ -34,7 +34,6 @@ export const ACCOUNT_DATA = gql`
       region
       city
       google_maps
-      paid_at
 
       # Business
       name

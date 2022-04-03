@@ -3,8 +3,7 @@ import {EntrepreneurAccountData} from '../../typings/account.interfaces';
 
 export const queryEntrepreneurAccountData = (userId: string): QueryConfig => ({
   text: `
-    SELECT paid_at, 
-        thumbnail, 
+    SELECT thumbnail, 
         first_name, 
         middle_name, 
         last_name, 

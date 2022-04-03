@@ -23,4 +23,5 @@ export interface AccessTokenData {
   userId: string;
   tariff: AccountTariffs;
   language: LanguageCode;
+  paidAt: string;
 }

@@ -33,7 +33,6 @@ export const accountTypes = gql`
     region: Int
     city: Int
     google_maps: String
-    paid_at: String
 
     # Business
     name: String

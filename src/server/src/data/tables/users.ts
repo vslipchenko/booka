@@ -12,7 +12,8 @@ export const UsersTable: Table = {
       email VARCHAR (254) UNIQUE,
       password CHAR (60),
       language SMALLINT,
-      created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+      paid_at TIMESTAMP WITH TIME ZONE,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
     );
   `,
 };

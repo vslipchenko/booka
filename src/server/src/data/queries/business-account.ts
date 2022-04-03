@@ -3,8 +3,7 @@ import {BusinessAccountData} from '../../typings/account.interfaces';
 
 export const queryBusinessAccountData = (userId: string): QueryConfig => ({
   text: `
-    SELECT paid_at,
-        thumbnail, 
+    SELECT thumbnail, 
         name,
         business_category,
         description, 

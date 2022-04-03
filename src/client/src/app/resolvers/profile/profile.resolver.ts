@@ -21,9 +21,9 @@ export class ProfileResolver implements Resolve<ApolloQueryResult<AccountDataQue
   public resolve(): Observable<ApolloQueryResult<AccountDataQueryResult>> {
     return this.accountService.getAccountData().pipe(
       tap(({data}) => {
-        this.store.dispatch(
-          new SetAccountData({...data.accountData, tariff: this.authenticationService.getAccessTokenData().tariff}),
-        );
+        const {tariff, paidAt} = this.authenticationService.getAccessTokenData();
+
+        this.store.dispatch(new SetAccountData({...data.accountData, tariff, paid_at: paidAt}));
       }),
     );
   }

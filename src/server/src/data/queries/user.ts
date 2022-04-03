@@ -23,11 +23,11 @@ export const queryUserCreate = (
 ): QueryConfig => ({
   text: `
    WITH inserted AS (
-      INSERT INTO users (tariff, email, password, access_key, confirmation_key)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO users (tariff, email, password, access_key, confirmation_key, paid_at)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id
     )
-    INSERT INTO ${accountTableName} (user_id, paid_at) VALUES ((SELECT id FROM inserted), $6);
+    INSERT INTO ${accountTableName} (user_id) VALUES ((SELECT id FROM inserted));
   `,
   values: [tariff, email, password, accessKey, confirmationKey, paidAt],
 });
@@ -59,7 +59,7 @@ export const queryUserResetPassword = (email: string, password: string): QueryCo
 
 export const queryUserSignIn = (email: string): QueryConfig => ({
   text: `
-    SELECT id, password, access_key, confirmation_key, tariff, language
+    SELECT id, password, access_key, confirmation_key, tariff, language, paid_at
     FROM users
     WHERE email = $1
   `,
@@ -68,7 +68,7 @@ export const queryUserSignIn = (email: string): QueryConfig => ({
 
 export const queryUserRefreshAccessToken = (userId: string): QueryConfig => ({
   text: `
-    SELECT access_key, tariff, language
+    SELECT access_key, tariff, language, paid_at
     FROM users
     WHERE id = $1
   `,

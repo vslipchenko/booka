@@ -36,6 +36,7 @@ const signIn = async (
     password: string;
     tariff: AccountTariffs;
     language: LanguageCode;
+    paid_at: Date;
   }>(queryUserSignIn(input.email));
 
   if (!result.rowCount) return null;
@@ -51,7 +52,7 @@ const signIn = async (
   if (!correctPassword) return null;
 
   const accessToken = sign(
-    {userId: row.id, tariff: row.tariff, language: row.language},
+    {userId: row.id, tariff: row.tariff, language: row.language, paidAt: row.paid_at},
     environment.ACCESS_TOKEN_SECRET,
     {
       algorithm: JWT_ALGORITHM,
@@ -80,6 +81,7 @@ const refreshAccessToken = async (
     access_key: string;
     tariff: AccountTariffs;
     language: LanguageCode;
+    paid_at: Date;
   }>(queryUserRefreshAccessToken(userId));
   // Invalid refresh token data
   if (!result.rowCount) return new ApolloError('', ApolloErrorCode.InvalidRefreshToken);
@@ -98,10 +100,14 @@ const refreshAccessToken = async (
   }
 
   // Token is valid; issue fresh access token
-  return sign({userId, tariff: row.tariff, language: row.language}, environment.ACCESS_TOKEN_SECRET, {
-    algorithm: JWT_ALGORITHM,
-    expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
-  });
+  return sign(
+    {userId, tariff: row.tariff, language: row.language, paidAt: row.paid_at},
+    environment.ACCESS_TOKEN_SECRET,
+    {
+      algorithm: JWT_ALGORITHM,
+      expiresIn: environment.ACCESS_TOKEN_EXPIRES_IN,
+    },
+  );
 };
 
 export const authenticationQueryResolvers = {
