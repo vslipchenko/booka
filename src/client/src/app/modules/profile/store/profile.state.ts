@@ -7,6 +7,7 @@ import {Gender} from '~app/typings/user.enums';
 import {ProfileService} from '~app/services/profile/profile.service';
 import {Observable, tap} from 'rxjs';
 import {City, Region} from '~app/typings/toponymy.enums';
+import {BusinessCategory} from '~app/typings/business-category.enums';
 
 export interface ProfileStateModel {
   accountData: AccountData;
@@ -37,6 +38,7 @@ const PROFILE_STATE = new StateToken<ProfileStateModel>('profile');
       gender: Gender.None,
       birth_date: '',
       // Entrepreneur & Business
+      business_category: BusinessCategory.None,
       website: '',
       facebook_username: '',
       twitter_username: '',
