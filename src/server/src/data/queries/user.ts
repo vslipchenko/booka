@@ -11,7 +11,14 @@ export const queryUserCheckExistenceByEmail = (email: string): QueryConfig => ({
 });
 
 export const queryUserCreate = (
-  {tariff, email, password, accessKey, confirmationKey}: CreateUser & {accessKey: string; confirmationKey: string},
+  {
+    tariff,
+    email,
+    password,
+    accessKey,
+    confirmationKey,
+    paidAt,
+  }: CreateUser & {accessKey: string; confirmationKey: string; paidAt: Date},
   accountTableName: string,
 ): QueryConfig => ({
   text: `
@@ -20,9 +27,9 @@ export const queryUserCreate = (
       VALUES ($1, $2, $3, $4, $5)
       RETURNING id
     )
-    INSERT INTO ${accountTableName} (user_id) VALUES ((SELECT id FROM inserted));
+    INSERT INTO ${accountTableName} (user_id, paid_at) VALUES ((SELECT id FROM inserted), $6);
   `,
-  values: [tariff, email, password, accessKey, confirmationKey],
+  values: [tariff, email, password, accessKey, confirmationKey, paidAt],
 });
 
 export const queryUserDeleteByEmail = (email: string): QueryConfig => ({

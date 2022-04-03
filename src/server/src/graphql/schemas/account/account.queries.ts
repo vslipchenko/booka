@@ -5,9 +5,7 @@ import {queryClientAccountData} from '../../../data/queries/client-account';
 import {db} from '../../../data';
 import {AccountData} from '../../../typings/account.types';
 import {AccountTariffs} from '../../../typings/account.enums';
-import {
-  queryEntrepreneurAccountData,
-} from '../../../data/queries/entrepreneur-account';
+import {queryEntrepreneurAccountData} from '../../../data/queries/entrepreneur-account';
 import {queryBusinessAccountData} from '../../../data/queries/business-account';
 import {QueryResult} from 'pg';
 

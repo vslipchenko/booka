@@ -26,6 +26,8 @@ import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {passwordValidator} from '../shared/shared.validators';
 import {randomBytes} from 'crypto';
 import {getAccountTableName} from '../../../utilities/table';
+import {subtractDays} from '../../../utilities/date';
+import {PAID_PLAN_DAY_DURATION, TRIAL_PERIOD_DAY_DURATION} from '../../../constants/date';
 
 export const userMutationTypeDefinitions = gql`
   type Mutation {
@@ -46,12 +48,15 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
   const confirmationKey = uuidv5(input.email, environment.UUID_BASE);
   const accessKey = randomBytes(18).toString('base64'); // Produces string of 24 char length
 
+  const paidAt = new Date(subtractDays(PAID_PLAN_DAY_DURATION - TRIAL_PERIOD_DAY_DURATION));
+
   const result = await db.query(
     queryUserCreate(
       {
         ...input,
         confirmationKey,
         accessKey,
+        paidAt,
       },
       getAccountTableName(input.tariff),
     ),

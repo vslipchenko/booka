@@ -1,6 +1,8 @@
 import {ProfileState, ProfileStateModel} from '~app/modules/profile/store/profile.state';
 import {createSelector} from '@ngxs/store';
 import {AccountTariffs} from '~app/typings/account.enums';
+import {dayDifference} from '~app/shared/utilities/date';
+import {PAID_PLAN_DAY_DURATION} from '~app/constants/date';
 
 export class ProfileSelectors {
   public static loading = createSelector([ProfileState], (state: ProfileStateModel) => {
@@ -12,7 +14,9 @@ export class ProfileSelectors {
   });
 
   public static needsToBePaid = createSelector([ProfileState], (state: ProfileStateModel) => {
-    return state.accountData.tariff !== AccountTariffs.Client && !state.accountData.paid_at; // TODO: || paid_at date exceeds 28 days
+    if (state.accountData.tariff === AccountTariffs.Client) return false;
+
+    return dayDifference(new Date(Number(state.accountData.paid_at)), new Date()) > PAID_PLAN_DAY_DURATION;
   });
 
   public static requiresAdditionalInfo = createSelector([ProfileState], (state: ProfileStateModel) => {
