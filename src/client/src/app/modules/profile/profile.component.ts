@@ -26,12 +26,15 @@ export class ProfileComponent implements Destroyable {
   public readonly requiresAdditionalInfo$!: Observable<boolean>;
 
   public readonly destroy$ = new Subject<void>();
-  public showContentHeader = false;
   public readonly menuItems: Array<MenuItem> = [
     {title: 'Главная', routerLink: '/', icon: 'web'},
     {title: 'Настройки', routerLink: '/profile/settings', icon: 'settings'},
     {title: 'Выйти', icon: 'logout', color: 'warn', click: (): void => this.authenticationService.logout()},
   ];
+  public showContentHeader = false;
+  public readonly isClientAccount: boolean;
+  public readonly isEntrepreneurAccount: boolean;
+  public readonly isBusinessAccount: boolean;
 
   public constructor(
     private readonly authenticationService: AuthenticationService,
@@ -56,6 +59,10 @@ export class ProfileComponent implements Destroyable {
 
         this.showContentHeader = true;
       });
+
+    this.isClientAccount = this.store.selectSnapshot(ProfileSelectors.isClientAccount);
+    this.isEntrepreneurAccount = this.store.selectSnapshot(ProfileSelectors.isEntrepreneurAccount);
+    this.isBusinessAccount = this.store.selectSnapshot(ProfileSelectors.isBusinessAccount);
   }
 
   public ngOnDestroy(): void {

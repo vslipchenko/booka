@@ -13,6 +13,18 @@ export class ProfileSelectors {
     return state.accountData;
   });
 
+  public static isClientAccount = createSelector([ProfileState], (state: ProfileStateModel) => {
+    return state.accountData.tariff === AccountTariffs.Client;
+  });
+
+  public static isEntrepreneurAccount = createSelector([ProfileState], (state: ProfileStateModel) => {
+    return state.accountData.tariff === AccountTariffs.Entrepreneur;
+  });
+
+  public static isBusinessAccount = createSelector([ProfileState], (state: ProfileStateModel) => {
+    return state.accountData.tariff === AccountTariffs.Business;
+  });
+
   public static needsToBePaid = createSelector([ProfileState], (state: ProfileStateModel) => {
     if (state.accountData.tariff === AccountTariffs.Client) return false;
 

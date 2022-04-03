@@ -19,6 +19,13 @@
         <div class="buttons d-flex jc-evenly w-100 mx-auto">
           <app-icon-button icon="home" tooltipText="Домой" routerLink="/profile"></app-icon-button>
 
+          <app-icon-button
+            *ngIf="isClientAccount || isEntrepreneurAccount"
+            icon="search"
+            tooltipText="Поиск"
+            routerLink="/profile/search"
+          ></app-icon-button>
+
           <app-menu icon="more_horiz" [items]="menuItems" tooltipText="Меню" tooltipPosition="below"></app-menu>
         </div>
       </div>
