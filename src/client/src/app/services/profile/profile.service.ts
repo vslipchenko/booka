@@ -6,16 +6,17 @@ import {IMGBB_API, IMGBB_API_KEY} from '~app/constants/imgbb';
 import {ImageBBResponse} from '~app/typings/imgbb.interfaces';
 import {EDIT_PROFILE, UPDATE_PROFILE_THUMBNAIL} from '~app/graphql/profile/profile.mutations';
 import {UpdateProfileThumbnailMutationResult} from '~app/typings/profile.interfaces';
-import {AccountData} from '~app/typings/account.types';
+import {ParticularAccountData} from '~app/typings/account.types';
 import {SuccessResponse} from '~app/typings/response.interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  public constructor(private readonly apollo: Apollo, private readonly http: HttpClient) {}
+  public constructor(private readonly apollo: Apollo, private readonly http: HttpClient) {
+  }
 
-  public editProfile(input: AccountData): Observable<MutationResult<SuccessResponse>> {
+  public editProfile(input: ParticularAccountData): Observable<MutationResult<SuccessResponse>> {
     return this.apollo.mutate<SuccessResponse>({
       mutation: EDIT_PROFILE,
       variables: {input},
