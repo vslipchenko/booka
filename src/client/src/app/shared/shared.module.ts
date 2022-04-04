@@ -45,6 +45,8 @@ import {CityAutocompleteComponent} from './components/city-autocomplete/city-aut
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {RegionSelectComponent} from './components/region-select/region-select.component';
 import {BusinessCategorySelectComponent} from './components/business-category-select/business-category-select.component';
+import {ChipsComponent} from './components/chips/chips.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,7 @@ import {BusinessCategorySelectComponent} from './components/business-category-se
     CityAutocompleteComponent,
     RegionSelectComponent,
     BusinessCategorySelectComponent,
+    ChipsComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -103,6 +106,7 @@ import {BusinessCategorySelectComponent} from './components/business-category-se
     CityAutocompleteComponent,
     RegionSelectComponent,
     BusinessCategorySelectComponent,
+    ChipsComponent,
   ],
   imports: [
     CommonModule,
@@ -122,6 +126,7 @@ import {BusinessCategorySelectComponent} from './components/business-category-se
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
+    MatChipsModule,
   ],
 })
 export class SharedModule {}

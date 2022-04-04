@@ -1,0 +1,26 @@
+<mat-form-field [class]="extendClass" [appearance]="appearance">
+  <mat-label>{{label}}</mat-label>
+  <mat-chip-list #chipList>
+    <mat-chip
+      *ngFor="let chip of chips$ | async"
+     >
+      {{chip}}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+    <input
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      #trigger="matAutocompleteTrigger"
+      (click)="trigger.openPanel()"
+      maxlength="0"
+    >
+
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
+    <mat-option *ngFor="let option of filteredOptions" [value]="option.value">
+      {{option.title}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
