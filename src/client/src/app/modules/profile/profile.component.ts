@@ -49,15 +49,15 @@ export class ProfileComponent implements Destroyable {
         filter((event) => event instanceof NavigationEnd),
       )
       .subscribe((event) => {
-        // Forbid content header banners on certain pages
-        const contentHeaderUrlBlacklist = ['/profile/settings', '/profile/settings/profile'];
+        // Allow content header banners on certain pages
+        const contentHeaderUrlWhitelist = ['/profile'];
 
-        if (contentHeaderUrlBlacklist.includes((event as NavigationEnd).url)) {
-          this.showContentHeader = false;
+        if (contentHeaderUrlWhitelist.includes((event as NavigationEnd).url)) {
+          this.showContentHeader = true;
           return;
         }
 
-        this.showContentHeader = true;
+        this.showContentHeader = false;
       });
 
     this.isClientAccount = this.store.selectSnapshot(ProfileSelectors.isClientAccount);

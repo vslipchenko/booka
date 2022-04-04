@@ -5,7 +5,7 @@ import {gql} from 'apollo-server-core';
 export const dateTypeDefinition = gql`
   scalar Date
 `;
-
+// graphql-iso-date: https://github.com/excitement-engineer/graphql-iso-date/blob/master/src/dateTime/index.js
 export const dateScalar = new GraphQLScalarType({
   name: 'Date',
   description: 'Date custom scalar type',

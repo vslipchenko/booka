@@ -1,1 +1,45 @@
-<p>search works!</p>
+<app-narrow-container>
+  <app-info-section
+    icon="search"
+    title="Поиск"
+    class="d-block pt-2-3"
+  >
+    <div class="p-2-3">
+      <app-select
+        class="d-block"
+        extendClass="w-100"
+        label="Искать"
+        [items]="[{title: 'Всё', value: 1}, {title: 'Людей', value: 1}, {title: 'Бизнес', value: 1}]"
+        appearance="outline"
+      ></app-select>
+
+      <app-input
+        class="d-block"
+        extendClass="w-100"
+        appearance="outline"
+        label="Имя / название"
+      ></app-input>
+
+      <!--  TODO: Категория (chips)...-->
+      <app-chips
+        *ngIf="businessCategories$ | async as businessCategories"
+        class="d-block"
+        extendClass="w-100"
+        appearance="outline"
+        label="Категория"
+        [items]="businessCategories"
+      ></app-chips>
+
+      <!--  TODO: Местонахождение...-->
+
+      <!--  TODO: Checkbox работают на выезде...-->
+
+      <app-flat-button
+        class="d-block w-100"
+        extendClass="w-100"
+        color="primary"
+        text="Поиск"
+      ></app-flat-button>
+    </div>
+  </app-info-section>
+</app-narrow-container>
