@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {SelectItemGroup} from '~app/typings/select.interfaces';
 import {FormField} from '~app/typings/form-field.interfaces';
 import {FormControl} from '@angular/forms';
 import {ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
-import {BehaviorSubject, firstValueFrom, Subject, takeUntil} from 'rxjs';
+import {firstValueFrom, Subject, takeUntil} from 'rxjs';
 import {Translation, TranslocoService} from '@ngneat/transloco';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {invert, sortBy} from 'lodash-es';
@@ -24,9 +24,9 @@ export class CityAutocompleteComponent implements FormField, OnInit, Destroyable
   @Input() public itemGroups: Array<SelectItemGroup> = [];
 
   public readonly destroy$ = new Subject<void>();
-  public readonly cityGroups$ = new BehaviorSubject<Array<SelectItemGroup>>([]);
   public readonly valueControl = new FormControl('');
   public cityGroups: Array<SelectItemGroup> = [];
+  public cityGroupItems: Array<SelectItemGroup> = [];
 
   private readonly scope = 'shared.cities';
   private cities: Translation = {};
@@ -49,7 +49,7 @@ export class CityAutocompleteComponent implements FormField, OnInit, Destroyable
     // Prepare & set data
     this.cities = invert(translation);
     this.cityGroups = this.formItemGroups(this.sort(this.cities));
-    this.cityGroups$.next(this.cityGroups);
+    this.cityGroupItems = this.cityGroups;
 
     // Update form control with a code value
     this.valueControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value: string) => {
@@ -70,12 +70,10 @@ export class CityAutocompleteComponent implements FormField, OnInit, Destroyable
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-
-    this.cityGroups$.complete();
   }
 
   public filter(event: Event): void {
-    this.cityGroups$.next(this.filterCities((event.target as HTMLInputElement).value));
+    this.cityGroupItems = this.filterCities((event.target as HTMLInputElement).value);
   }
 
   public recoverValue(): void {
