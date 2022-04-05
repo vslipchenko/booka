@@ -47,6 +47,7 @@ import {RegionSelectComponent} from './components/region-select/region-select.co
 import {BusinessCategorySelectComponent} from './components/business-category-select/business-category-select.component';
 import {ChipsComponent} from './components/chips/chips.component';
 import {MatChipsModule} from '@angular/material/chips';
+import {ProfileSearchComponent} from './components/profile-search/profile-search.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import {MatChipsModule} from '@angular/material/chips';
     RegionSelectComponent,
     BusinessCategorySelectComponent,
     ChipsComponent,
+    ProfileSearchComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -107,6 +109,7 @@ import {MatChipsModule} from '@angular/material/chips';
     RegionSelectComponent,
     BusinessCategorySelectComponent,
     ChipsComponent,
+    ProfileSearchComponent,
   ],
   imports: [
     CommonModule,

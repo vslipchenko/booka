@@ -1,0 +1,47 @@
+<app-select
+  *ngIf="searchCategories$ | async as searchCategories"
+  class="d-block"
+  extendClass="w-100"
+  label="Искать"
+  [items]="searchCategories"
+  appearance="outline"
+  [control]="searchCategory"
+></app-select>
+
+<app-input
+  class="d-block"
+  extendClass="w-100"
+  appearance="outline"
+  label="Имя / название"
+  [control]="term"
+></app-input>
+
+<app-chips
+  *ngIf="businessCategories$ | async as businessCategories"
+  class="d-block"
+  extendClass="w-100"
+  appearance="outline"
+  label="Категория"
+  [items]="businessCategories"
+  [control]="businessCategory"
+></app-chips>
+
+<app-region-select extendClass="w-100" appearance="outline" label="Область" [control]="region"></app-region-select>
+
+<app-city-autocomplete
+  class="d-block"
+  extendClass="w-100"
+  label="Город"
+  appearance="outline"
+  [control]="city"
+></app-city-autocomplete>
+
+<app-checkbox class="d-block mb-3" label="Работают на выезде" [control]="offsiteWork"></app-checkbox>
+
+<app-flat-button
+  class="d-block w-100"
+  extendClass="w-100"
+  color="primary"
+  text="Поиск"
+  (clicked)="search.emit()"
+></app-flat-button>

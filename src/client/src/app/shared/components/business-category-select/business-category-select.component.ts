@@ -7,6 +7,7 @@ import {ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {Translation, TranslocoService} from '@ngneat/transloco';
 import {SelectItem} from '~app/typings/select.interfaces';
+import {translationToSelectItems} from '~app/shared/utilities/translation';
 
 @Component({
   selector: 'app-business-category-select',
@@ -48,8 +49,6 @@ export class BusinessCategorySelectComponent implements FormField, OnInit, Destr
 
   private formItems(translation: Translation): Array<SelectItem> {
     // Array items have to be reversed as 'Other' option goes first, but has to appear at the end of select list
-    return Object.entries(translation)
-      .map(([key, value]) => ({title: value, value: Number(key)}))
-      .reverse();
+    return translationToSelectItems(translation).reverse();
   }
 }
