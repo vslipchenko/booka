@@ -8,7 +8,6 @@ import {ThemePalette} from '@angular/material/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field/form-field';
 import {SelectItemGroup} from '~app/typings/select.interfaces';
 import {sortBy, toPairs} from 'lodash-es';
-import {Region} from '~app/typings/toponymy.enums';
 
 @Component({
   selector: 'app-region-select',
@@ -53,17 +52,9 @@ export class RegionSelectComponent implements FormField, OnInit, Destroyable {
 
   private formItemGroups(sorted: Array<[string, string]>): Array<SelectItemGroup> {
     const result: Array<SelectItemGroup> = [];
-    let group = {
-      name: '—',
-      value: [
-        {
-          title: '',
-          value: Region.None,
-        },
-      ],
-    } as SelectItemGroup;
+    let group = {} as SelectItemGroup;
 
-    sorted.forEach(([key, value]: [string, string]) => {
+    sorted.forEach(([key, value]: [string, string], index) => {
       const name = value[0]; // Name group by the first letter
       const item = {
         title: value,
@@ -76,7 +67,8 @@ export class RegionSelectComponent implements FormField, OnInit, Destroyable {
         return;
       }
 
-      result.push(group);
+      // Skip empty group
+      if (index) result.push(group);
 
       group = {
         name,

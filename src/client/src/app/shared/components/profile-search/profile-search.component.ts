@@ -16,7 +16,7 @@ import {translationToSelectItems} from '~app/shared/utilities/translation';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileSearchComponent implements Destroyable {
-  @Output() public search = new EventEmitter<void>();
+  @Output() public search = new EventEmitter<any>();
 
   public readonly destroy$ = new Subject<void>();
   public readonly searchCategories$ = new BehaviorSubject<Array<SelectItem> | null>(null);
@@ -46,6 +46,9 @@ export class ProfileSearchComponent implements Destroyable {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+
+    this.searchCategories$.complete();
+    this.businessCategories$.complete();
   }
 
   public get searchCategory(): FormControl {

@@ -22,6 +22,7 @@ export class SelectComponent implements FormField {
   @Input() public hint?: TemplateRef<unknown>;
   @Input() public errorMessage?: (errors: ValidationErrors | null) => string | void;
   @Input() public required?: boolean;
+  @Input() public emptyOption?: boolean;
 
   public get isRequired(): boolean {
     return (
