@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {ProfileComponent} from '~app/modules/profile/profile.component';
 import {SettingsModule} from '~app/modules/profile/modules/settings/settings.module';
 import {ProfileHomeModule} from '~app/modules/profile/modules/profile-home/profile-home.module';
-import {SearchModule} from '~app/modules/profile/modules/search/search.module';
+import {ProfileSearchModule} from '~app/modules/profile/modules/search/profile-search.module';
 
 const routes: Routes = [
   {
@@ -17,8 +17,8 @@ const routes: Routes = [
       },
       {
         path: 'search',
-        loadChildren: (): Promise<SearchModule> =>
-          import('~app/modules/profile/modules/search/search.module').then((m) => m.SearchModule),
+        loadChildren: (): Promise<ProfileSearchModule> =>
+          import('~app/modules/profile/modules/search/profile-search.module').then((m) => m.ProfileSearchModule),
       },
       {
         path: 'settings',
