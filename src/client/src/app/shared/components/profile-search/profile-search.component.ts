@@ -8,6 +8,7 @@ import {ProfileSearch} from '~app/typings/search.enums';
 import {BusinessCategory} from '~app/typings/business-category.enums';
 import {City, Region} from '~app/typings/toponymy.enums';
 import {translationToSelectItems} from '~app/shared/utilities/translation';
+import {ProfileSearchFilters} from '~app/typings/search.interfaces';
 
 @Component({
   selector: 'app-profile-search',
@@ -16,7 +17,7 @@ import {translationToSelectItems} from '~app/shared/utilities/translation';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileSearchComponent implements Destroyable {
-  @Output() public search = new EventEmitter<any>();
+  @Output() public search = new EventEmitter<ProfileSearchFilters>();
 
   public readonly destroy$ = new Subject<void>();
   public readonly searchCategories$ = new BehaviorSubject<Array<SelectItem> | null>(null);
