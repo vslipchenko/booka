@@ -19,7 +19,7 @@ import {IconButtonComponent} from './components/buttons/icon-button/icon-button.
 import {MenuItemsComponent} from './components/menu/menu-items/menu-items.component';
 import {LanguageDialogComponent} from './components/language-dialog/language-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {RadioGroupComponent} from './components/buttons/radio-group/radio-group.component';
+import {RadioGroupComponent} from './components/radio-group/radio-group.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputComponent} from './components/input/input.component';
@@ -110,6 +110,7 @@ import {ProfileSearchComponent} from './components/profile-search/profile-search
     BusinessCategorySelectComponent,
     ChipsComponent,
     ProfileSearchComponent,
+    RadioGroupComponent,
   ],
   imports: [
     CommonModule,
