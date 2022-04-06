@@ -47,7 +47,7 @@ export class ImageUploaderComponent implements OnInit, Destroyable {
     // Show file browse window if no profile image
     if (this.preview$.getValue() === this.imagePlaceholder) return this.fileInput.click();
 
-    const dialog = this.dialog.open(ImageUploaderMenuComponent, {autoFocus: 'dialog'});
+    const dialog = this.dialog.open(ImageUploaderMenuComponent, {autoFocus: 'dialog', panelClass: 'dialog'});
 
     dialog.componentInstance.upload.pipe(takeUntil(dialog.afterClosed())).subscribe(() => this.fileInput.click());
     dialog.componentInstance.delete.pipe(takeUntil(dialog.afterClosed())).subscribe(() => this.deleteImage());

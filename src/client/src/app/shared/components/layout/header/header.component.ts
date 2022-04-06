@@ -31,6 +31,6 @@ export class HeaderComponent {
   }
 
   public openLanguageDialog(): void {
-    this.dialog.open(LanguageDialogComponent, {autoFocus: 'dialog'});
+    this.dialog.open(LanguageDialogComponent, {autoFocus: 'dialog', panelClass: 'dialog'});
   }
 }

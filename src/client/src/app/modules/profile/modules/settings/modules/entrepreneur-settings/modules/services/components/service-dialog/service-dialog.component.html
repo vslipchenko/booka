@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Добавить услугу</h2>
+<mat-dialog-content>
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Название"
+  ></app-input>
+
+  <app-textarea
+    appearance="outline"
+    label="Описание"
+    class="d-block w-100"
+    extendClass="w-100"
+    [hint]="descriptionHint"
+    hintAlign="end"
+  >
+    <ng-template #descriptionHint>{{ 'description.value?.length' || 0 }} / 200 знаков</ng-template>
+  </app-textarea>
+
+  <h3 class="mb-1">Длительность</h3>
+
+  <app-select
+    class="d-block"
+    extendClass="w-100"
+    label="Часов"
+    [items]="[]"
+    appearance="outline"
+  ></app-select>
+
+  <app-select
+    class="d-block"
+    extendClass="w-100"
+    label="Минут"
+    [items]="[]"
+    appearance="outline"
+  ></app-select>
+
+  <h3 class="mb-1">Цена</h3>
+
+  <app-select
+    class="d-block"
+    extendClass="w-100"
+    label="Минут"
+    [items]="[]"
+    appearance="outline"
+  ></app-select>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-button mat-dialog-close text="Отмена"></app-button>
+  <app-button color="primary" text="Добавить"></app-button>
+</mat-dialog-actions>

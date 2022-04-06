@@ -1,4 +1,6 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ServiceDialogComponent} from '~app/modules/profile/modules/settings/modules/entrepreneur-settings/modules/services/components/service-dialog/service-dialog.component';
 
 @Component({
   selector: 'app-services',
@@ -6,8 +8,10 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   styleUrls: ['./services.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ServicesComponent implements OnInit {
-  constructor() {}
+export class ServicesComponent {
+  public constructor(private readonly dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  public addService(): void {
+    this.dialog.open(ServiceDialogComponent, {autoFocus: 'dialog', panelClass: ['dialog', 'service-dialog']});
+  }
 }

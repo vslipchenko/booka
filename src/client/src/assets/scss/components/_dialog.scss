@@ -2,8 +2,15 @@
 @use 'media';
 
 // Extend dialog width on small devices
-.cdk-overlay-pane {
+.dialog {
   @include media.zero-small {
-    max-width: calc(100vw - #{var.$unit-4}) !important;
+    max-width: initial !important;
+    width: calc(100vw - #{var.$unit-4}) !important;
+  }
+}
+
+.service-dialog {
+  @include media.above-small {
+    min-width: 500px;
   }
 }
