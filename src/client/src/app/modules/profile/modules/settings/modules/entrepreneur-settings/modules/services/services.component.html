@@ -1,1 +1,16 @@
-<p>services works!</p>
+<app-info-section
+  icon="receipt_long"
+  title="Услуги"
+  class="d-block pt-2-3"
+>
+  <div class="p-2-3">
+    <app-empty-placeholder class="d-block mb-2" text="Пока еще нет ни единой услуги"></app-empty-placeholder>
+
+    <app-flat-button
+      class="d-block w-max ml-auto"
+      color="primary"
+      text="Добавить услугу"
+      (clicked)="null"
+    ></app-flat-button>
+  </div>
+</app-info-section>

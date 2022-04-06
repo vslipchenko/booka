@@ -48,6 +48,7 @@ import {BusinessCategorySelectComponent} from './components/business-category-se
 import {ChipsComponent} from './components/chips/chips.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {ProfileSearchComponent} from './components/profile-search/profile-search.component';
+import {EmptyPlaceholderComponent} from './components/empty-placeholder/empty-placeholder.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import {ProfileSearchComponent} from './components/profile-search/profile-search
     BusinessCategorySelectComponent,
     ChipsComponent,
     ProfileSearchComponent,
+    EmptyPlaceholderComponent,
   ],
   exports: [
     InfoSectionComponent,
@@ -111,6 +113,7 @@ import {ProfileSearchComponent} from './components/profile-search/profile-search
     ChipsComponent,
     ProfileSearchComponent,
     RadioGroupComponent,
+    EmptyPlaceholderComponent,
   ],
   imports: [
     CommonModule,

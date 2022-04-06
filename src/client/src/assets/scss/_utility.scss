@@ -107,6 +107,10 @@
   }
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
 .ml-1 {
   margin-left: var.$unit;
 }
@@ -305,6 +309,10 @@
 //.capitalize {
 //  text-transform: capitalize;
 //}
+
+.t-center {
+  text-align: center;
+}
 
 .t-left {
   text-align: left !important;
