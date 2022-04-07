@@ -26,6 +26,7 @@ export function apolloClientOptions(httpLink: HttpLink): ApolloClientOptions<unk
   });
 
   const link = httpLink.create({uri: `//${environment.api.host}:${environment.api.port}/graphql`});
+  // const link = httpLink.create({uri: `//${environment.api.host}/graphql`});
 
   return {
     link: ApolloLink.from([error, link]),

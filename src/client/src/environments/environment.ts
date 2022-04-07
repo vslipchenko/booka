@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   api: {
     host: 'localhost',
+    // host: 'df94-37-54-90-139.ngrok.io',
     port: 4000,
   },
 };
