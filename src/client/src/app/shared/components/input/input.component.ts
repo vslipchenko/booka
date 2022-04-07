@@ -30,6 +30,8 @@ export class InputComponent implements FormField {
   @Input() public hintClass = '';
   @Input() public floatLabel: FloatLabelType = 'auto';
   @Input() public maxlength?: string | number;
+  @Input() public min?: string | number;
+  @Input() public max?: string | number;
 
   public hide = true;
 

@@ -5,6 +5,8 @@ import {RouterModule} from '@angular/router';
 import {SharedModule} from '~app/shared/shared.module';
 import {ServiceDialogComponent} from './components/service-dialog/service-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ServicesComponent, ServiceDialogComponent],
@@ -18,6 +20,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     ]),
     SharedModule,
     MatDialogModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
 })
 export class ServicesModule {}

@@ -5,6 +5,7 @@
     extendClass="w-100"
     appearance="outline"
     label="Название"
+    [control]="name"
   ></app-input>
 
   <app-textarea
@@ -14,9 +15,31 @@
     extendClass="w-100"
     [hint]="descriptionHint"
     hintAlign="end"
+    [control]="description"
   >
-    <ng-template #descriptionHint>{{ 'description.value?.length' || 0 }} / 200 знаков</ng-template>
+    <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 200 знаков</ng-template>
   </app-textarea>
+
+  <div class="d-flex mb-1">
+     <span
+       matTooltip="Количество мест доступных для записи. Если ваши услуги носят индивидуальный характер, то кол-во клиентов будет иметь значение 1"
+       matTooltipPosition="left"
+       class="d-flex ai-center w-max"
+     >
+        <mat-icon color="primary" class="mr-1">help</mat-icon> <h3>Кол-во клиентов</h3>
+     </span>
+  </div>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Количество"
+    type="number"
+    min="1"
+    max="30000"
+    [control]="clientCount"
+  ></app-input>
 
   <h3 class="mb-1">Длительность</h3>
 
@@ -26,6 +49,7 @@
     label="Часов"
     [items]="hourItems"
     appearance="outline"
+    [control]="hours"
   ></app-select>
 
   <app-select
@@ -34,6 +58,7 @@
     label="Минут"
     [items]="minuteStepItems"
     appearance="outline"
+    [control]="minutes"
   ></app-select>
 
   <h3 class="mb-1">Цена</h3>
@@ -44,6 +69,7 @@
     label="Минут"
     [items]="[]"
     appearance="outline"
+    [control]="priceType"
   ></app-select>
 </mat-dialog-content>
 <mat-dialog-actions>
