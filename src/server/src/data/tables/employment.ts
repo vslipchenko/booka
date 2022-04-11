@@ -10,7 +10,7 @@ export const EmploymentTable: Table = {
         FOREIGN KEY(business_id)
         REFERENCES users(id)
         ON DELETE CASCADE,
-        FOREIGN KEY(employee_id) 
+        FOREIGN KEY(entrepreneur_id) 
         REFERENCES users(id) 
         ON DELETE CASCADE
     );
