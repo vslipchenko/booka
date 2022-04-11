@@ -4,6 +4,7 @@
 - Add captcha to critical public parts of the app
 - Implement "mail us" dialog
 - Update missing text contents
+- Disable functionality which requires specific account information to be set 
 
 Profile:
 For client:
