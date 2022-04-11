@@ -10,10 +10,11 @@ import {imprint} from '../../../utilities/string';
 import {environment} from '../../../environments';
 import {randomBytes} from 'crypto';
 import {queryEmploymentDeleteByConfirmationKey, queryEmploymentInsertRecord} from '../../../data/queries/employment';
+import {AddEmployeeFailReason} from '../../../typings/employment.enums';
 
 export const accountMutationTypeDefinitions = gql`
   type Mutation {
-    addEmployee(email: String!): Success
+    addEmployee(email: String!): Status
   }
 `;
 
@@ -21,7 +22,7 @@ const addEmployee = async (
   _: unknown,
   {email}: {email: string},
   {accessToken}: {accessToken: string},
-): Promise<{success: boolean} | null | ApolloError> => {
+): Promise<{success: boolean} | {reason: AddEmployeeFailReason} | null | ApolloError> => {
   const {error: authenticationError, tokenData} = authenticationGuard(accessToken);
 
   if (authenticationError) return authenticationError;
@@ -32,7 +33,7 @@ const addEmployee = async (
 
   let result = await db.query<{id: string}>(queryEntrepreneurIdByEmail(email));
 
-  if (!result.rowCount) return {success: false};
+  if (!result.rowCount) return {reason: AddEmployeeFailReason.UserNotExist}; // User does not exist
 
   const confirmationKey = randomBytes(18).toString('hex'); // Produces 36 char length string
 
@@ -44,7 +45,7 @@ const addEmployee = async (
     }),
   );
 
-  if (!result.rowCount) return {success: false};
+  if (!result.rowCount) return {reason: AddEmployeeFailReason.AlreadyAdded}; // Duplicate entry
 
   try {
     await mailer.sendMail({
@@ -61,7 +62,7 @@ const addEmployee = async (
   } catch {
     await db.query(queryEmploymentDeleteByConfirmationKey(confirmationKey));
 
-    return {success: false};
+    return {reason: AddEmployeeFailReason.MailingFailure}; // Failed email
   }
 };
 

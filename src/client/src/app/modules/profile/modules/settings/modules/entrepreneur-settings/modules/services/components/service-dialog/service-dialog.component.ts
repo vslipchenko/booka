@@ -41,15 +41,21 @@ export class ServiceDialogComponent {
     return this.form.controls['price'] as FormControl;
   }
 
+  public get prepay(): FormControl {
+    return this.form.controls['prepay'] as FormControl;
+  }
+
   private get serviceDialogFormGroup(): FormGroup {
     return new FormGroup({
-      name: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       clientCount: new FormControl(1, [Validators.min(1), Validators.max(30000)]),
       hours: new FormControl(''),
       minutes: new FormControl(''),
       priceType: new FormControl(''),
-      price: new FormControl(''),
+      price_1: new FormControl(''),
+      price_2: new FormControl(''),
+      prepay: new FormControl(''),
     });
   }
 }

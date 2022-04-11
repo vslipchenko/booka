@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Добавить сотрудника</h2>
+<mat-dialog-content>
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Email сотрудника"
+    [control]="email"
+    [errorMessage]="errorMessage"
+  ></app-input>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-button mat-dialog-close text="Отмена"></app-button>
+  <app-button color="primary" text="Добавить" (clicked)="addEmployee()"></app-button>
+</mat-dialog-actions>

@@ -108,6 +108,10 @@ export const HOUR_ITEMS: Array<SelectItem> = [
 
 export const MINUTE_STEP_ITEMS: Array<SelectItem> = [
   {
+    title: MinuteStep.Zero.toString(),
+    value: MinuteStep.Zero,
+  },
+  {
     title: MinuteStep.Ten.toString(),
     value: MinuteStep.Ten,
   },

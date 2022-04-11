@@ -12,6 +12,6 @@ export class ServicesComponent {
   public constructor(private readonly dialog: MatDialog) {}
 
   public addService(): void {
-    this.dialog.open(ServiceDialogComponent, {autoFocus: 'dialog', panelClass: ['dialog', 'service-dialog']});
+    this.dialog.open(ServiceDialogComponent, {autoFocus: 'dialog', panelClass: ['dialog', 'narrow-dialog']});
   }
 }

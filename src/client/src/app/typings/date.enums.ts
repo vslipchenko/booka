@@ -27,6 +27,7 @@ export enum Hour {
 }
 
 export enum MinuteStep {
+  Zero = 0,
   Ten = 10,
   Twenty = 20,
   Thirty = 30,

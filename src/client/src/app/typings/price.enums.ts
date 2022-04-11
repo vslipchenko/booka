@@ -4,5 +4,4 @@ export enum PriceType {
   Fixed,
   Varies,
   StartsAt,
-  Prepay,
 }

@@ -8,4 +8,9 @@ export const sharedTypes = gql`
   type Success {
     success: Boolean!
   }
+
+  type Status {
+    success: Boolean
+    reason: Int
+  }
 `;

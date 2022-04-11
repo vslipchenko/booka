@@ -17,12 +17,12 @@
     hintAlign="end"
     [control]="description"
   >
-    <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 200 знаков</ng-template>
+    <ng-template #descriptionHint>{{ description.value?.length || 0 }} / 250 знаков</ng-template>
   </app-textarea>
 
   <div class="d-flex mb-1">
      <span
-       matTooltip="Количество мест доступных для записи. Если ваши услуги носят индивидуальный характер, то кол-во клиентов будет иметь значение 1"
+       matTooltip="Максимальное количество клиентов, которое вы хотите обслужить в рамках данной услуги."
        matTooltipPosition="left"
        class="d-flex ai-center w-max"
      >
@@ -66,11 +66,21 @@
   <app-select
     class="d-block"
     extendClass="w-100"
-    label="Минут"
+    label="Тип цены"
     [items]="[]"
     appearance="outline"
     [control]="priceType"
   ></app-select>
+
+  <app-input
+    class="d-block"
+    extendClass="w-100"
+    appearance="outline"
+    label="Предоплата"
+    type="number"
+    min="0"
+    [control]="prepay"
+  ></app-input>
 </mat-dialog-content>
 <mat-dialog-actions>
   <app-button mat-dialog-close text="Отмена"></app-button>
