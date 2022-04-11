@@ -13,7 +13,7 @@ import {UserService} from '~app/services/user/user.service';
 })
 export class ConfirmationComponent implements Destroyable {
   public readonly destroy$ = new Subject<void>();
-  public loading$ = new BehaviorSubject(true);
+  public readonly loading$ = new BehaviorSubject(true);
   public success = false;
 
   public constructor(

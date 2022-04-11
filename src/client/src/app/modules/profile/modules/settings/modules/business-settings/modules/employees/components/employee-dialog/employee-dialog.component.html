@@ -1,8 +1,10 @@
 <h2 mat-dialog-title>Добавить сотрудника</h2>
-<mat-dialog-content>
+<mat-dialog-content class="visible relative">
+  <app-progress-spinner *ngIf="loading$ | async" class="overlay bg-light-fog"></app-progress-spinner>
+
   <app-input
     class="d-block"
-    extendClass="w-100"
+    extendClass="w-100 mb-0"
     appearance="outline"
     label="Email сотрудника"
     [control]="email"

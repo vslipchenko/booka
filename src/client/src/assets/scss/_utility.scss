@@ -81,6 +81,10 @@
   }
 }
 
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
 .mb-1 {
   margin-bottom: var.$unit !important;
 }
@@ -341,4 +345,9 @@
 /* Positioning */
 .t-0 {
   top: 0;
+}
+
+/* Overflow */
+.visible {
+  overflow: visible !important;
 }
