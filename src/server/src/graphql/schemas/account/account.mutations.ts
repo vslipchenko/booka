@@ -9,14 +9,11 @@ import {EMAIL_FROM, EMPLOYER_CONFIRMATION_HTML, EMPLOYER_CONFIRMATION_SUBJECT} f
 import {imprint} from '../../../utilities/string';
 import {environment} from '../../../environments';
 import {randomBytes} from 'crypto';
-import {
-  queryEmploymentDeleteByConfirmationKey,
-  queryEmploymentInsertRecord,
-} from '../../../data/queries/employment';
+import {queryEmploymentDeleteByConfirmationKey, queryEmploymentInsertRecord} from '../../../data/queries/employment';
 
 export const accountMutationTypeDefinitions = gql`
   type Mutation {
-    addEmployee(input: CreateUser!): Success
+    addEmployee(email: String!): Success
   }
 `;
 
@@ -53,8 +50,8 @@ const addEmployee = async (
     await mailer.sendMail({
       from: EMAIL_FROM,
       to: email,
-      subject: EMPLOYER_CONFIRMATION_SUBJECT['ru'], // TODO: Fix language
-      html: imprint(EMPLOYER_CONFIRMATION_HTML['ru'], {
+      subject: EMPLOYER_CONFIRMATION_SUBJECT[tokenData.language],
+      html: imprint(EMPLOYER_CONFIRMATION_HTML[tokenData.language], {
         confirmationKey,
         appOrigin: environment.APP_ORIGIN,
       }),

@@ -1,6 +1,6 @@
 import {SignInFailReason} from '~app/typings/authentication.enums';
 import {AccountTariffs} from '~app/typings/account.enums';
-import {LanguageCode} from '~app/typings/i18n.enums';
+import {Language} from '~app/typings/i18n.types';
 
 export interface SignInQueryResult {
   signIn: {
@@ -22,6 +22,6 @@ export interface AccessTokenByRefreshTokenQueryResult {
 export interface AccessTokenData {
   userId: string;
   tariff: AccountTariffs;
-  language: LanguageCode;
+  language: Language;
   paidAt: string;
 }

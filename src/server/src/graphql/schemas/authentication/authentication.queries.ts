@@ -5,14 +5,14 @@ import {queryUserRefreshAccessToken, queryUserSignIn} from '../../../data/querie
 import {db} from '../../../data';
 import {SignInFailReason} from '../../../typings/authentication.enums';
 import {compareSync} from 'bcrypt';
-import {decode, verify, sign} from 'jsonwebtoken';
+import {decode, sign, verify} from 'jsonwebtoken';
 import {environment} from '../../../environments';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {ApolloError} from 'apollo-server-fastify';
 import {ApolloErrorCode} from '../../../typings/apollo.enums';
 import {AccountTariffs} from '../../../typings/account.enums';
-import {LanguageCode} from '../../../typings/i18n.enums';
 import {AccessTokenData} from '../../../typings/authentication.interfaces';
+import {Language} from '../../../typings/i18n.types';
 
 export const authenticationQueryTypeDefinitions = gql`
   type Query {
@@ -35,7 +35,7 @@ const signIn = async (
     confirmation_key: string;
     password: string;
     tariff: AccountTariffs;
-    language: LanguageCode;
+    language: Language;
     paid_at: Date;
   }>(queryUserSignIn(input.email));
 
@@ -80,7 +80,7 @@ const refreshAccessToken = async (
   const result = await db.query<{
     access_key: string;
     tariff: AccountTariffs;
-    language: LanguageCode;
+    language: Language;
     paid_at: Date;
   }>(queryUserRefreshAccessToken(userId));
   // Invalid refresh token data

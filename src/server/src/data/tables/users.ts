@@ -11,7 +11,7 @@ export const UsersTable: Table = {
       confirmation_key CHAR (36),
       email VARCHAR (254) UNIQUE,
       password CHAR (60),
-      language SMALLINT,
+      language CHAR (2),
       paid_at TIMESTAMP WITH TIME ZONE,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
     );

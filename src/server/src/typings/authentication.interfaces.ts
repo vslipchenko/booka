@@ -1,9 +1,9 @@
-import {LanguageCode} from './i18n.enums';
 import {AccountTariffs} from './account.enums';
+import {Language} from './i18n.types';
 
 export interface AccessTokenData {
   userId: string;
   tariff: AccountTariffs;
-  language: LanguageCode;
+  language: Language;
   paidAt: string;
 }

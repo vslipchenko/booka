@@ -1,5 +1,6 @@
 import {CreateUser} from '../../typings/user.interfaces';
 import {QueryConfig} from 'pg';
+import {Language} from '../../typings/i18n.types';
 
 export const queryUserCheckExistenceByEmail = (email: string): QueryConfig => ({
   text: `
@@ -27,19 +28,20 @@ export const queryUserCreate = (
     password,
     accessKey,
     confirmationKey,
+    language,
     paidAt,
-  }: CreateUser & {accessKey: string; confirmationKey: string; paidAt: Date},
+  }: CreateUser & {accessKey: string; confirmationKey: string; language: Language; paidAt: Date},
   accountTableName: string,
 ): QueryConfig => ({
   text: `
    WITH inserted AS (
-      INSERT INTO users (tariff, email, password, access_key, confirmation_key, paid_at)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO users (tariff, email, password, access_key, confirmation_key, language, paid_at)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING id
     )
     INSERT INTO ${accountTableName} (user_id) VALUES ((SELECT id FROM inserted));
   `,
-  values: [tariff, email, password, accessKey, confirmationKey, paidAt],
+  values: [tariff, email, password, accessKey, confirmationKey, language, paidAt],
 });
 
 export const queryUserDeleteByEmail = (email: string): QueryConfig => ({

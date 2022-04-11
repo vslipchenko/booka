@@ -1,17 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Language} from '~app/typings/i18n.types';
-import {LanguageCode} from '~app/typings/i18n.enums';
 import {DEFAULT_LANGUAGE, LANGUAGES} from '~app/constants/i18n';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LanguageService {
-  public resolveLanguage(savedLanguage: LanguageCode): Language {
-    if (savedLanguage) {
-      if (savedLanguage === LanguageCode.Ru) return 'ru';
-      if (savedLanguage === LanguageCode.Uk) return 'uk';
-    }
+  public resolveLanguage(savedLanguage: Language): Language {
+    if (savedLanguage) return savedLanguage;
 
     const preservedLanguage = this.getStoredLanguage();
 
