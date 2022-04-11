@@ -25,6 +25,6 @@ export const EMPLOYER_CONFIRMATION_SUBJECT: Translations = {
   uk: 'Підтвердження місця роботи',
 };
 export const EMPLOYER_CONFIRMATION_HTML: Translations = {
-  ru: 'Для подтверждения места работы, пожалуйста, авторизируйтесь и перейдите по <a href="{{appOrigin}}/#/profile/employer/confirmation?key={{confirmationKey}}">ссылке</a>.',
-  uk: 'Для підтвердження місця роботи, будь ласка, авторизуйтеся та перейдіть за <a href="{{appOrigin}}/#/profile/employer/confirmation?key={{confirmationKey}}">посиланням</a>.',
+  ru: 'Для подтверждения места работы в {{businessName}}, пожалуйста, авторизируйтесь и перейдите по <a href="{{appOrigin}}/#/profile/employer/confirmation?key={{confirmationKey}}">ссылке</a>. В противном случае, проигнорируйте данное сообщение.',
+  uk: 'Для підтвердження місця роботи в {{businessName}}, будь ласка, авторизуйтеся та перейдіть за <a href="{{appOrigin}}/#/profile/employer/confirmation?key={{confirmationKey}}">посиланням</a>. В іншому випадку проігноруйте це повідомлення.',
 };

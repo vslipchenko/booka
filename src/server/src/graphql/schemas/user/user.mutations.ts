@@ -10,7 +10,7 @@ import {
   queryUserResetPassword,
 } from '../../../data/queries/user';
 import {hashSync} from 'bcrypt';
-import {v5 as uuidv5} from 'uuid';
+import {randomUUID} from 'crypto';
 import {mailer} from '../../../mailer';
 import {
   EMAIL_CONFIRMATION_HTML,
@@ -45,7 +45,7 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
 
   input.password = hashSync(input.password, 10);
 
-  const confirmationKey = uuidv5(input.email, environment.UUID_BASE);
+  const confirmationKey = randomUUID();
   const accessKey = randomBytes(18).toString('base64'); // Produces string of 24 char length
 
   const paidAt = new Date(subtractDays(PAID_PLAN_DAY_DURATION - TRIAL_PERIOD_DAY_DURATION));
@@ -54,7 +54,7 @@ const createUser = async (_: unknown, {input}: {input: CreateUser}): Promise<{su
     queryUserCreate(
       {
         ...input,
-        confirmationKey,
+        confirmationKey: randomUUID(),
         accessKey,
         paidAt,
       },

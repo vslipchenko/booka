@@ -10,7 +10,6 @@ export const environment: {
   DB_PASSWORD: string;
   DB_HOSTNAME: string;
   DB_PORT: number;
-  UUID_BASE: string;
   MAIL_SERVICE: string;
   MAIL_USERNAME: string;
   MAIL_PASSWORD: string;
