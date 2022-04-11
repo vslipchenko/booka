@@ -22,3 +22,14 @@ export const queryEmploymentDeleteByConfirmationKey = (confirmationKey: string):
   `,
   values: [confirmationKey],
 });
+
+export const queryEmployeeDataByEmail = (email: string): QueryConfig => ({
+  text: `
+    SELECT t2.id, t2.email, t1.thumbnail, t1.first_name, t1.middle_name, t1.last_name
+    FROM entrepreneur_accounts t1
+    INNER JOIN users t2
+        ON t2.id = t1.user_id
+    WHERE t2.email = $1
+  `,
+  values: [email],
+});

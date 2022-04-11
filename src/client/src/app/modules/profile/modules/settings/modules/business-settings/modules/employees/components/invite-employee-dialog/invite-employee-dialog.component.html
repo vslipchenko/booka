@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Пригласить</h2>
+<mat-dialog-content class="visible relative">
+  <app-progress-spinner *ngIf="loading$ | async; else content" class="overlay bg-light-fog"></app-progress-spinner>
+
+  <ng-template #content>
+    <p>Похоже, что пользователь с указанным email не зарегистрирован.</p>
+    <p>Отправить пригласительное письмо на почту: <span class="fw-medium">{{data.email}}</span> ?</p>
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-button mat-dialog-close text="Отмена"></app-button>
+  <app-button color="primary" text="Отправить" (clicked)="send()"></app-button>
+</mat-dialog-actions>

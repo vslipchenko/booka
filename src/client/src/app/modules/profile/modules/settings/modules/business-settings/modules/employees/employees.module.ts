@@ -5,9 +5,10 @@ import {RouterModule} from '@angular/router';
 import {SharedModule} from '~app/shared/shared.module';
 import {EmployeeDialogComponent} from './components/employee-dialog/employee-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { InviteEmployeeDialogComponent } from './components/invite-employee-dialog/invite-employee-dialog.component';
 
 @NgModule({
-  declarations: [EmployeesComponent, EmployeeDialogComponent],
+  declarations: [EmployeesComponent, EmployeeDialogComponent, InviteEmployeeDialogComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([

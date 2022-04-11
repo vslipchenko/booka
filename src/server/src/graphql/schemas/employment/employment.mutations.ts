@@ -2,19 +2,23 @@ import {ApolloError} from 'apollo-server-fastify';
 import {authenticationGuard} from '../../../utilities/guard';
 import {emailValidator} from '../shared/shared.validators';
 import {db} from '../../../data';
-import {queryEntrepreneurIdByEmail} from '../../../data/queries/user';
 import {gql} from 'apollo-server-core';
 import {mailer} from '../../../mailer';
 import {EMAIL_FROM, EMPLOYER_CONFIRMATION_HTML, EMPLOYER_CONFIRMATION_SUBJECT} from '../../../constants/email';
 import {imprint} from '../../../utilities/string';
 import {environment} from '../../../environments';
 import {randomBytes} from 'crypto';
-import {queryEmploymentDeleteByConfirmationKey, queryEmploymentInsertRecord} from '../../../data/queries/employment';
+import {
+  queryEmployeeDataByEmail,
+  queryEmploymentDeleteByConfirmationKey,
+  queryEmploymentInsertRecord,
+} from '../../../data/queries/employment';
 import {AddEmployeeFailReason} from '../../../typings/employment.enums';
+import {EmployeeCommonData} from '../../../typings/employment.interfaces';
 
 export const employmentMutationTypeDefinitions = gql`
   type Mutation {
-    addEmployee(email: String!): Status
+    addEmployee(email: String!): EmployeeData
   }
 `;
 
@@ -22,7 +26,7 @@ const addEmployee = async (
   _: unknown,
   {email}: {email: string},
   {accessToken}: {accessToken: string},
-): Promise<{success: boolean} | {reason: AddEmployeeFailReason} | null | ApolloError> => {
+): Promise<EmployeeCommonData | {reason: AddEmployeeFailReason} | null | ApolloError> => {
   const {error: authenticationError, tokenData} = authenticationGuard(accessToken);
 
   if (authenticationError) return authenticationError;
@@ -31,16 +35,16 @@ const addEmployee = async (
 
   if (error) return null;
 
-  let result = await db.query<{id: string}>(queryEntrepreneurIdByEmail(email));
+  const employee = await db.query<EmployeeCommonData>(queryEmployeeDataByEmail(email));
 
-  if (!result.rowCount) return {reason: AddEmployeeFailReason.UserNotExist}; // User does not exist
+  if (!employee.rowCount) return {reason: AddEmployeeFailReason.UserNotExist}; // User does not exist
 
   const confirmationKey = randomBytes(18).toString('hex'); // Produces 36 char length string
 
-  result = await db.query(
+  const result = await db.query(
     queryEmploymentInsertRecord({
       businessId: tokenData.userId,
-      entrepreneurId: result.rows[0].id,
+      entrepreneurId: employee.rows[0].id,
       confirmationKey,
     }),
   );
@@ -58,11 +62,11 @@ const addEmployee = async (
       }),
     });
 
-    return {success: true};
+    return employee.rows[0];
   } catch {
     await db.query(queryEmploymentDeleteByConfirmationKey(confirmationKey));
 
-    return {reason: AddEmployeeFailReason.MailingFailure}; // Failed email
+    return {reason: AddEmployeeFailReason.MailingFailure}; // Failed to mail
   }
 };
 
