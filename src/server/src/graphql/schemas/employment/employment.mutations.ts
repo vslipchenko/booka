@@ -12,7 +12,7 @@ import {randomBytes} from 'crypto';
 import {queryEmploymentDeleteByConfirmationKey, queryEmploymentInsertRecord} from '../../../data/queries/employment';
 import {AddEmployeeFailReason} from '../../../typings/employment.enums';
 
-export const accountMutationTypeDefinitions = gql`
+export const employmentMutationTypeDefinitions = gql`
   type Mutation {
     addEmployee(email: String!): Status
   }
@@ -66,7 +66,7 @@ const addEmployee = async (
   }
 };
 
-export const accountMutationResolvers = {
+export const employmentMutationResolvers = {
   Mutation: {
     addEmployee,
   },

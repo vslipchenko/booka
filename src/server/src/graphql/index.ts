@@ -7,6 +7,7 @@ import {bookingResolvers, bookingTypeDefinitions} from './schemas/booking/bookin
 import {accountResolvers, accountTypeDefinitions} from './schemas/account/account.schema';
 import {profileResolvers, profileTypeDefinitions} from './schemas/profile/profile.schema';
 import {dateResolver, dateTypeDefinition} from './scalars/date';
+import {employmentResolvers, employmentTypeDefinitions} from './schemas/employment/employment.schema';
 
 export const schema = makeExecutableSchema({
   typeDefs: [
@@ -17,6 +18,7 @@ export const schema = makeExecutableSchema({
     bookingTypeDefinitions,
     accountTypeDefinitions,
     profileTypeDefinitions,
+    employmentTypeDefinitions,
   ],
   resolvers: merge(
     {},
@@ -26,5 +28,6 @@ export const schema = makeExecutableSchema({
     ...bookingResolvers,
     ...accountResolvers,
     ...profileResolvers,
+    ...employmentResolvers,
   ),
 });
