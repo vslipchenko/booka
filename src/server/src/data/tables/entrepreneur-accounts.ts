@@ -13,6 +13,7 @@ export const EntrepreneurAccountsTable: Table = {
       gender SMALLINT,
       birth_date TIMESTAMP WITH TIME ZONE,
       business_category SMALLINT,
+      employer VARCHAR (80),
       description VARCHAR (500),
       phone_number_1 CHAR (9),
       phone_number_2 CHAR (9),

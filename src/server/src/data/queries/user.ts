@@ -10,6 +10,16 @@ export const queryUserCheckExistenceByEmail = (email: string): QueryConfig => ({
   values: [email],
 });
 
+export const queryEntrepreneurIdByEmail = (email: string): QueryConfig => ({
+  text: `
+    SELECT id
+    FROM users
+    WHERE tariff = 2
+    AND email = $1
+  `,
+  values: [email],
+});
+
 export const queryUserCreate = (
   {
     tariff,
