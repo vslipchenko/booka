@@ -7,6 +7,7 @@ export const EmploymentTable: Table = {
       business_id BIGINT,
       entrepreneur_id BIGINT,
       confirmation_key CHAR(36) UNIQUE,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
         FOREIGN KEY(business_id)
         REFERENCES users(id)
         ON DELETE CASCADE,
