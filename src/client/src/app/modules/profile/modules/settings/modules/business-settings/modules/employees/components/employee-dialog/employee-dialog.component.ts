@@ -53,7 +53,7 @@ export class EmployeeDialogComponent implements Destroyable {
             this.inviteUser.emit(this.email.value);
           } else if (result.data?.addEmployerConfirmation.reason === AddEmployerConfirmationFailReason.AlreadyAdded) {
             this.snackbarService.open(
-              'Пользователь с указанным имейл уже добавлен, либо еще не подтвердил отправленный запрос.',
+              'Сотрудник с указанным email уже добавлен.',
               'OK',
             );
           } else if (result.data?.addEmployerConfirmation.reason === AddEmployerConfirmationFailReason.MailingFailure) {
