@@ -1,6 +1,6 @@
 import {gql} from 'apollo-server-core';
 
-export const employmentTypes = gql`
+export const employerConfirmationTypes = gql`
   # Unused
   type EmployeeData {
     id: ID

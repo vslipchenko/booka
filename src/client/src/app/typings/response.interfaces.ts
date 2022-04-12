@@ -5,7 +5,7 @@ export interface SuccessResponse {
 export interface ExistsResponse {
   exists: boolean;
 }
-//
-// export interface StatusResponse<T> extends SuccessResponse {
-//   reason: T;
-// }
+
+export interface StatusResponse<T> extends SuccessResponse {
+  reason: T;
+}

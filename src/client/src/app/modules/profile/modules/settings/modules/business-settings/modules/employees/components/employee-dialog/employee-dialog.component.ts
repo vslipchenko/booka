@@ -1,12 +1,11 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, ValidationErrors, Validators} from '@angular/forms';
 import {EMAIL_REGEXP} from '~app/constants/validation';
-import {EmploymentService} from '~app/services/employment/employment.service';
 import {Destroyable} from '~app/typings/component.interfaces';
 import {BehaviorSubject, finalize, Subject, takeUntil} from 'rxjs';
 import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
-import {AddEmployeeFailReason} from '~app/typings/employment.enums';
-import {EmployeeCommonData} from '~app/typings/employment.interfaces';
+import {AddEmployerConfirmationFailReason} from '~app/typings/employer-confirmation.enums';
+import {EmployerConfirmationService} from '~app/services/employer-confirmation/employer-confirmation.service';
 
 @Component({
   selector: 'app-employee-dialog',
@@ -15,7 +14,7 @@ import {EmployeeCommonData} from '~app/typings/employment.interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeDialogComponent implements Destroyable {
-  @Output() public readonly employeeAdded = new EventEmitter<EmployeeCommonData>();
+  @Output() public readonly employeeAdded = new EventEmitter<void>();
 
   @Output() public readonly inviteUser = new EventEmitter<string>();
 
@@ -24,7 +23,7 @@ export class EmployeeDialogComponent implements Destroyable {
   public readonly email = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEXP)]);
 
   public constructor(
-    private readonly employmentService: EmploymentService,
+    private readonly employerConfirmationService: EmployerConfirmationService,
     private readonly snackbarService: SnackbarService,
   ) {}
 
@@ -42,25 +41,27 @@ export class EmployeeDialogComponent implements Destroyable {
 
     this.loading$.next(true);
 
-    this.employmentService
-      .addEmployee(this.email.value)
+    this.employerConfirmationService
+      .addEmployerConfirmation(this.email.value)
       .pipe(
         takeUntil(this.destroy$),
         finalize(() => this.loading$.next(false)),
       )
       .subscribe(
         (result) => {
-          if (result.data?.addEmployee.reason === AddEmployeeFailReason.UserNotExist) {
+          if (result.data?.addEmployerConfirmation.reason === AddEmployerConfirmationFailReason.UserNotExist) {
             this.inviteUser.emit(this.email.value);
-          } else if (result.data?.addEmployee.reason === AddEmployeeFailReason.AlreadyAdded) {
+          } else if (result.data?.addEmployerConfirmation.reason === AddEmployerConfirmationFailReason.AlreadyAdded) {
             this.snackbarService.open(
               'Пользователь с указанным имейл уже добавлен, либо еще не подтвердил отправленный запрос.',
               'OK',
             );
-          } else if (result.data?.addEmployee.reason === AddEmployeeFailReason.MailingFailure) {
+          } else if (result.data?.addEmployerConfirmation.reason === AddEmployerConfirmationFailReason.MailingFailure) {
             this.snackbarService.open('Что-то пошло не так. Не удалось отправить письмо с подтверждением.', 'OK');
           } else {
-            this.employeeAdded.emit(result.data?.addEmployee);
+            this.snackbarService.open('Письмо с подтверджением успешно отправлено сотруднику на email.', 'OK');
+
+            this.employeeAdded.emit();
           }
         },
         () => this.snackbarService.open('Что-то пошло не так. Пожалуйста, повторите попытку позже.', 'OK'),

@@ -3,7 +3,6 @@ import {EmployeeDialogComponent} from '~app/modules/profile/modules/settings/mod
 import {MatDialog} from '@angular/material/dialog';
 import {InviteEmployeeDialogComponent} from '~app/modules/profile/modules/settings/modules/business-settings/modules/employees/components/invite-employee-dialog/invite-employee-dialog.component';
 import {takeUntil} from 'rxjs';
-import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-employees',
@@ -12,7 +11,7 @@ import {SnackbarService} from '~app/shared/services/snackbar/snackbar.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeesComponent {
-  public constructor(private readonly dialog: MatDialog, private readonly snackbarService: SnackbarService) {}
+  public constructor(private readonly dialog: MatDialog) {}
 
   public addEmployee(): void {
     const dialog = this.dialog.open(EmployeeDialogComponent, {
@@ -22,8 +21,6 @@ export class EmployeesComponent {
 
     dialog.componentInstance.employeeAdded.pipe(takeUntil(dialog.afterClosed())).subscribe(() => {
       dialog.close();
-
-      this.snackbarService.open('Письмо с подтверджением успешно отправлено сотруднику на email.', 'OK');
     });
 
     dialog.componentInstance.inviteUser.pipe(takeUntil(dialog.afterClosed())).subscribe((email) => {
