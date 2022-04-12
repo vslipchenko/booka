@@ -8,7 +8,7 @@ export const UsersTable: Table = {
       id BIGSERIAL PRIMARY KEY,
       tariff SMALLINT,
       access_key CHAR (24),
-      confirmation_key CHAR (36),
+      confirmation_key CHAR (36) UNIQUE,
       email VARCHAR (254) UNIQUE,
       password CHAR (60),
       language CHAR (2),
@@ -18,8 +18,3 @@ export const UsersTable: Table = {
   `,
 };
 
-// phone_number VARCHAR (15),
-// first_name VARCHAR (50),
-// last_name VARCHAR (50),
-// birt_date DATE,
-// gender SMALLINT

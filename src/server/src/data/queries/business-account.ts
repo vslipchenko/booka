@@ -106,3 +106,12 @@ export const queryBusinessAccountEditData = (
     userId,
   ],
 });
+
+export const queryBusinessName = (userId: string): QueryConfig => ({
+  text: `
+    SELECT name
+    FROM business_accounts
+    WHERE user_id = $1
+  `,
+  values: [userId],
+});

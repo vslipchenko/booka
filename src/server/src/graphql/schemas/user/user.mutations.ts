@@ -10,7 +10,6 @@ import {
   queryUserResetPassword,
 } from '../../../data/queries/user';
 import {hashSync} from 'bcrypt';
-import {randomUUID} from 'crypto';
 import {mailer} from '../../../mailer';
 import {
   EMAIL_CONFIRMATION_HTML,
@@ -24,7 +23,7 @@ import {imprint} from '../../../utilities/string';
 import {sign, verify} from 'jsonwebtoken';
 import {JWT_ALGORITHM} from '../../../constants/jwt';
 import {passwordValidator} from '../shared/shared.validators';
-import {randomBytes} from 'crypto';
+import {randomBytes, randomUUID} from 'crypto';
 import {getAccountTableName} from '../../../utilities/table';
 import {subtractDays} from '../../../utilities/date';
 import {PAID_PLAN_DAY_DURATION, TRIAL_PERIOD_DAY_DURATION} from '../../../constants/date';

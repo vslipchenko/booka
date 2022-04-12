@@ -5,7 +5,9 @@ import {RouterModule} from '@angular/router';
 import {SharedModule} from '~app/shared/shared.module';
 import {EmployeeDialogComponent} from './components/employee-dialog/employee-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { InviteEmployeeDialogComponent } from './components/invite-employee-dialog/invite-employee-dialog.component';
+import {InviteEmployeeDialogComponent} from './components/invite-employee-dialog/invite-employee-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [EmployeesComponent, EmployeeDialogComponent, InviteEmployeeDialogComponent],
@@ -19,6 +21,8 @@ import { InviteEmployeeDialogComponent } from './components/invite-employee-dial
     ]),
     SharedModule,
     MatDialogModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
 })
 export class EmployeesModule {}

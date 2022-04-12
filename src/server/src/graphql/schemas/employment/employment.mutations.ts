@@ -7,7 +7,7 @@ import {mailer} from '../../../mailer';
 import {EMAIL_FROM, EMPLOYER_CONFIRMATION_HTML, EMPLOYER_CONFIRMATION_SUBJECT} from '../../../constants/email';
 import {imprint} from '../../../utilities/string';
 import {environment} from '../../../environments';
-import {randomBytes} from 'crypto';
+import {randomUUID} from 'crypto';
 import {
   queryEmployeeDataByEmail,
   queryEmploymentDeleteByConfirmationKey,
@@ -15,6 +15,7 @@ import {
 } from '../../../data/queries/employment';
 import {AddEmployeeFailReason} from '../../../typings/employment.enums';
 import {EmployeeCommonData} from '../../../typings/employment.interfaces';
+import {queryBusinessName} from '../../../data/queries/business-account';
 
 export const employmentMutationTypeDefinitions = gql`
   type Mutation {
@@ -35,21 +36,23 @@ const addEmployee = async (
 
   if (error) return null;
 
-  const employee = await db.query<EmployeeCommonData>(queryEmployeeDataByEmail(email));
+  const employeeData = await db.query<EmployeeCommonData>(queryEmployeeDataByEmail(email));
 
-  if (!employee.rowCount) return {reason: AddEmployeeFailReason.UserNotExist}; // User does not exist
+  if (!employeeData.rowCount) return {reason: AddEmployeeFailReason.UserNotExist}; // User does not exist
 
-  const confirmationKey = randomBytes(18).toString('hex'); // Produces 36 char length string
+  const confirmationKey = randomUUID(); // Produces 36 char length string
 
-  const result = await db.query(
+  const insertion = await db.query(
     queryEmploymentInsertRecord({
       businessId: tokenData.userId,
-      entrepreneurId: employee.rows[0].id,
+      entrepreneurId: employeeData.rows[0].id,
       confirmationKey,
     }),
   );
 
-  if (!result.rowCount) return {reason: AddEmployeeFailReason.AlreadyAdded}; // Duplicate entry
+  if (!insertion.rowCount) return {reason: AddEmployeeFailReason.AlreadyAdded}; // Duplicate entry
+
+  const businessName = await db.query<{name: string}>(queryBusinessName(tokenData.userId));
 
   try {
     await mailer.sendMail({
@@ -57,12 +60,13 @@ const addEmployee = async (
       to: email,
       subject: EMPLOYER_CONFIRMATION_SUBJECT[tokenData.language],
       html: imprint(EMPLOYER_CONFIRMATION_HTML[tokenData.language], {
+        businessName: businessName.rows[0].name,
         confirmationKey,
         appOrigin: environment.APP_ORIGIN,
       }),
     });
 
-    return employee.rows[0];
+    return employeeData.rows[0];
   } catch {
     await db.query(queryEmploymentDeleteByConfirmationKey(confirmationKey));
 
