@@ -4,7 +4,7 @@ import {UsersTable} from './tables/users';
 import {ClientAccountsTable} from './tables/client-accounts';
 import {EntrepreneurAccountsTable} from './tables/entrepreneur-accounts';
 import {BusinessAccountsTable} from './tables/business-accounts';
-import {EmploymentTable} from './tables/employment';
+import {EmployerConfirmationTable} from './tables/employer-confirmation';
 
 // PostgreSQL v14
 
@@ -27,7 +27,7 @@ export const db = {
       ClientAccountsTable,
       EntrepreneurAccountsTable,
       BusinessAccountsTable,
-      EmploymentTable,
+      EmployerConfirmationTable,
       // ... Append other tables to sync
     ];
     // Sync tables

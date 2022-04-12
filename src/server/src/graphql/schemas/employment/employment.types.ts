@@ -1,6 +1,7 @@
 import {gql} from 'apollo-server-core';
 
 export const employmentTypes = gql`
+  # Unused
   type EmployeeData {
     id: ID
     thumbnail: String

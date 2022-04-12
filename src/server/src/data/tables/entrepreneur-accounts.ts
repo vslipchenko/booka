@@ -13,7 +13,8 @@ export const EntrepreneurAccountsTable: Table = {
       gender SMALLINT,
       birth_date TIMESTAMP WITH TIME ZONE,
       business_category SMALLINT,
-      employer VARCHAR (80),
+      employer_id BIGINT,
+      employer_name VARCHAR (80),
       description VARCHAR (500),
       phone_number_1 CHAR (9),
       phone_number_2 CHAR (9),
@@ -30,6 +31,9 @@ export const EntrepreneurAccountsTable: Table = {
       city SMALLINT,
       google_maps VARCHAR (50),
         FOREIGN KEY(user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+        FOREIGN KEY(employer_id)
         REFERENCES users(id)
         ON DELETE CASCADE
     );

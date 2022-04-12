@@ -1,9 +1,9 @@
 import {Table} from '../../typings/data';
 
-export const EmploymentTable: Table = {
-  name: 'employment', // TODO: rename to employer_confirmation
+export const EmployerConfirmationTable: Table = {
+  name: 'employer_confirmation',
   query: `
-    CREATE TABLE IF NOT EXISTS employment (
+    CREATE TABLE IF NOT EXISTS employer_confirmation (
       business_id BIGINT,
       entrepreneur_id BIGINT,
       confirmation_key CHAR(36) UNIQUE,

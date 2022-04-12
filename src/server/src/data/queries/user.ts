@@ -11,6 +11,17 @@ export const queryUserCheckExistenceByEmail = (email: string): QueryConfig => ({
   values: [email],
 });
 
+export const queryEntrepreneurEmployerByEmail = (email: string): QueryConfig => ({
+  text: `
+    SELECT t1.user_id, t1.employer_id
+    FROM entrepreneur_accounts t1
+    INNER JOIN users t2
+        ON t2.id = t1.user_id
+    WHERE t2.email = $1
+  `,
+  values: [email],
+});
+
 export const queryUserCreate = (
   {
     tariff,

@@ -8,26 +8,22 @@ import {EMAIL_FROM, EMPLOYER_CONFIRMATION_HTML, EMPLOYER_CONFIRMATION_SUBJECT} f
 import {imprint} from '../../../utilities/string';
 import {environment} from '../../../environments';
 import {randomUUID} from 'crypto';
-import {
-  queryEmployeeDataByEmail,
-  queryEmploymentDeleteByConfirmationKey,
-  queryEmploymentInsertRecord,
-} from '../../../data/queries/employment';
+import {queryEmployerConfirmationAddRecord} from '../../../data/queries/employment';
 import {AddEmployeeFailReason} from '../../../typings/employment.enums';
-import {EmployeeCommonData} from '../../../typings/employment.interfaces';
 import {queryBusinessName} from '../../../data/queries/business-account';
+import {queryEntrepreneurEmployerByEmail} from '../../../data/queries/user';
 
 export const employmentMutationTypeDefinitions = gql`
   type Mutation {
-    addEmployee(email: String!): EmployeeData
+    addEmployerConfirmation(email: String!): Status
   }
 `;
 
-const addEmployee = async (
+const addEmployerConfirmation = async (
   _: unknown,
   {email}: {email: string},
   {accessToken}: {accessToken: string},
-): Promise<EmployeeCommonData | {reason: AddEmployeeFailReason} | null | ApolloError> => {
+): Promise<{success: boolean} | {reason: AddEmployeeFailReason} | null | ApolloError> => {
   const {error: authenticationError, tokenData} = authenticationGuard(accessToken);
 
   if (authenticationError) return authenticationError;
@@ -36,21 +32,21 @@ const addEmployee = async (
 
   if (error) return null;
 
-  const employeeData = await db.query<EmployeeCommonData>(queryEmployeeDataByEmail(email));
+  const entrepreneur = await db.query<{user_id: string; employer_id: string}>(queryEntrepreneurEmployerByEmail(email));
 
-  if (!employeeData.rowCount) return {reason: AddEmployeeFailReason.UserNotExist}; // User does not exist
+  if (!entrepreneur.rowCount) return {reason: AddEmployeeFailReason.UserNotExist}; // User does not exist
+
+  if (entrepreneur.rows[0].employer_id === tokenData.userId) return {reason: AddEmployeeFailReason.AlreadyAdded};
 
   const confirmationKey = randomUUID(); // Produces 36 char length string
 
-  const insertion = await db.query(
-    queryEmploymentInsertRecord({
+  await db.query(
+    queryEmployerConfirmationAddRecord({
       businessId: tokenData.userId,
-      entrepreneurId: employeeData.rows[0].id,
+      entrepreneurId: entrepreneur.rows[0].user_id,
       confirmationKey,
     }),
   );
-
-  if (!insertion.rowCount) return {reason: AddEmployeeFailReason.AlreadyAdded}; // Duplicate entry
 
   const businessName = await db.query<{name: string}>(queryBusinessName(tokenData.userId));
 
@@ -66,9 +62,9 @@ const addEmployee = async (
       }),
     });
 
-    return employeeData.rows[0];
+    return {success: true};
   } catch {
-    await db.query(queryEmploymentDeleteByConfirmationKey(confirmationKey));
+    // No need to delete employer confirmation record, as it's going to be swept due to confirmation overdue
 
     return {reason: AddEmployeeFailReason.MailingFailure}; // Failed to mail
   }
@@ -76,6 +72,6 @@ const addEmployee = async (
 
 export const employmentMutationResolvers = {
   Mutation: {
-    addEmployee,
+    addEmployerConfirmation,
   },
 };
