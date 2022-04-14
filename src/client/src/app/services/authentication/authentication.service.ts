@@ -36,7 +36,7 @@ export class AuthenticationService {
   }
 
   public getAccessTokenData(): AccessTokenData {
-    return jwt_decode(this.accessToken);
+    return this.accessToken ? jwt_decode(this.accessToken) : ({} as AccessTokenData);
   }
 
   public getRefreshToken(): string | null {
